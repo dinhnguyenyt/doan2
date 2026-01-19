@@ -1,0 +1,123 @@
+.inner {
+    margin-top: 100px;
+}
+
+.form-info-user {
+    width: 80%;
+    margin: 0px auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    box-shadow: 0 10px 15px rgba(25, 25, 25, 0.1);
+}
+
+.column-1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    img {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+    }
+    button {
+        width: 120px;
+        height: 40px;
+        font-weight: 600;
+        border: 1px solid #ff2020;
+        background: none;
+        color: #ff2020;
+        margin: 10px;
+    }
+    h3 {
+        padding-top: 10px;
+        font-size: 20px;
+    }
+}
+
+.change-avatar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.column-2 {
+    h2 {
+        font-size: 20px;
+        border-bottom: 1px solid #ccc;
+    }
+    .info-contact {
+        display: flex;
+        gap: 50px;
+        // justify-content: space-around;
+        h3 {
+            font-size: 20px;
+            font-weight: 800;
+        }
+        span {
+            font-weight: 800;
+            color: #ccc;
+        }
+    }
+}
+
+.input-change {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+}
+
+#btn-change {
+    width: 150px;
+    font-weight: 600;
+    border: 1px solid #ff2020;
+    background: none;
+    color: #ff2020;
+    margin: 10px;
+    height: 40px;
+}
+
+/////////////////
+///
+
+.inputfile {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+.inputfile + label {
+    border: 1px solid #ff2020;
+    width: 120px;
+    height: 40px;
+    color: #ff2020;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+}
+
+.info-order {
+    width: 80%;
+    margin: 50px auto;
+}
+
+@media only screen and (max-width: 600px) {
+    .form-info-user {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+    .column-2 {
+        h2 {
+            padding-left: 10px;
+        }
+        .info-contact {
+            flex-direction: column;
+            gap: 0px;
+            padding-left: 10px;
+        }
+    }
+}

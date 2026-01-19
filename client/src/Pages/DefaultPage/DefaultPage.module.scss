@@ -1,0 +1,19 @@
+.main-category {
+    width: 100%;
+}
+
+.container {
+    display: flex;
+    width: 80%;
+    margin: 30px auto;
+}
+
+.banner {
+    margin-top: 80px;
+}
+
+@media only screen and (max-width: 600px) {
+    .container {
+        flex-direction: column;
+    }
+}

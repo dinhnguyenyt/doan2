@@ -1,0 +1,184 @@
+.inner-detail {
+    width: 80%;
+    background-color: #66cccc;
+    margin: 100px auto;
+}
+
+.form-info-product {
+    padding: 29px 20px 29px 80px;
+    display: flex;
+    gap: 20px;
+}
+.img-product {
+    width: 50%;
+    img {
+        width: 100%;
+    }
+}
+
+.features-caption {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    color: #fff;
+    h3 {
+        font-size: 25px;
+    }
+    span {
+        font-weight: 800;
+        font-size: 30px;
+    }
+}
+
+.btn-add-product {
+    button {
+        background: #fff;
+        padding: 25px 36px;
+        font-size: 14px;
+        font-weight: 700;
+        text-transform: capitalize;
+        color: #222222;
+        border-radius: 25px;
+        cursor: pointer;
+        display: inline-block;
+        line-height: 0;
+        cursor: pointer;
+        transition: color 0.4s linear;
+        position: relative;
+        z-index: 1;
+        border: 0;
+    }
+}
+
+.main-detail-product {
+    width: 80%;
+    margin: 0px auto;
+}
+
+.header-des {
+    width: 50%;
+    display: flex;
+    #btn-active {
+        border-bottom: 3px solid #ff2020;
+    }
+    button {
+        border: none;
+        background: none;
+        font-weight: 800;
+    }
+    button:hover {
+        color: #ff2020;
+        transition: 0.3s;
+    }
+}
+
+.text-des {
+    width: 60%;
+    padding: 20px 0px;
+    p {
+        line-height: 1.8;
+        font-weight: 500;
+        text-align: justify;
+    }
+}
+
+.start {
+    margin-bottom: 25px;
+    display: flex;
+    gap: 5px;
+    width: 200px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+#icon-1:hover {
+    color: #ffc107;
+}
+#icon-2:hover {
+    color: #ffc107;
+}
+#icon-3:hover {
+    color: #ffc107;
+}
+#icon-4:hover {
+    color: #ffc107;
+}
+#icon-5:hover {
+    color: #ffc107;
+}
+
+@media only screen and (max-width: 600px) {
+    .inner-detail {
+        width: 90%;
+    }
+    .img-product {
+        width: 90%;
+        img {
+            width: 100%;
+        }
+    }
+    .form-info-product {
+        flex-direction: column;
+    }
+    .form-info-product {
+        padding: 29px 20px 29px 29px;
+    }
+    .text-des {
+        width: 100%;
+        padding: 20px 0px;
+        p {
+            line-height: 1.8;
+            font-weight: 500;
+            text-align: justify;
+        }
+    }
+    .header-des {
+        width: 100%;
+    }
+}
+
+.footer-page {
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: red;
+    h3 {
+        font-size: 20px;
+        font-weight: 800;
+    }
+}
+
+.input-comment {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+
+    img {
+        width: 50px;
+        border-radius: 50%;
+    }
+    input {
+        width: 100%;
+        border: none;
+        border-bottom: 1px solid #ccc;
+        outline: none;
+    }
+}
+
+.comments-user {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form-comment {
+    display: flex;
+    gap: 10px;
+    img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+    }
+}

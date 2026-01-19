@@ -1,0 +1,15 @@
+.main {
+    display: flex;
+    gap: 20px;
+}
+
+.slide-bar {
+    width: 15%;
+    height: 100vw;
+    background-color: #f8f9fa;
+    box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.1);
+}
+
+.home-page {
+    width: 100%;
+}

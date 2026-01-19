@@ -1,0 +1,49 @@
+.inner {
+    width: 70%;
+    background-color: #ccc;
+    margin: 100px auto;
+    border-radius: 10px;
+}
+
+.form-thanks-order {
+    width: 80%;
+    margin: 0px auto;
+    padding: 20px;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    img {
+        width: 5%;
+        padding-top: 10px;
+    }
+    p {
+        text-align: justify;
+        line-height: 1.8;
+        font-weight: 700;
+    }
+}
+
+.address-delivery {
+    display: flex;
+    justify-content: space-between;
+}
+
+.column-address {
+    h4 {
+        font-size: 16px;
+        font-weight: 800;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .header {
+        img {
+            width: 25%;
+        }
+    }
+}

@@ -1,0 +1,40 @@
+.wrapper {
+    width: 90%;
+    height: 100vh;
+    margin: 20px auto;
+    box-shadow: 0px 10px 30px 0px rgba(13, 12, 13, 0.2);
+}
+
+.header-page-admin {
+    width: 80%;
+    display: flex;
+    justify-content: space-around;
+    img {
+        width: 200px;
+        border-radius: 50%;
+    }
+    .info-admin {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        h1 {
+            font-weight: 800;
+        }
+        .position {
+            display: flex;
+            gap: 20px;
+            span {
+                font-weight: 800;
+                color: #4aafe4;
+            }
+        }
+    }
+}
+
+.info-account {
+    width: 80%;
+    margin: 100px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}

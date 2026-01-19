@@ -1,0 +1,63 @@
+.wrapper {
+    width: 100%;
+    height: 100vh;
+    background-color: #ccc;
+}
+
+.inner {
+    position: fixed;
+    top: 40%;
+    right: 50%;
+    transform: translate(50%, 50%);
+    width: 100px;
+    height: 100px;
+    background-color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: loading 2s infinite;
+    z-index: 999;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #ccc; /* Một màu đen với độ mờ */
+    z-index: 9999; /* Đảm bảo lớp này ở trên cùng */
+}
+
+#img-loading {
+    width: 80px;
+    border-radius: 50%;
+}
+
+@keyframes loading {
+    0% {
+        border: 1px solid red;
+    }
+    50% {
+        box-shadow: 0 0 0 10px rgba(255, 0, 0, 0.7);
+    }
+    100% {
+        border: 1px solid red;
+    }
+}
+
+.test {
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    transform: translate(50%, 300%);
+    text-align: center;
+    font-weight: 800;
+}
+
+@media only screen and (max-width: 600px) {
+    .test {
+        transform: translate(50%, 100%);
+    }
+}
