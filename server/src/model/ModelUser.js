@@ -8,8 +8,10 @@ const ModelUser = new Schema({
     email: { type: String, require },
     password: { type: String, require },
     isAdmin: { type: Boolean, default: false },
+    role: { type: String, enum: ['admin', 'staff', 'user'], default: 'user' },
     phone: { type: Number, default: 0 },
     surplus: { type: Number, default: 0 },
+    created_at: { type: Date, default: Date.now },
 });
 
 module.exports = mongoose.model('user', ModelUser);

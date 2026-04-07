@@ -17,12 +17,24 @@ const middlewareController = {
     },
     verifyTokenAdmin: (req, res, next) => {
         middlewareController.verifyToken(req, res, () => {
-            if (req.user.admin) {
+            if (req.user.admin || req.user.role === 'admin') {
                 next();
             } else {
                 res.status(403).json({ message: 'Bạn Không Có Quyền Thao Tác !!!' });
             }
         });
+    },
+    verifyRole: (allowedRoles) => {
+        return (req, res, next) => {
+            middlewareController.verifyToken(req, res, () => {
+                const userRole = req.user.role || (req.user.admin ? 'admin' : 'user');
+                if (allowedRoles.includes(userRole)) {
+                    next();
+                } else {
+                    res.status(403).json({ message: 'Tài khoản của bạn không có quyền truy cập khu vực này !!!' });
+                }
+            });
+        };
     },
 };
 

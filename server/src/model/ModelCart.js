@@ -13,6 +13,7 @@ const ModelCart = new Schema({
         },
     ],
     sumPrice: { type: Number, default: 0 },
+    couponCode: { type: String, default: '' }
 });
 
 module.exports = mongoose.model('Cart', ModelCart);

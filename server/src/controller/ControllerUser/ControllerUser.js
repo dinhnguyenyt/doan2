@@ -6,7 +6,6 @@ const sendMail = require('../ControllerEmail/SendEmail');
 const sendMailMessage = require('../ControllerEmail/SendMailMessage');
 const fs = require('fs');
 const ModelComments = require('../../model/ModelComments');
-const ModelPaymentSuccess = require('../../model/ModelPaymentSuccess');
 require('dotenv').config();
 
 class ControllerUser {
@@ -44,9 +43,11 @@ class ControllerUser {
         const match = await bcrypt.compare(password, dataUser.password);
         if (match) {
             const admin = dataUser.isAdmin;
-            const token = jwt.sign({ email, admin }, process.env.JWT_SECRET, { expiresIn: process.env.EXPIRES_IN });
+            const role = dataUser.role || (admin ? 'admin' : 'user'); // Lấy role từ DB hoặc fallback
+            const token = jwt.sign({ email, admin, role }, process.env.JWT_SECRET, { expiresIn: process.env.EXPIRES_IN });
             res.setHeader('Set-Cookie', `Token=${token}  ; max-age=3600 ;path=/`).json({
                 message: 'Đăng Nhập Thành Công !!!',
+                role: role // Trả về role cho client dễ dàng lưu vào Redux
             });
         } else {
             return res.status(401).json({ message: 'Email Hoặc Mật Khẩu Không Chính Xác !!!' });
@@ -159,28 +160,48 @@ class ControllerUser {
         }
     }
     GetCommentProduct(req, res) {
-        ModelComments.find({}).then((dataComments) => res.status(200).json(dataComments));
+        ModelComments.find({}).sort({ created_at: -1 }).populate('user_id', 'fullname email avatar').then((dataComments) => res.status(200).json(dataComments));
     }
-    PostComments(req, res) {
+    async PostComments(req, res) {
         const { comment } = req.body;
         const token = req.cookies.Token;
         const decoded = jwtDecode(token);
 
-        const newComments = new ModelComments({
-            username: decoded.email,
-            comments: comment,
-        });
-        newComments.save();
-        return res.status(200).json({ message: 'Success' });
+        try {
+            const user = await ModelUser.findOne({ email: decoded.email });
+            if (!user) return res.status(404).json({ message: 'User not found' });
+
+            const newComments = new ModelComments({
+                user_id: user._id,
+                comments: comment,
+            });
+            await newComments.save();
+            return res.status(200).json({ message: 'Success' });
+        } catch (err) {
+            console.error(err);
+            return res.status(500).json({ message: 'Internal server error' });
+        }
     }
 
-    GetOrder(req, res) {
+    async GetOrder(req, res) {
         const token = req.cookies.Token;
+        if (!token) return res.status(401).json({ message: 'Unauthorized' });
         const decoded = jwtDecode(token);
         if (decoded) {
-            ModelPaymentSuccess.find({ email: decoded.email }).then((dataOrder) => {
-                return res.status(200).json(dataOrder);
-            });
+            try {
+                const ModelOrder = require('../../model/ModelOrder');
+                const ModelOrderItem = require('../../model/ModelOrderItem');
+
+                const orders = await ModelOrder.find({ email: decoded.email }).sort({ created_at: -1 }).lean();
+                const populatedOrders = await Promise.all(orders.map(async (order) => {
+                    const items = await ModelOrderItem.find({ order_id: order._id }).lean();
+                    return { ...order, products: items };
+                }));
+                return res.status(200).json(populatedOrders);
+            } catch (error) {
+                console.error(error);
+                return res.status(500).json({ message: 'Server error' });
+            }
         }
     }
 }

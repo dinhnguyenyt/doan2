@@ -19,6 +19,9 @@ function Checkout() {
     const [checkBox, setCheckBox] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
+    const [couponCode, setCouponCode] = useState('');
+    const [discountPercent, setDiscountPercent] = useState(0);
+
     const [firstName, setFirsName] = useState('');
     const [lastName, setLastName] = useState('');
     const [companyName, setCompanyName] = useState('');
@@ -42,6 +45,18 @@ function Checkout() {
         }
     }, [token]);
 
+    const handleApplyCoupon = async () => {
+        if (!couponCode) return toast.error('Vui lòng nhập mã giảm giá');
+        try {
+            const res = await request.post('/api/check-coupon', { code: couponCode });
+            setDiscountPercent(res.data.discount_percent);
+            toast.success(res.data.message);
+        } catch (error) {
+            setDiscountPercent(0);
+            toast.error(error.response?.data?.message || 'Lỗi áp dụng mã');
+        }
+    };
+
     const handlePaymentMomo = async () => {
         if (
             checkBox === false ||
@@ -64,6 +79,7 @@ function Checkout() {
                 setIsLoading(true);
                 const res = await request.post('/api/paymentmomo', {
                     dataAddress,
+                    couponCode: discountPercent > 0 ? couponCode : ''
                 });
                 if (res) {
                     setIsLoading(false);
@@ -96,7 +112,10 @@ function Checkout() {
         } else if (!dataCart) {
             toast.error('Please Return to Purchase Page !!!');
         } else {
-            request.post('/api/payment').then((res) => console.log(res.data));
+            request.post('/api/payment', { 
+                dataAddress, 
+                couponCode: discountPercent > 0 ? couponCode : '' 
+            }).then((res) => console.log(res.data));
             navigate('/thanks');
         }
     };
@@ -240,13 +259,37 @@ function Checkout() {
 
                                     <tbody>
                                         <tr>
-                                            <td>Total</td>
+                                            <td>Subtotal</td>
                                             <td></td>
                                             <td>$ {dataCart?.sumPrice?.toLocaleString()}</td>
+                                        </tr>
+                                        {discountPercent > 0 && (
+                                            <tr>
+                                                <td>Discount ({discountPercent}%)</td>
+                                                <td></td>
+                                                <td>- $ {(dataCart?.sumPrice * discountPercent / 100).toLocaleString()}</td>
+                                            </tr>
+                                        )}
+                                        <tr>
+                                            <td>Total</td>
+                                            <td></td>
+                                            <td>$ {(dataCart?.sumPrice * (1 - discountPercent / 100)).toLocaleString()}</td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
+                            
+                            <div className="input-group mb-3 px-3">
+                                <input 
+                                    type="text" 
+                                    className="form-control" 
+                                    placeholder="Gift card or discount code" 
+                                    value={couponCode} 
+                                    onChange={(e) => setCouponCode(e.target.value)} 
+                                />
+                                <button className="btn btn-outline-secondary" onClick={handleApplyCoupon} type="button">Apply</button>
+                            </div>
+
                             <div className={cx('form-pay')}>
                                 <div className={cx('checkbox-terms')}>
                                     <input onChange={(e) => setCheckBox(e.target.checked)} type="checkbox" />

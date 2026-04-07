@@ -10,6 +10,8 @@ const ModelProducts = new Schema({
     priceOld: { type: Number, default: 0 },
     des: { type: String, default: '' },
     checkProducts: { type: String, default: '' },
+    category_id: { type: Schema.Types.ObjectId, ref: 'category' },
+    stock_quantity: { type: Number, default: 100 },
 });
 
 module.exports = mongoose.model('products', ModelProducts);

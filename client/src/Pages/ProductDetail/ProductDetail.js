@@ -134,14 +134,22 @@ function ProductDetail() {
 
                         <div className={cx('comments-user')}>
                             {dataComments.map((item) => (
-                                <div className={cx('form-comment')}>
+                                <div className={cx('form-comment')} key={item._id}>
                                     <img
-                                        src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D"
+                                        src={
+                                            item.user_id?.avatar && item.user_id.avatar !== '1'
+                                                ? `http://localhost:5000/avatars/${item.user_id.avatar}`
+                                                : "https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=1000&auto=format&fit=crop"
+                                        }
                                         alt=""
+                                        style={{ width: '40px', height: '40px', borderRadius: '50%', objectFit: 'cover' }}
                                     />
                                     <div>
-                                        <span>@{item.username}</span>
-                                        <p>{item.comments}</p>
+                                        <span style={{ fontWeight: 'bold' }}>{item.user_id?.fullname || 'Ẩn danh'}</span>
+                                        <span style={{ fontSize: '12px', color: 'gray', marginLeft: '10px' }}>
+                                            {item.created_at ? new Date(item.created_at).toLocaleString() : ''}
+                                        </span>
+                                        <p style={{ marginTop: '5px' }}>{item.comments}</p>
                                     </div>
                                 </div>
                             ))}

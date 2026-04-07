@@ -141,8 +141,10 @@ function InfoUser() {
                             <tr>
                                 <td>{item.email}</td>
                                 <td style={{ display: 'flex', flexDirection: 'column' }}>
-                                    {item?.products.map((item2) => (
-                                        <td>{item2.nameProduct}</td>
+                                    {item?.products?.map((item2, idx) => (
+                                        <div key={idx} style={{ padding: '4px 0' }}>
+                                            {item2.nameProduct} (x{item2.quantity})
+                                        </div>
                                     ))}
                                 </td>
                                 <td>{item.statusOrder ? 'Đã giao hàng' : 'Đang vận chuyển'}</td>

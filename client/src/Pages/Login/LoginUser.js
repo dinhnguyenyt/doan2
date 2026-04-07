@@ -33,7 +33,9 @@ function LoginUser() {
                 const token = document.cookie;
 
                 const decoded = jwtDecode(token);
-                if (decoded.admin === true) {
+                const role = decoded.role || (decoded.admin ? 'admin' : 'user');
+                
+                if (role === 'admin' || role === 'staff') {
                     navigate('/admin');
                 } else {
                     navigate('/');

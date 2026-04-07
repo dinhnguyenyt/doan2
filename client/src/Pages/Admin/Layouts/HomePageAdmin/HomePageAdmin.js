@@ -5,6 +5,9 @@ import Dashboard from './DashBoard/DashBoard';
 import Products from './Products/Products';
 import OrderProducts from './OrderProducts/OrderProducts';
 import Customers from './Customers/Customers';
+import Categories from './Categories/Categories';
+import Coupons from './Coupons/Coupons';
+import Comments from './Comments/Comments';
 
 import { useEffect, useState } from 'react';
 import request from '../../../../config/Connect';
@@ -87,6 +90,30 @@ function HomePage({ activeList }) {
             {activeList === 'blog' ? (
                 <div>
                     <Blogger />
+                </div>
+            ) : (
+                <></>
+            )}
+
+            {activeList === 'category' ? (
+                <div>
+                    <Categories />
+                </div>
+            ) : (
+                <></>
+            )}
+
+            {activeList === 'coupon' ? (
+                <div>
+                    <Coupons />
+                </div>
+            ) : (
+                <></>
+            )}
+
+            {activeList === 'comment' ? (
+                <div>
+                    <Comments />
                 </div>
             ) : (
                 <></>

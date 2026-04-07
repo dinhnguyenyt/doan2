@@ -1,5 +1,8 @@
 const ModelCart = require('../../model/ModelCart');
-const ModelPaymentSuccess = require('../../model/ModelPaymentSuccess');
+const ModelOrder = require('../../model/ModelOrder');
+const ModelOrderItem = require('../../model/ModelOrderItem');
+const ModelProducts = require('../../model/ModelProducts');
+const ModelCoupon = require('../../model/ModelCoupon');
 const { jwtDecode } = require('jwt-decode');
 
 const { VNPay, ignoreLogger, ProductCode, VnpLocale } = require('vnpay');
@@ -9,8 +12,26 @@ class ControllerPayments {
         const token = req.cookies;
         const decoded = jwtDecode(token.Token);
         const email = decoded.email;
-        ModelCart.findOne({ email: email }).then((dataCart) => {
+        const couponCode = req.body.couponCode;
+
+        ModelCart.findOne({ email: email }).then(async (dataCart) => {
             if (dataCart) {
+                let finalPrice = dataCart.sumPrice;
+                let appliedCoupon = '';
+
+                if (couponCode) {
+                    const coupon = await ModelCoupon.findOne({ code: couponCode.toUpperCase() });
+                    if (coupon && coupon.usage_limit > 0 && new Date() <= new Date(coupon.expiry_date)) {
+                        finalPrice = finalPrice * (1 - coupon.discount_percent / 100);
+                        appliedCoupon = coupon.code;
+                    }
+                }
+
+                // Lưu lại mã coupon vào cart để checkData sử dụng
+                dataCart.couponCode = appliedCoupon;
+                dataCart.sumPrice = finalPrice; // cập nhật giá luôn trong cart tạm thời
+                await dataCart.save();
+
                 const vnpay = new VNPay({
                     tmnCode: '7N2SECJJ',
                     secureSecret: '65W8KAP5EEC7F6E7WOL38QTF96XWWLTN',
@@ -21,9 +42,9 @@ class ControllerPayments {
                     loggerFn: ignoreLogger, // tùy chọn
                 });
                 const paymentUrl = vnpay.buildPaymentUrl({
-                    vnp_Amount: dataCart.sumPrice ,
+                    vnp_Amount: finalPrice,
                     vnp_IpAddr: '13.160.92.202',
-                    vnp_TxnRef: dataCart._id,
+                    vnp_TxnRef: dataCart._id.toString(),
                     vnp_OrderInfo: `Thanh toan don hang ${dataCart._id}`,
                     vnp_OrderType: ProductCode.Other,
                     vnp_ReturnUrl: 'http://localhost:5000/vnpay-return',
@@ -40,21 +61,47 @@ class ControllerPayments {
             const decoded = jwtDecode(token.Token);
             ModelCart.findOne({ email: decoded.email }).then(async (dataCart) => {
                 if (dataCart) {
-                    const newDataSuccess = new ModelPaymentSuccess({
+                    const newOrder = new ModelOrder({
                         email: decoded.email,
-                        products: dataCart.products.map((item) => ({
-                            nameProduct: item.nameProduct,
-                            quantity: item.quantity,
-                            price: item.price,
-                        })),
-                        sumPrice: dataCart.sumPrice,
+                        sumPrice: dataCart.sumPrice, // Giá này đã được giảm bên PaymentsMomo
                         statusPayment: true,
                         statusOrder: false,
                     });
-                    await newDataSuccess.save();
-                    dataCart.deleteOne({ _id: dataCart._id }).then((data) => {
-                        return res.status(200).json({ message: 'Thanh toan thanh cong !!!' });
-                    });
+                    const savedOrder = await newOrder.save();
+
+                    for (const item of dataCart.products) {
+                        try {
+                            const foundProduct = await ModelProducts.findOne({ nameProducts: item.nameProduct });
+                            if (foundProduct) {
+                                await ModelProducts.findByIdAndUpdate(foundProduct._id, {
+                                    $inc: { stock_quantity: -item.quantity }
+                                });
+                                
+                                const newOrderItem = new ModelOrderItem({
+                                    order_id: savedOrder._id,
+                                    product_id: foundProduct._id,
+                                    nameProduct: item.nameProduct,
+                                    quantity: item.quantity,
+                                    price: item.price
+                                });
+                                await newOrderItem.save();
+                            }
+                        } catch (e) {
+                            console.error('Error saving order item:', e);
+                        }
+                    }
+
+                    // Tự động trừ lượt dùng Coupon nếu có mã
+                    if (dataCart.couponCode) {
+                        const coupon = await ModelCoupon.findOne({ code: dataCart.couponCode });
+                        if (coupon && coupon.usage_limit > 0) {
+                            coupon.usage_limit -= 1;
+                            await coupon.save();
+                        }
+                    }
+
+                    await dataCart.deleteOne({ _id: dataCart._id });
+                    return res.status(200).json({ message: 'Thanh toan thanh cong !!!' });
                 }
             });
         }
@@ -63,13 +110,20 @@ class ControllerPayments {
     async GetProductsSuccess(req, res) {
         const token = req.cookies;
         const decoded = jwtDecode(token.Token);
-        ModelPaymentSuccess.findOne({ email: decoded.email })
-            .sort({ id: 'desc' })
-            .exec()
-            .then((data) => {
-                return res.status(200).json([[data]]);
-            });
+        
+        try {
+            const orders = await ModelOrder.find({ email: decoded.email }).sort({ created_at: -1 }).lean();
+            const populatedOrders = await Promise.all(orders.map(async (order) => {
+                const items = await ModelOrderItem.find({ order_id: order._id }).lean();
+                return { ...order, products: items };
+            }));
+            return res.status(200).json([populatedOrders]);
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json({ message: 'Server Error' });
+        }
     }
+
     async Payments(req, res) {
         try {
             const token = req.cookies;
@@ -87,23 +141,44 @@ class ControllerPayments {
                 return res.status(404).json({ message: 'Giỏ hàng không tồn tại' });
             }
 
-            const lastPayment = await ModelPaymentSuccess.findOne({ email: decoded.email }).sort({ id: -1 });
-            const newProductId = lastPayment && lastPayment.id !== undefined ? lastPayment.id + 1 : 0;
+            let finalPrice = dataCart.sumPrice;
+            const couponCode = req.body.couponCode;
+            if (couponCode) {
+                const coupon = await ModelCoupon.findOne({ code: couponCode.toUpperCase() });
+                if (coupon && coupon.usage_limit > 0 && new Date() <= new Date(coupon.expiry_date)) {
+                    finalPrice = finalPrice * (1 - coupon.discount_percent / 100);
+                    coupon.usage_limit -= 1;
+                    await coupon.save();
+                }
+            }
 
-            const newDataSuccess = new ModelPaymentSuccess({
-                id: newProductId,
+            const newOrder = new ModelOrder({
                 email: decoded.email,
-                products: dataCart.products.map((item) => ({
-                    nameProduct: item.nameProduct,
-                    quantity: item.quantity,
-                    price: item.price,
-                })),
-                sumPrice: dataCart.sumPrice,
+                sumPrice: finalPrice,
+                statusPayment: false,
+                statusOrder: false,
             });
+            const savedOrder = await newOrder.save();
 
-            await newDataSuccess.save();
+            for (const item of dataCart.products) {
+                const foundProduct = await ModelProducts.findOne({ nameProducts: item.nameProduct });
+                if (foundProduct) {
+                    await ModelProducts.findByIdAndUpdate(foundProduct._id, {
+                        $inc: { stock_quantity: -item.quantity }
+                    });
+
+                    const newOrderItem = new ModelOrderItem({
+                        order_id: savedOrder._id,
+                        product_id: foundProduct._id,
+                        nameProduct: item.nameProduct,
+                        quantity: item.quantity,
+                        price: item.price
+                    });
+                    await newOrderItem.save();
+                }
+            }
+
             await dataCart.deleteOne({ _id: dataCart._id });
-
             return res.status(200).json({ message: 'Payment successful', dataCart });
         } catch (error) {
             console.error(error);

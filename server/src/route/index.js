@@ -33,6 +33,19 @@ function route(app) {
     app.get('/api/auth/me', AdminRoutes);
     app.post('/api/checkproduct', AdminRoutes);
     app.post('/api/editorder', AdminRoutes);
+    app.post('/api/updaterole', AdminRoutes);
+    app.post('/api/deleteuser', AdminRoutes);
+    app.get('/api/categories', AdminRoutes);
+    app.post('/api/addcategory', AdminRoutes);
+    app.post('/api/deletecategory', AdminRoutes);
+    
+    app.get('/api/coupons', AdminRoutes);
+    app.post('/api/addcoupon', AdminRoutes);
+    app.post('/api/deletecoupon', AdminRoutes);
+    
+    const ControllerCoupon = require('../controller/ControllerCoupon/ControllerCoupon');
+    app.post('/api/check-coupon', ControllerCoupon.CheckCoupon);
+    app.post('/api/deletecomment', AdminRoutes);
 
     // Payments
     app.post('/api/paymentmomo', Payments);

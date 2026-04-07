@@ -29,6 +29,16 @@ function SlideBar({ setActiveList }) {
                         <h5>Products</h5>
                     </li>
 
+                    <li onClick={() => handleActiveList('category')}>
+                        <FontAwesomeIcon id={cx('icons')} icon={faCartPlus} />
+                        <h5>Categories</h5>
+                    </li>
+
+                    <li onClick={() => handleActiveList('coupon')}>
+                        <FontAwesomeIcon id={cx('icons')} icon={faCartPlus} />
+                        <h5>Coupons</h5>
+                    </li>
+
                     <li onClick={() => handleActiveList('customer')}>
                         <FontAwesomeIcon id={cx('icons')} icon={faUser} />
                         <h5>Customers</h5>
@@ -37,6 +47,11 @@ function SlideBar({ setActiveList }) {
                     <li onClick={() => handleActiveList('blog')}>
                         <FontAwesomeIcon id={cx('icons')} icon={faBlog} />
                         <h5>Blog</h5>
+                    </li>
+
+                    <li onClick={() => handleActiveList('comment')}>
+                        <FontAwesomeIcon id={cx('icons')} icon={faBlog} />
+                        <h5>Comments</h5>
                     </li>
                 </ul>
             </div>
