@@ -19,16 +19,21 @@ root.render(
                         return <Route key={index} path={route.path} element={route.element} />;
                     })}
                     {privateRoute.map((route, index) => {
-                        const token = document.cookie;
-                        if (token) {
-                            const decoded = jwtDecode(token.slice(6, 9999));
-                            if (decoded.admin) {
-                                return <Route key={route.path} path={route.path} element={route.element} />;
-                            } else {
-                                return <Route path="/" element={<App />} />;
+                        try {
+                            const tokenRow = document.cookie.split('; ').find(row => row.startsWith('Token='));
+                            if (tokenRow) {
+                                const token = tokenRow.split('=')[1];
+                                const decoded = jwtDecode(token);
+                                const role = decoded.role || (decoded.admin ? 'admin' : 'user');
+                                if (role === 'admin' || role === 'staff') {
+                                    return <Route key={route.path} path={route.path} element={route.element} />;
+                                }
                             }
+                        } catch (error) {
+                            console.error("Token decode error:", error);
                         }
-                        return <Route path="/" element={<App />} />;
+                        // Nếu không đủ quyền, trả về route chặn bằng thẻ bảo vệ trống hoặc điều hướng về App
+                        return <Route key={route.path || index} path={route.path} element={<App />} />;
                     })}
                 </Routes>
             </Router>

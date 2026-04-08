@@ -13,7 +13,7 @@ function DefaultLayout() {
     return (
         <div className={cx('wrapper')}>
             <header>
-                <HeaderAdmin />
+                <HeaderAdmin setActiveList={setActiveList} />
             </header>
 
             <div className={cx('main')}>

@@ -23,6 +23,22 @@ class ControllerCategory {
         }
     }
 
+    async EditCategory(req, res) {
+        const { id, name, description } = req.body;
+        if (!id || !name) return res.status(400).json({ message: 'ID và Tên danh mục không được để trống' });
+
+        try {
+            const updatedCategory = await ModelCategory.findByIdAndUpdate(id, { name, description }, { new: true });
+            if (updatedCategory) {
+                res.status(200).json({ message: 'Cập nhật danh mục thành công', data: updatedCategory });
+            } else {
+                res.status(404).json({ message: 'Không tìm thấy danh mục' });
+            }
+        } catch (error) {
+            res.status(500).json({ message: 'Internal Server Error' });
+        }
+    }
+
     async DeleteCategory(req, res) {
         try {
             const deleted = await ModelCategory.findByIdAndDelete(req.body.id);

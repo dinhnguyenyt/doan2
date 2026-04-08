@@ -1,4 +1,4 @@
-import classNames from 'classnames';
+import classNames from 'classnames/bind';
 import styles from './HomePageAdmin.module.scss';
 
 import Dashboard from './DashBoard/DashBoard';
@@ -8,6 +8,7 @@ import Customers from './Customers/Customers';
 import Categories from './Categories/Categories';
 import Coupons from './Coupons/Coupons';
 import Comments from './Comments/Comments';
+import ProfileAdmin from './Profile/ProfileAdmin';
 
 import { useEffect, useState } from 'react';
 import request from '../../../../config/Connect';
@@ -114,6 +115,14 @@ function HomePage({ activeList }) {
             {activeList === 'comment' ? (
                 <div>
                     <Comments />
+                </div>
+            ) : (
+                <></>
+            )}
+
+            {activeList === 'profile' ? (
+                <div>
+                    <ProfileAdmin />
                 </div>
             ) : (
                 <></>

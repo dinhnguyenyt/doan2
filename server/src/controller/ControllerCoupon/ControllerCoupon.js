@@ -28,6 +28,27 @@ class ControllerCoupon {
         }
     }
 
+    async EditCoupon(req, res) {
+        const { id, code, discount_percent, expiry_date, usage_limit } = req.body;
+        if (!id || !code) return res.status(400).json({ message: 'ID và Mã không được để trống' });
+
+        try {
+            const updatedCoupon = await ModelCoupon.findByIdAndUpdate(id, {
+                code: code.toUpperCase(),
+                discount_percent,
+                expiry_date,
+                usage_limit
+            }, { new: true });
+            if (updatedCoupon) {
+                res.status(200).json({ message: 'Cập nhật mã thành công', data: updatedCoupon });
+            } else {
+                res.status(404).json({ message: 'Không tìm thấy mã' });
+            }
+        } catch (error) {
+            res.status(500).json({ message: 'Internal Server Error hoặc Mã đã tồn tại' });
+        }
+    }
+
     async DeleteCoupon(req, res) {
         try {
             const deleted = await ModelCoupon.findByIdAndDelete(req.body.id);

@@ -1,76 +1,132 @@
 import classNames from 'classnames/bind';
 import styles from './DashBoard.module.scss';
 import { useEffect, useState } from 'react';
-
 import request from '../../../../../config/Connect';
+import {
+  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer
+} from 'recharts';
 
 const cx = classNames.bind(styles);
 
 function Dashboard() {
-    const [dataUser, serDataUser] = useState({});
+    const [dataProducts, setDataProducts] = useState([]);
+    const [dataUsers, setDataUsers] = useState([]);
+    const [dataOrders, setDataOrders] = useState([]);
 
     useEffect(() => {
-        request.get('/api/auth/me').then((res) => serDataUser(res.data));
+        // Fetch all required data
+        Promise.all([
+            request.get('/api/products').then(res => setDataProducts(res.data || [])).catch(() => {}),
+            request.get('/api/datauser').then(res => setDataUsers(res.data || [])).catch(() => {}),
+            request.get('/api/getorder').then(res => setDataOrders(res.data || [])).catch(() => {})
+        ]);
     }, []);
+
+    // Calculate KPIs
+    const totalProducts = dataProducts.length;
+    const totalCustomers = dataUsers.length;
+    const totalOrders = dataOrders.length;
+    
+    // Estimate total revenue if sumPrice exists on order, otherwise use a placeholder or sum up products
+    let totalRevenue = 0;
+    dataOrders.forEach(order => {
+        if (order.totalAmount || order.sumPrice) {
+            totalRevenue += Number(order.totalAmount || order.sumPrice);
+        } else if (order.products) {
+            order.products.forEach(p => {
+                totalRevenue += (p.price || 0) * (p.quantity || 1);
+            });
+        }
+    });
+
+    // Dummy chart data (in real app, group orders by date)
+    const chartData = [
+        { name: 'Mon', Revenue: 4000 },
+        { name: 'Tue', Revenue: 3000 },
+        { name: 'Wed', Revenue: 5000 },
+        { name: 'Thu', Revenue: 2780 },
+        { name: 'Fri', Revenue: 6890 },
+        { name: 'Sat', Revenue: 2390 },
+        { name: 'Sun', Revenue: 3490 },
+    ];
 
     return (
         <div className={cx('wrapper')}>
-            <header className={cx('header-page-admin')}>
-                <div className={cx('img-admin')}>
-                    <img
-                        src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D"
-                        alt=""
-                    />
+            <h1 className={cx('page-title')}>Dashboard Overview</h1>
+            
+            <div className={cx('kpi-container')}>
+                <div className={cx('kpi-card', 'bg-purple')}>
+                    <h3>Total Revenue</h3>
+                    <p className={cx('kpi-value')}>$ {totalRevenue.toLocaleString()}</p>
+                </div>
+                <div className={cx('kpi-card', 'bg-blue')}>
+                    <h3>Total Orders</h3>
+                    <p className={cx('kpi-value')}>{totalOrders}</p>
+                </div>
+                <div className={cx('kpi-card', 'bg-green')}>
+                    <h3>Total Customers</h3>
+                    <p className={cx('kpi-value')}>{totalCustomers}</p>
+                </div>
+                <div className={cx('kpi-card', 'bg-orange')}>
+                    <h3>Active Products</h3>
+                    <p className={cx('kpi-value')}>{totalProducts}</p>
+                </div>
+            </div>
+
+            <div className={cx('sections-grid')}>
+                <div className={cx('chart-section')}>
+                    <h2>Revenue Last 7 Days</h2>
+                    <div style={{ width: '100%', height: 350 }}>
+                        <ResponsiveContainer>
+                            <BarChart data={chartData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+                                <CartesianGrid strokeDasharray="3 3" />
+                                <XAxis dataKey="name" />
+                                <YAxis />
+                                <Tooltip />
+                                <Legend />
+                                <Bar dataKey="Revenue" fill="#8884d8" />
+                            </BarChart>
+                        </ResponsiveContainer>
+                    </div>
                 </div>
 
-                <div className={cx('info-admin')}>
-                    <h1>{dataUser?.dataUser?.fullname}</h1>
-                    <div className={cx('position')}>
-                        <span>{dataUser?.dataUser?.email}</span>
-                        <span>{dataUser?.dataUser?.isAdmin ? 'Admin' : 'User'}</span>
+                <div className={cx('recent-orders-section')}>
+                    <h2>Recent Orders</h2>
+                    <div className={cx('table-responsive')}>
+                        <table className="table">
+                            <thead>
+                                <tr>
+                                    <th>Email</th>
+                                    <th>Status</th>
+                                    <th>Payment</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {dataOrders.slice(0, 5).map((order, idx) => (
+                                    <tr key={idx}>
+                                        <td>{order.email}</td>
+                                        <td>
+                                            <span className={cx('badge', order.statusOrder ? 'badge-success' : 'badge-warning')}>
+                                                {order.statusOrder ? 'Delivered' : 'Shipping'}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span className={cx('badge', order.statusPayment ? 'badge-success' : 'badge-warning')}>
+                                                {order.statusPayment ? 'Paid' : 'Unpaid'}
+                                            </span>
+                                        </td>
+                                    </tr>
+                                ))}
+                                {dataOrders.length === 0 && (
+                                    <tr>
+                                        <td colSpan="3" style={{ textAlign: 'center' }}>No orders yet</td>
+                                    </tr>
+                                )}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-            </header>
-
-            <main className={cx('info-account')}>
-                <header>
-                    <h1>Account</h1>
-                </header>
-
-                <div className={cx('input-info')}>
-                    <div className="input-group mb-3">
-                        <span className="input-group-text" id="basic-addon1">
-                            Username
-                        </span>
-                        <input value={dataUser.dataUser?.fullname} type="text" className="form-control" readOnly />
-                    </div>
-
-                    <div className="input-group mb-3">
-                        <span className="input-group-text" id="basic-addon1">
-                            Email
-                        </span>
-                        <input value={dataUser.dataUser?.email} type="text" className="form-control" />
-                    </div>
-
-                    <div className="input-group mb-3">
-                        <span className="input-group-text" id="basic-addon1">
-                            PassWord
-                        </span>
-                        <input value={dataUser.dataUser?.password} type="password" className="form-control" />
-                    </div>
-
-                    <div className="input-group mb-3">
-                        <span className="input-group-text" id="basic-addon1">
-                            Title
-                        </span>
-                        <input
-                            value={dataUser.dataUser?.isAdmin ? 'Administrator' : ''}
-                            type="text"
-                            className="form-control"
-                        />
-                    </div>
-                </div>
-            </main>
+            </div>
         </div>
     );
 }

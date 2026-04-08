@@ -46,6 +46,33 @@ class ControllerAdmin {
         }
     }
 
+    async EditUser(req, res) {
+        const { userId, fullname, email, phone, surplus } = req.body;
+        try {
+            const updatedUser = await ModelUser.findByIdAndUpdate(
+                userId,
+                { 
+                    fullname, 
+                    email, 
+                    phone, 
+                    surplus: surplus ? Number(surplus) : 0,
+                    modified_at: new Date()
+                },
+                { new: true }
+            );
+            if (!updatedUser) {
+                return res.status(404).json({ message: 'User not found' });
+            }
+            return res.status(200).json({ message: 'Sửa thông tin user thành công!' });
+        } catch (error) {
+            console.error('Error editing user:', error);
+            if (error.code === 11000) {
+                 return res.status(400).json({ message: 'Email đã tồn tại' });
+            }
+            return res.status(500).json({ message: 'Server error' });
+        }
+    }
+
     async DeleteUser(req, res) {
         const { userId } = req.body;
         try {
@@ -156,6 +183,62 @@ class ControllerAdmin {
                 );
             }
         });
+    }
+
+    async GetCategoryById(req, res) {
+        try {
+            const ModelCategory = require('../../model/ModelCategory');
+            const data = await ModelCategory.findById(req.params.id);
+            res.json(data);
+        } catch (error) { res.status(500).json({ error: error.message }); }
+    }
+    
+    async GetProductById(req, res) {
+        try {
+            const ModelProducts = require('../../model/ModelProducts');
+            let data = null;
+            if (!isNaN(req.params.id)) {
+                data = await ModelProducts.findOne({ id: Number(req.params.id) });
+            }
+            if (!data) data = await ModelProducts.findById(req.params.id);
+            res.json(data);
+        } catch (error) { res.status(500).json({ error: error.message }); }
+    }
+    
+    async GetOrderById(req, res) {
+        try {
+            const ModelOrder = require('../../model/ModelOrder');
+            const data = await ModelOrder.findById(req.params.id);
+            res.json(data);
+        } catch (error) { res.status(500).json({ error: error.message }); }
+    }
+    
+    async GetCouponById(req, res) {
+        try {
+            const ModelCoupon = require('../../model/ModelCoupon');
+            const data = await ModelCoupon.findById(req.params.id);
+            res.json(data);
+        } catch (error) { res.status(500).json({ error: error.message }); }
+    }
+    
+    async GetBlogById(req, res) {
+        try {
+            const ModelBlog = require('../../model/ModelBlog');
+            let data = null;
+            if (!isNaN(req.params.id)) {
+                data = await ModelBlog.findOne({ id: Number(req.params.id) });
+            }
+            if (!data) data = await ModelBlog.findById(req.params.id);
+            res.json(data);
+        } catch (error) { res.status(500).json({ error: error.message }); }
+    }
+    
+    async GetCustomerById(req, res) {
+        try {
+            const ModelUser = require('../../model/ModelUser');
+            const data = await ModelUser.findById(req.params.id);
+            res.json(data);
+        } catch (error) { res.status(500).json({ error: error.message }); }
     }
 }
 

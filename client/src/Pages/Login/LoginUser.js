@@ -30,13 +30,18 @@ function LoginUser() {
                     password,
                 });
                 // navigate('/'); // Chuyển hướng đến trang chủ
-                const token = document.cookie;
-
-                const decoded = jwtDecode(token);
-                const role = decoded.role || (decoded.admin ? 'admin' : 'user');
+                const tokenRow = document.cookie.split('; ').find(row => row.startsWith('Token='));
+                const token = tokenRow ? tokenRow.split('=')[1] : null;
                 
-                if (role === 'admin' || role === 'staff') {
-                    navigate('/admin');
+                if (token) {
+                    const decoded = jwtDecode(token);
+                    const role = decoded.role || (decoded.admin ? 'admin' : 'user');
+                    
+                    if (role === 'admin' || role === 'staff') {
+                        navigate('/admin');
+                    } else {
+                        navigate('/');
+                    }
                 } else {
                     navigate('/');
                 }
