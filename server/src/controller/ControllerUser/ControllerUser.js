@@ -164,7 +164,11 @@ class ControllerUser {
         const filter = {};
         if (product_id) filter.product_id = product_id;
         if (blog_id) filter.blog_id = blog_id;
-        ModelComments.find(filter).sort({ created_at: -1 }).populate('user_id', 'fullname email avatar').then((dataComments) => res.status(200).json(dataComments));
+        ModelComments.find(filter).sort({ created_at: -1 })
+            .populate('user_id', 'fullname email avatar')
+            .populate('product_id', 'nameProducts')
+            .populate('blog_id', 'title')
+            .then((dataComments) => res.status(200).json(dataComments));
     }
     async PostComments(req, res) {
         const { comment, product_id, blog_id } = req.body;

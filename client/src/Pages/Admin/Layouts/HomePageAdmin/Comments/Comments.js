@@ -51,6 +51,7 @@ function Comments() {
                     <tr>
                         <th>Người dùng</th>
                         <th>Nội dung bình luận</th>
+                        <th>Thuộc về</th>
                         <th>Ngày tạo</th>
                         <th>Người tạo</th>
                         <th>Ngày sửa</th>
@@ -80,6 +81,14 @@ function Comments() {
                                 </div>
                             </td>
                             <td style={{ maxWidth: '300px', wordWrap: 'break-word' }}>{cmt.comments}</td>
+                            <td>
+                                {cmt.product_id
+                                    ? <span className="badge bg-primary">Sản phẩm: {cmt.product_id.nameProducts}</span>
+                                    : cmt.blog_id
+                                        ? <span className="badge bg-success">Blog: {cmt.blog_id.title}</span>
+                                        : <span className="text-muted">-</span>
+                                }
+                            </td>
                             <td>{formatDateString(cmt.created_at)}</td>
                             <td>{cmt.created_by || '-'}</td>
                             <td>{formatDateString(cmt.modified_at)}</td>
@@ -123,6 +132,16 @@ function Comments() {
                                 </div>
                             </div>
                             
+                            <div className="mb-3">
+                                <span className="fw-bold">Thuộc về: </span>
+                                {commentDetail.product_id
+                                    ? <span className="badge bg-primary ms-1">Sản phẩm: {commentDetail.product_id.nameProducts}</span>
+                                    : commentDetail.blog_id
+                                        ? <span className="badge bg-success ms-1">Blog: {commentDetail.blog_id.title}</span>
+                                        : <span className="text-muted ms-1">-</span>
+                                }
+                            </div>
+
                             <p className="fw-bold fs-6">Nội Dung Bình Luận:</p>
                             <div className="p-3 bg-light rounded border mb-4">
                                 {commentDetail.comments}
