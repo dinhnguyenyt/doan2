@@ -12,6 +12,8 @@ const ModelUser = new Schema({
     phone: { type: Number, default: 0 },
     surplus: { type: Number, default: 0 },
     created_at: { type: Date, default: Date.now },
+    modified_by: { type: String, default: '' },
+    modified_at: { type: Date, default: null },
 });
 
 module.exports = mongoose.model('user', ModelUser);

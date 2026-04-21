@@ -21,9 +21,13 @@ class ControllerPayments {
 
                 if (couponCode) {
                     const coupon = await ModelCoupon.findOne({ code: couponCode.toUpperCase() });
-                    if (coupon && coupon.usage_limit > 0 && new Date() <= new Date(coupon.expiry_date)) {
-                        finalPrice = finalPrice * (1 - coupon.discount_percent / 100);
-                        appliedCoupon = coupon.code;
+                    if (coupon && coupon.usage_limit > 0) {
+                        const expiryEnd = new Date(coupon.expiry_date);
+                        expiryEnd.setHours(23, 59, 59, 999);
+                        if (new Date() <= expiryEnd) {
+                            finalPrice = finalPrice * (1 - coupon.discount_percent / 100);
+                            appliedCoupon = coupon.code;
+                        }
                     }
                 }
 
@@ -117,7 +121,7 @@ class ControllerPayments {
                 const items = await ModelOrderItem.find({ order_id: order._id }).lean();
                 return { ...order, products: items };
             }));
-            return res.status(200).json([populatedOrders]);
+            return res.status(200).json(populatedOrders);
         } catch (error) {
             console.error(error);
             return res.status(500).json({ message: 'Server Error' });
@@ -145,10 +149,14 @@ class ControllerPayments {
             const couponCode = req.body.couponCode;
             if (couponCode) {
                 const coupon = await ModelCoupon.findOne({ code: couponCode.toUpperCase() });
-                if (coupon && coupon.usage_limit > 0 && new Date() <= new Date(coupon.expiry_date)) {
-                    finalPrice = finalPrice * (1 - coupon.discount_percent / 100);
-                    coupon.usage_limit -= 1;
-                    await coupon.save();
+                if (coupon && coupon.usage_limit > 0) {
+                    const expiryEnd = new Date(coupon.expiry_date);
+                    expiryEnd.setHours(23, 59, 59, 999);
+                    if (new Date() <= expiryEnd) {
+                        finalPrice = finalPrice * (1 - coupon.discount_percent / 100);
+                        coupon.usage_limit -= 1;
+                        await coupon.save();
+                    }
                 }
             }
 

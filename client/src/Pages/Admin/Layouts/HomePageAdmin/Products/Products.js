@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import classNames from 'classnames/bind';
 import styles from './Products.module.scss';
 import { ModalAddProduct, ModalDeleteProduct, ModalEditProduct } from '../../../Modal/Modal';
 import { formatDateString } from '../../../../../utils/formatDate';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
+import request from '../../../../../config/Connect';
 
 const cx = classNames.bind(styles);
 
@@ -26,6 +27,11 @@ function Products({
     const [searchQuery, setSearchQuery] = useState('');
     const [showViewModal, setShowViewModal] = useState(false);
     const [productDetail, setProductDetail] = useState(null);
+    const [categories, setCategories] = useState([]);
+
+    useEffect(() => {
+        request.get('/api/categories').then((res) => setCategories(res.data));
+    }, []);
 
     const handleOpenView = (product) => {
         setProductDetail(product);
@@ -33,9 +39,9 @@ function Products({
     };
 
     const filteredProducts = dataProducts.filter((item) => {
-        const matchesType = valueType === '' || item.checkProducts === valueType;
+        const matchesType = valueType === '' || String(item.category_id) === valueType;
         const searchLower = searchQuery.toLowerCase();
-        const matchesSearch = 
+        const matchesSearch =
             item.nameProducts?.toLowerCase().includes(searchLower) ||
             item.id?.toString().toLowerCase().includes(searchLower);
         return matchesType && matchesSearch;
@@ -61,15 +67,10 @@ function Products({
                         onChange={(e) => setValueType(e.target.value)}
                         style={{ width: 'auto' }}
                     >
-                        <>
-                            <option value="" selected>
-                                Tất cả (Type)
-                            </option>
-                            <option value="perfume">Perfume</option>
-                            <option value="scentedCandles">Scented candles</option>
-                            <option value="shoe">Shoe</option>
-                            <option value="lipstick">Lipstick</option>
-                        </>
+                        <option value="">Tất cả danh mục</option>
+                        {categories.map((cat) => (
+                            <option key={cat._id} value={cat._id}>{cat.name}</option>
+                        ))}
                     </select>
                 </div>
 

@@ -12,13 +12,17 @@ import { jwtDecode } from 'jwt-decode';
 const cx = classNames.bind(styles);
 
 function SuccessfulPaymentPage() {
-    const [dataCart, setDataCart] = useState([]);
+    const [latestOrder, setLatestOrder] = useState(null);
 
     const token = document.cookie;
     const dataToken = jwtDecode(token);
 
     useEffect(() => {
-        request.get('/api/successPayment').then((res) => res.data.map((item) => setDataCart(item)));
+        request.get('/api/successPayment').then((res) => {
+            if (res.data && res.data.length > 0) {
+                setLatestOrder(res.data[0]);
+            }
+        });
     }, []);
 
     return (
@@ -31,51 +35,50 @@ function SuccessfulPaymentPage() {
                 <div className={cx('form-thanks-order')}>
                     <header className={cx('header')}>
                         <img src={imgCheck} alt="" />
-
-                        <>
-                            <h3>Thank You For Your Order !</h3>
-                            <p>
-                                Dear {dataToken?.email}, I would like to express my sincere gratitude for the successful
-                                purchase transaction. Your assistance and professionalism throughout the process were
-                                greatly appreciated. Thank you for providing excellent service and ensuring a smooth
-                                transaction. I am delighted with my purchase and look forward to future interactions
-                                with your company.
-                            </p>
-                        </>
+                        <h3>Thank You For Your Order !</h3>
+                        <p>
+                            Dear {dataToken?.email}, I would like to express my sincere gratitude for the successful
+                            purchase transaction. Your assistance and professionalism throughout the process were
+                            greatly appreciated. Thank you for providing excellent service and ensuring a smooth
+                            transaction. I am delighted with my purchase and look forward to future interactions
+                            with your company.
+                        </p>
                     </header>
 
                     <main>
                         <div>
-                            <table className={cx('table table-hover')}>
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Product</th>
-                                        <th scope="col">Quantity</th>
-                                        <th scope="col">Total</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {dataCart?.map((item) =>
-                                        item?.products?.map((item2) => (
-                                            <tr key={item2?._id}>
-                                                <td>{item2?.nameProduct}</td>
-                                                <td>x {item2?.quantity}</td>
-                                                <td>$ {item2.price?.toLocaleString()}</td>
+                            {latestOrder ? (
+                                <table className={cx('table table-hover')}>
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Product</th>
+                                            <th scope="col">Quantity</th>
+                                            <th scope="col">Price</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {latestOrder.products?.map((item) => (
+                                            <tr key={item._id}>
+                                                <td>{item.nameProduct}</td>
+                                                <td>x {item.quantity}</td>
+                                                <td>${item.price?.toLocaleString()}</td>
                                             </tr>
-                                        )),
-                                    )}
-                                </tbody>
-
-                                <tbody>
-                                    <tr>
-                                        <td>Sub Total</td>
-                                        <td></td>
-                                        {dataCart?.map((item) => (
-                                            <td key={item._id}>${item.sumPrice.toLocaleString()} </td>
                                         ))}
-                                    </tr>
-                                </tbody>
-                            </table>
+                                        <tr>
+                                            <td><strong>Total</strong></td>
+                                            <td></td>
+                                            <td><strong>${latestOrder.sumPrice?.toLocaleString()}</strong></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Payment</td>
+                                            <td></td>
+                                            <td>{latestOrder.statusPayment ? 'Đã thanh toán (VNPay)' : 'Thanh toán khi nhận hàng (COD)'}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            ) : (
+                                <p style={{ textAlign: 'center', color: '#888' }}>Đang tải thông tin đơn hàng...</p>
+                            )}
                         </div>
                     </main>
                 </div>

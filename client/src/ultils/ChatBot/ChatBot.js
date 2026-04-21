@@ -1,15 +1,10 @@
 import classNames from 'classnames/bind';
 import styles from './ChatBot.module.scss';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import io from 'socket.io-client';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
-
-const socket = io('http://localhost:5000', {
-    withCredentials: true,
-    transports: ['websocket'],
-});
 
 const cx = classNames.bind(styles);
 
@@ -17,23 +12,29 @@ function ChatBot() {
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
     const [checkChatBot, setCheckChatBot] = useState(false);
+    const socketRef = useRef(null);
 
     useEffect(() => {
-        if (checkChatBot === true) {
-            socket.on('message', (message) => {
-                setMessages((prevMessages) => [...prevMessages, message]);
+        if (checkChatBot) {
+            socketRef.current = io('http://localhost:5000', {
+                withCredentials: true,
+            });
+
+            socketRef.current.on('message', (msg) => {
+                setMessages((prev) => [...prev, msg]);
             });
 
             return () => {
-                socket.off('message');
+                socketRef.current.disconnect();
+                socketRef.current = null;
             };
         }
     }, [checkChatBot]);
 
     const sendMessage = (e) => {
         e.preventDefault();
-        if (message.trim() !== '') {
-            socket.emit('sendMessage', message);
+        if (message.trim() !== '' && socketRef.current) {
+            socketRef.current.emit('sendMessage', message);
             setMessage('');
         }
     };

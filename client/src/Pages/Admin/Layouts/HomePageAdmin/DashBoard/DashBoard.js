@@ -39,16 +39,17 @@ function Dashboard() {
         }
     });
 
-    // Dummy chart data (in real app, group orders by date)
-    const chartData = [
-        { name: 'Mon', Revenue: 4000 },
-        { name: 'Tue', Revenue: 3000 },
-        { name: 'Wed', Revenue: 5000 },
-        { name: 'Thu', Revenue: 2780 },
-        { name: 'Fri', Revenue: 6890 },
-        { name: 'Sat', Revenue: 2390 },
-        { name: 'Sun', Revenue: 3490 },
-    ];
+    // Revenue Last 7 Days — group orders by date
+    const chartData = Array.from({ length: 7 }, (_, i) => {
+        const date = new Date();
+        date.setDate(date.getDate() - (6 - i));
+        const dateStr = date.toISOString().split('T')[0];
+        const label = date.toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit' });
+        const revenue = dataOrders
+            .filter(order => order.created_at && new Date(order.created_at).toISOString().split('T')[0] === dateStr)
+            .reduce((sum, order) => sum + (order.sumPrice || 0), 0);
+        return { name: label, Revenue: revenue };
+    });
 
     return (
         <div className={cx('wrapper')}>

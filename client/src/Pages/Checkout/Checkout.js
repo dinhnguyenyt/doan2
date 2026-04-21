@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loading from '../../Layouts/Loading/Loading';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
@@ -112,11 +112,18 @@ function Checkout() {
         } else if (!dataCart) {
             toast.error('Please Return to Purchase Page !!!');
         } else {
-            request.post('/api/payment', { 
-                dataAddress, 
-                couponCode: discountPercent > 0 ? couponCode : '' 
-            }).then((res) => console.log(res.data));
-            navigate('/thanks');
+            try {
+                setIsLoading(true);
+                await request.post('/api/payment', {
+                    dataAddress,
+                    couponCode: discountPercent > 0 ? couponCode : ''
+                });
+                setIsLoading(false);
+                navigate('/thanks');
+            } catch (error) {
+                setIsLoading(false);
+                toast.error(error.response?.data?.message || 'Đã xảy ra lỗi khi thanh toán');
+            }
         }
     };
 
@@ -310,9 +317,7 @@ function Checkout() {
 
                                 <div className={cx('continue')}>
                                     <button onClick={handlePayment}>
-                                        <Link style={{ textDecoration: 'none', color: 'white' }} to="/thanks">
-                                            <span>Payment on delivery</span>
-                                        </Link>
+                                        <span>Payment on delivery</span>
                                     </button>
                                 </div>
                             </div>

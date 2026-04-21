@@ -41,22 +41,22 @@ function Contact() {
             <div className={cx('inner')}>
                 <div className={cx('column-left')}>
                     <h1>Get In Touch</h1>
-                    <div class="form-floating">
+                    <div className="form-floating">
                         <textarea
-                            class="form-control"
+                            className="form-control"
                             placeholder="Leave a comment here"
                             id="floatingTextarea2"
                             style={{ height: '100px' }}
                             onChange={(e) => setMessage(e.target.value)}
                         ></textarea>
-                        <label for="floatingTextarea2">Enter message</label>
+                        <label htmlFor="floatingTextarea2">Enter message</label>
                     </div>
 
                     <div>
-                        <div class="input-group mb-3">
+                        <div className="input-group mb-3">
                             <input
                                 type="text"
-                                class="form-control"
+                                className="form-control"
                                 placeholder="Email"
                                 onChange={(e) => setEmail(e.target.value)}
                             />

@@ -16,12 +16,6 @@ const cx = classNames.bind(styles);
         const [imgProduct, setImgProduct] = useState('');
         const [priceProduct, setPriceProduct] = useState(Number);
         const [desProduct, setDesProduct] = useState('');
-
-        const [check1, setCheck1] = useState(false);
-        const [check2, setCheck2] = useState(false);
-        const [check3, setCheck3] = useState(false);
-        const [check4, setCheck4] = useState(false);
-        
         const [categoryId, setCategoryId] = useState('');
         const [stockQuantity, setStockQuantity] = useState(100);
         const [categories, setCategories] = useState([]);
@@ -37,15 +31,8 @@ const cx = classNames.bind(styles);
         }, [show]);
 
         const handleAddProduct = async () => {
-            const checkProduct = check1
-                ? 'perfume'
-                : '' || check2
-                ? 'scentedCandles'
-                : '' || check3
-                ? 'shoe'
-                : '' || check4
-                ? 'lipstick'
-                : '';
+            const selectedCategory = categories.find((c) => c._id === categoryId);
+            const checkProduct = selectedCategory ? selectedCategory.name : '';
             try {
                 const res = await request.post('/api/addproduct', {
                     nameProduct,
@@ -81,9 +68,25 @@ const cx = classNames.bind(styles);
                             <input type="text" className="form-control" onChange={(e) => setNameProduct(e.target.value)} />
                         </div>
 
-                        <div className="input-group mb-3">
-                            <span className="input-group-text" id="basic-addon1">Img Product</span>
-                            <input type="text" className="form-control" onChange={(e) => setImgProduct(e.target.value)} />
+                        <div className="mb-3">
+                            <div className="input-group">
+                                <span className="input-group-text" id="basic-addon1">Img Product</span>
+                                <input type="text" className="form-control" placeholder="Nhập URL ảnh..." onChange={(e) => setImgProduct(e.target.value)} />
+                            </div>
+                            {imgProduct && (
+                                <div className="mt-2 text-center">
+                                    <img
+                                        src={imgProduct}
+                                        alt="preview"
+                                        style={{ maxWidth: '100%', maxHeight: '180px', objectFit: 'contain', border: '1px solid #dee2e6', borderRadius: '6px', padding: '4px' }}
+                                        onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'block'; }}
+                                        onLoad={(e) => { e.target.style.display = 'block'; e.target.nextSibling.style.display = 'none'; }}
+                                    />
+                                    <div style={{ display: 'none', color: '#dc3545', fontSize: '13px', marginTop: '4px' }}>
+                                        ⚠️ Không tải được ảnh — link bị chặn hoặc không hợp lệ
+                                    </div>
+                                </div>
+                            )}
                         </div>
 
                         <div className="input-group mb-3">
@@ -101,27 +104,6 @@ const cx = classNames.bind(styles);
                             <input type="text" className="form-control" onChange={(e) => setDesProduct(e.target.value)} />
                         </div>
 
-                        <div className={cx('option')}>
-                            <div className={cx('form-checkbox')}>
-                                <label>Perfume</label>
-                                <input type="checkbox" onChange={(e) => setCheck1(e.target.checked)} />
-                            </div>
-
-                            <div className={cx('form-checkbox')}>
-                                <label>Scented candles</label>
-                                <input type="checkbox" onChange={(e) => setCheck2(e.target.checked)} />
-                            </div>
-
-                            <div className={cx('form-checkbox')}>
-                                <label>Shoe</label>
-                                <input type="checkbox" onChange={(e) => setCheck3(e.target.checked)} />
-                            </div>
-
-                            <div className={cx('form-checkbox')}>
-                                <label>Lipstick</label>
-                                <input type="checkbox" onChange={(e) => setCheck4(e.target.checked)} />
-                            </div>
-                        </div>
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={handleClose}>Đóng</Button>
@@ -172,16 +154,31 @@ export function ModalEditProduct({ setShowModalEdit, showModalEdit, idProduct })
     const [categoryId, setCategoryId] = useState('');
     const [stockQuantity, setStockQuantity] = useState(100);
     const [categories, setCategories] = useState([]);
+    const [auditInfo, setAuditInfo] = useState({});
     const { useEffect } = require('react');
 
     useEffect(() => {
-        if (showModalEdit) {
-            request.get('/api/categories').then((res) => {
-                setCategories(res.data);
+        if (showModalEdit && idProduct) {
+            request.get('/api/categories').then((res) => setCategories(res.data));
+            request.get(`/api/product/${idProduct}`).then((res) => {
+                const p = res.data;
+                if (p) {
+                    setNameProduct(p.nameProducts || '');
+                    setImgProduct(p.img || '');
+                    setPriceProduct(p.priceNew || '');
+                    setDesProduct(p.des || '');
+                    setCategoryId(p.category_id || '');
+                    setStockQuantity(p.stock_quantity ?? 100);
+                    setAuditInfo({
+                        created_by: p.created_by,
+                        created_at: p.created_at,
+                        modified_by: p.modified_by,
+                        modified_at: p.modified_at,
+                    });
+                }
             });
-            // Tạm thời nếu làm thực tế thì nên có API get product by id để load dữ liệu cũ lên
         }
-    }, [showModalEdit]);
+    }, [showModalEdit, idProduct]);
 
     const handleEditProduct = async () => {
         try {
@@ -215,26 +212,57 @@ export function ModalEditProduct({ setShowModalEdit, showModalEdit, idProduct })
                     </div>
 
                     <div className="input-group mb-3">
-                        <span className="input-group-text" id="basic-addon1">Name Product</span>
-                        <input type="text" className="form-control" onChange={(e) => setNameProduct(e.target.value)} />
+                        <span className="input-group-text">Name Product</span>
+                        <input type="text" className="form-control" value={nameProduct} onChange={(e) => setNameProduct(e.target.value)} />
+                    </div>
+                    <div className="mb-3">
+                        <div className="input-group">
+                            <span className="input-group-text">Img Product</span>
+                            <input type="text" className="form-control" placeholder="Nhập URL ảnh..." value={imgProduct} onChange={(e) => setImgProduct(e.target.value)} />
+                        </div>
+                        {imgProduct && (
+                            <div className="mt-2 text-center">
+                                <img
+                                    src={imgProduct}
+                                    alt="preview"
+                                    style={{ maxWidth: '100%', maxHeight: '180px', objectFit: 'contain', border: '1px solid #dee2e6', borderRadius: '6px', padding: '4px' }}
+                                    onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'block'; }}
+                                    onLoad={(e) => { e.target.style.display = 'block'; e.target.nextSibling.style.display = 'none'; }}
+                                />
+                                <div style={{ display: 'none', color: '#dc3545', fontSize: '13px', marginTop: '4px' }}>
+                                    ⚠️ Không tải được ảnh — link bị chặn hoặc không hợp lệ
+                                </div>
+                            </div>
+                        )}
                     </div>
                     <div className="input-group mb-3">
-                        <span className="input-group-text" id="basic-addon1">Img Product</span>
-                        <input type="text" className="form-control" onChange={(e) => setImgProduct(e.target.value)} />
+                        <span className="input-group-text">Price Product</span>
+                        <input type="number" className="form-control" value={priceProduct} onChange={(e) => setPriceProduct(e.target.value)} />
                     </div>
                     <div className="input-group mb-3">
-                        <span className="input-group-text" id="basic-addon1">Price Product</span>
-                        <input type="number" className="form-control" onChange={(e) => setPriceProduct(e.target.value)} />
-                    </div>
-                    
-                    <div className="input-group mb-3">
-                        <span className="input-group-text" id="basic-addon1">Stock Quantity</span>
+                        <span className="input-group-text">Stock Quantity</span>
                         <input type="number" className="form-control" value={stockQuantity} onChange={(e) => setStockQuantity(e.target.value)} />
                     </div>
-
                     <div className="input-group mb-3">
-                        <span className="input-group-text" id="basic-addon1">Description Product</span>
-                        <input type="text" className="form-control" onChange={(e) => setDesProduct(e.target.value)} />
+                        <span className="input-group-text">Description Product</span>
+                        <input type="text" className="form-control" value={desProduct} onChange={(e) => setDesProduct(e.target.value)} />
+                    </div>
+                    <div className="mt-3 p-3 bg-light border rounded">
+                        <h6 className="mb-2">Thông tin hệ thống</h6>
+                        <div className="row">
+                            <div className="col-md-6 mb-1">
+                                <small className="text-muted text-break"><strong>Ngày tạo:</strong> {auditInfo.created_at ? new Date(auditInfo.created_at).toLocaleString('vi-VN') : '-'}</small>
+                            </div>
+                            <div className="col-md-6 mb-1">
+                                <small className="text-muted text-break"><strong>Người tạo:</strong> {auditInfo.created_by || '-'}</small>
+                            </div>
+                            <div className="col-md-6 mb-1">
+                                <small className="text-muted text-break"><strong>Ngày sửa:</strong> {auditInfo.modified_at ? new Date(auditInfo.modified_at).toLocaleString('vi-VN') : '-'}</small>
+                            </div>
+                            <div className="col-md-6 mb-1">
+                                <small className="text-muted text-break"><strong>Người sửa:</strong> {auditInfo.modified_by || '-'}</small>
+                            </div>
+                        </div>
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
@@ -345,39 +373,82 @@ export function CheckProduct({ show, setShow, idProduct }) {
 
 export function ModalEditOrder({ show, setShow, id }) {
     const handleClose = () => setShow(false);
+    const [orderData, setOrderData] = useState(null);
+    const [statusOrder, setStatusOrder] = useState(false);
+    const [statusPayment, setStatusPayment] = useState(false);
+    const { useEffect } = require('react');
 
-    const [valueTest, setValueTest] = useState('0');
+    useEffect(() => {
+        if (show && id) {
+            request.get(`/api/order/${id}`).then((res) => {
+                const data = res.data;
+                setOrderData(data);
+                setStatusOrder(data?.statusOrder || false);
+                setStatusPayment(data?.statusPayment || false);
+            });
+        }
+    }, [show, id]);
 
     const handleEditOrder = () => {
-        request.post('/api/editorder', { valueTest, id }).then((res) => {
+        request.post('/api/editorder', { id, statusOrder, statusPayment }).then((res) => {
             toast.success(res.data.message);
+            handleClose();
         });
     };
 
     return (
         <>
-            <Modal show={show} onHide={handleClose}>
+            <Modal show={show} onHide={handleClose} centered>
                 <Modal.Header closeButton>
-                    <Modal.Title>Chỉnh Sửa Đặt Đơn </Modal.Title>
+                    <Modal.Title>Chỉnh Sửa Đơn Hàng</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <select
-                        onChange={(e) => setValueTest(e.target.value)}
-                        className="form-select"
-                        aria-label="Default select example"
-                    >
-                        <option selected>Trạng Thái Đơn Hàng</option>
-                        <option value="1">Đang Vận Chuyển</option>
-                        <option value="2">Đã Giao Hàng</option>
-                    </select>
+                    {orderData && (
+                        <div className="mb-3 p-3 bg-light border rounded">
+                            <div className="mb-1"><strong>Mã đơn:</strong> <span className="text-muted" style={{ fontSize: '0.85em' }}>{orderData._id}</span></div>
+                            <div className="mb-1"><strong>Email:</strong> {orderData.email}</div>
+                            <div className="mb-1"><strong>Tổng tiền:</strong> ${orderData.sumPrice?.toLocaleString() || 0}</div>
+                            <div className="mb-1">
+                                <strong>Phương thức TT:</strong>{' '}
+                                {orderData.statusPayment
+                                    ? <span className="badge bg-info">VNPay</span>
+                                    : <span className="badge bg-secondary">COD</span>}
+                            </div>
+                        </div>
+                    )}
+
+                    <div className="mb-3">
+                        <label className="form-label fw-bold">Trạng thái giao hàng</label>
+                        <select
+                            value={statusOrder ? '2' : '1'}
+                            onChange={(e) => setStatusOrder(e.target.value === '2')}
+                            className="form-select"
+                        >
+                            <option value="1">Đang vận chuyển</option>
+                            <option value="2">Đã giao hàng</option>
+                        </select>
+                    </div>
+
+                    <div className="mb-3">
+                        <label className="form-label fw-bold">Trạng thái thanh toán</label>
+                        <div
+                            className={`form-select d-flex align-items-center justify-content-between ${statusPayment ? 'text-success' : 'text-danger'}`}
+                            style={{ cursor: 'pointer', userSelect: 'none' }}
+                            onClick={() => setStatusPayment(!statusPayment)}
+                        >
+                            <span>{statusPayment ? '✓ Đã thanh toán' : '✗ Chưa thanh toán'}</span>
+                            <span className={`badge ${statusPayment ? 'bg-success' : 'bg-danger'}`}>
+                                {statusPayment ? 'ON' : 'OFF'}
+                            </span>
+                        </div>
+                        {!orderData?.statusPayment && statusPayment && (
+                            <small className="text-muted mt-1 d-block">Xác nhận khách đã thanh toán tiền mặt (COD)</small>
+                        )}
+                    </div>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                        Đóng
-                    </Button>
-                    <Button variant="primary" onClick={handleEditOrder}>
-                        Lưu lại
-                    </Button>
+                    <Button variant="secondary" onClick={handleClose}>Đóng</Button>
+                    <Button variant="primary" onClick={handleEditOrder}>Lưu lại</Button>
                 </Modal.Footer>
             </Modal>
         </>

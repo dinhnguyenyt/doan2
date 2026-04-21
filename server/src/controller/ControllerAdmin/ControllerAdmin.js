@@ -30,10 +30,11 @@ class ControllerAdmin {
 
     async UpdateUserRole(req, res) {
         const { userId, role } = req.body;
+        const decoded = jwtDecode(req.cookies.Token);
         try {
             const updatedUser = await ModelUser.findByIdAndUpdate(
                 userId,
-                { role: role },
+                { role, modified_by: decoded.email, modified_at: new Date() },
                 { new: true }
             );
             if (!updatedUser) {
@@ -48,15 +49,17 @@ class ControllerAdmin {
 
     async EditUser(req, res) {
         const { userId, fullname, email, phone, surplus } = req.body;
+        const decoded = jwtDecode(req.cookies.Token);
         try {
             const updatedUser = await ModelUser.findByIdAndUpdate(
                 userId,
-                { 
-                    fullname, 
-                    email, 
-                    phone, 
+                {
+                    fullname,
+                    email,
+                    phone,
                     surplus: surplus ? Number(surplus) : 0,
-                    modified_at: new Date()
+                    modified_by: decoded.email,
+                    modified_at: new Date(),
                 },
                 { new: true }
             );
@@ -88,7 +91,8 @@ class ControllerAdmin {
     }
 
     async AddProduct(req, res) {
-        const { nameProduct, imgProduct, priceProduct, desProduct, checkProduct, category_id, stock_quantity } = req.body; //
+        const { nameProduct, imgProduct, priceProduct, desProduct, checkProduct, category_id, stock_quantity } = req.body;
+        const decoded = jwtDecode(req.cookies.Token);
         try {
             let dataProduct = await ModelProducts.findOne({}).sort({ id: 'desc' }).exec();
 
@@ -106,6 +110,8 @@ class ControllerAdmin {
                 checkProducts: checkProduct,
                 category_id: category_id || null,
                 stock_quantity: stock_quantity || 100,
+                created_by: decoded.email,
+                created_at: new Date(),
             });
 
             await newProduct.save();
@@ -124,6 +130,7 @@ class ControllerAdmin {
 
     async EditProduct(req, res) {
         const { nameProduct, imgProduct, priceProduct, desProduct, category_id, stock_quantity } = req.body;
+        const decoded = jwtDecode(req.cookies.Token);
 
         ModelProducts.findOne({ id: req.body.id }).then((dataProduct) => {
             if (dataProduct) {
@@ -135,6 +142,8 @@ class ControllerAdmin {
                         des: desProduct || dataProduct.des,
                         category_id: category_id || dataProduct.category_id,
                         stock_quantity: stock_quantity !== undefined ? stock_quantity : dataProduct.stock_quantity,
+                        modified_by: decoded.email,
+                        modified_at: new Date(),
                     })
                     .then();
                 return res.status(200).json({ message: 'Sửa Thành Công !!!' });
@@ -176,11 +185,16 @@ class ControllerAdmin {
 
     async EditOrder(req, res) {
         const ModelOrder = require('../../model/ModelOrder');
-        ModelOrder.findOne({ _id: req.body.id }).then((data) => {
+        const decoded = jwtDecode(req.cookies.Token);
+        const { id, statusOrder, statusPayment } = req.body;
+        ModelOrder.findOne({ _id: id }).then((data) => {
             if (data) {
-                data.updateOne({ statusOrder: true }).then((data) =>
-                    res.status(200).json({ message: 'Chỉnh Sửa Thành Công !!!' }),
-                );
+                data.updateOne({
+                    statusOrder: statusOrder !== undefined ? statusOrder : data.statusOrder,
+                    statusPayment: statusPayment !== undefined ? statusPayment : data.statusPayment,
+                    modified_by: decoded.email,
+                    modified_at: new Date(),
+                }).then(() => res.status(200).json({ message: 'Chỉnh Sửa Thành Công !!!' }));
             }
         });
     }

@@ -12,62 +12,28 @@ import { useEffect, useState } from 'react';
 const cx = classNames.bind(styles);
 
 function DefaultPage() {
-    const [valueType, setValueType] = useState(''); 
+    const [valueType, setValueType] = useState('');
+    const [searchValue, setSearchValue] = useState('');
+    const [allProducts, setAllProducts] = useState([]);
     const [dataProducts, setDataProducts] = useState([]);
     const [valueMax, setValueMax] = useState(1000000);
     const [valueMin, setValueMin] = useState(0);
 
-
-    const perPage = 6;
-    const [totalPages, setTotalPages] = useState(0);
-    const [setCurrentPage] = useState(0);
+    useEffect(() => {
+        request.get('/api/products').then((res) => {
+            setAllProducts(res.data);
+        });
+    }, []);
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await request.get('/api/products');
-                const totalItems = response.data.length;
-                const calculatedTotalPages = Math.ceil(totalItems / perPage);
-                
-                setDataProducts(
-                    response.data
-                        .filter(
-                            (item) =>valueType === '' || (item.checkProducts === valueType ),)
-                       
-                );
-              
-                setTotalPages(calculatedTotalPages);
-               
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
-        };
-
-        fetchData();
-    }, [valueType ]);
-
-  
-
-    const handlePageChange = async (selectedPage) => {
-        try {
-            const response = await request.get('/api/products');
-            setDataProducts(
-                response.data
-                    .filter(
-                        (item) =>
-                            valueType === '' ||
-                            (item.checkProducts === valueType ),
-                    )
-            );
-            setCurrentPage(selectedPage);
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
-    };
-
-    function checkProducts(data) {
-        return data.checkProducts === valueType;
-    }
+        const filtered = allProducts.filter((item) => {
+            const matchCategory = valueType === '' || String(item.category_id) === valueType;
+            const matchSearch = searchValue === '' || item.nameProducts?.toLowerCase().includes(searchValue.toLowerCase());
+            const matchPrice = item.priceNew >= valueMin && item.priceNew <= valueMax;
+            return matchCategory && matchSearch && matchPrice;
+        });
+        setDataProducts(filtered);
+    }, [valueType, searchValue, valueMin, valueMax, allProducts]);
 
     return (
         <div className={cx('wrapper')}>
@@ -84,7 +50,7 @@ function DefaultPage() {
                     <div>
                         <SlideBar
                             setValueType={setValueType}
-                            dataProducts={dataProducts}
+                            setSearchValue={setSearchValue}
                             valueMax={valueMax}
                             setValueMax={setValueMax}
                             valueMin={valueMin}
@@ -95,12 +61,9 @@ function DefaultPage() {
                     <div>
                         <HomePage
                             dataProducts={dataProducts}
-                            checkProducts={checkProducts}
                             valueType={valueType}
                             valueMax={valueMax}
                             valueMin={valueMin}
-                            totalPages={totalPages}
-                            handlePageChange={handlePageChange}
                         />
                     </div>
                 </div>

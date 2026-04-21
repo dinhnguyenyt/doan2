@@ -28,8 +28,10 @@ function ProductDetail() {
     };
 
     useEffect(() => {
-        request.get('/api/comment').then((res) => setDataComments(res.data));
-    }, []);
+        if (dataProducts?._id) {
+            request.get('/api/comment', { params: { product_id: dataProducts._id } }).then((res) => setDataComments(res.data));
+        }
+    }, [dataProducts?._id]);
 
     useEffect(() => {
         request
@@ -43,9 +45,10 @@ function ProductDetail() {
         if (e.keyCode === 13) {
             const res = await request.post('/api/postcomment', {
                 comment,
+                product_id: dataProducts?._id,
             });
             if (res.data) {
-                request.get('/api/comment').then((res) => setDataComments(res.data));
+                request.get('/api/comment', { params: { product_id: dataProducts?._id } }).then((res) => setDataComments(res.data));
                 setComment('');
                 setRating(0);
             }
