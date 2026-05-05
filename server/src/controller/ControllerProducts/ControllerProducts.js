@@ -5,12 +5,25 @@ const { jwtDecode } = require('jwt-decode');
 
 require('dotenv').config();
 
+const { getAllDescendantIds } = require('../ControllerCategory/ControllerCategory');
+const ModelCategory = require('../../model/ModelCategory');
+
 class ControllerProducts {
-    GetProducts(req, res) {
-        ModelProducts.find({}).then((dataProducts) => {
-            const newdataProducts = dataProducts.sort((a, b) => a.priceNew - b.priceNew);
-            return res.status(200).json(newdataProducts);
-        });
+    async GetProducts(req, res) {
+        try {
+            const { category_id } = req.query;
+            let filter = {};
+            if (category_id) {
+                const allCats = await ModelCategory.find({}).lean();
+                const descendantIds = getAllDescendantIds(category_id, allCats);
+                const ids = [category_id, ...descendantIds];
+                filter = { category_id: { $in: ids } };
+            }
+            const dataProducts = await ModelProducts.find(filter);
+            return res.status(200).json(dataProducts.sort((a, b) => a.priceNew - b.priceNew));
+        } catch (err) {
+            return res.status(500).json({ message: 'Internal Server Error' });
+        }
     }
     GetOneProduct(req, res) {
         const id = req.query.id;

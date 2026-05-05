@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const ControllerUser = require('../controller/ControllerUser/ControllerUser');
+const ControllerWishlist = require('../controller/ControllerWishlist/ControllerWishlist');
 var multer = require('multer');
 const path = require('path');
 const upload = multer({
@@ -27,5 +28,7 @@ router.post('/api/avatar', upload.single('avatar'), ControllerUser.ChangeAvatar)
 router.get('/api/comment', ControllerUser.GetCommentProduct);
 router.post('/api/postcomment', ControllerUser.PostComments);
 router.get('/api/dataorder', ControllerUser.GetOrder);
+router.post('/api/wishlist/toggle', ControllerWishlist.Toggle);
+router.get('/api/wishlist/check', ControllerWishlist.CheckLiked);
 
 module.exports = router;

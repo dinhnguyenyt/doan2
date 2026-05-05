@@ -164,28 +164,43 @@ function Products({
                     {productDetail && (
                         <div className="row">
                             <div className="col-md-5 text-center">
-                                <img src={productDetail.img} alt={productDetail.nameProducts} style={{ width: '100%', maxWidth: '250px', borderRadius: '8px' }} />
+                                <img src={productDetail.img} alt={productDetail.nameProducts} style={{ width: '100%', maxWidth: '250px', borderRadius: '8px', marginBottom: '8px' }} />
+                                {productDetail.images?.length > 0 && (
+                                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px', justifyContent: 'center' }}>
+                                        {productDetail.images.map((url, i) => (
+                                            <img key={i} src={url} alt="" style={{ width: '52px', height: '52px', objectFit: 'cover', borderRadius: '4px', border: '1px solid #dee2e6' }} />
+                                        ))}
+                                    </div>
+                                )}
                             </div>
                             <div className="col-md-7">
                                 <h5>{productDetail.nameProducts}</h5>
-                                <p className="mb-1 text-muted"><strong>ID:</strong> {productDetail.id} | <strong>Danh mục loại:</strong> {productDetail.checkProducts || '-'}</p>
-                                <p className="mb-1 text-muted"><strong>Giá mới:</strong> ${productDetail.priceNew?.toLocaleString() || 0} | <strong>Giá cũ:</strong> ${productDetail.priceOld?.toLocaleString() || '-'}</p>
+                                <p className="mb-1 text-muted"><strong>ID:</strong> {productDetail.id} | <strong>Danh mục:</strong> {productDetail.checkProducts || '-'}</p>
+                                <p className="mb-1 text-muted"><strong>Giá mới:</strong> {productDetail.priceNew?.toLocaleString() || 0} VNĐ | <strong>Giá cũ:</strong> {productDetail.priceOld?.toLocaleString() || '-'}</p>
                                 <p className="mb-1 text-muted"><strong>Mô tả:</strong> {productDetail.des || '-'}</p>
-                                <div className="mt-4 p-3 bg-light border rounded">
-                                    <h6>Thông tin hệ thống</h6>
+
+                                <div className="row mt-2">
+                                    <div className="col-6">
+                                        <small className="text-muted">⭐ <strong>{productDetail.rating_avg || 0}</strong> ({productDetail.rating_count || 0} đánh giá)</small>
+                                    </div>
+                                    <div className="col-6">
+                                        <small className="text-muted">❤️ <strong>{productDetail.like_count || 0}</strong> lượt thích</small>
+                                    </div>
+                                </div>
+
+                                <div className="mt-2 p-2 bg-light border rounded">
+                                    <small className="d-block"><strong>Vận chuyển:</strong> {productDetail.free_shipping ? '✅ Miễn phí' : (productDetail.shipping_note || 'Không miễn phí')}</small>
+                                    <small className="d-block"><strong>Đổi trả:</strong> {productDetail.return_days || 0} ngày miễn phí</small>
+                                    <small className="d-block"><strong>Bảo hiểm TT:</strong> {productDetail.has_fashion_insurance ? '✅ Có' : 'Không'}</small>
+                                </div>
+
+                                <div className="mt-3 p-2 bg-light border rounded">
+                                    <h6 className="mb-1">Thông tin hệ thống</h6>
                                     <div className="row">
-                                        <div className="col-md-6 mb-2">
-                                            <small className="text-muted text-break"><strong>Ngày tạo:</strong> {formatDateString(productDetail.created_at)}</small>
-                                        </div>
-                                        <div className="col-md-6 mb-2">
-                                            <small className="text-muted text-break"><strong>Người tạo:</strong> {productDetail.created_by || '-'}</small>
-                                        </div>
-                                        <div className="col-md-6 mb-2">
-                                            <small className="text-muted text-break"><strong>Ngày sửa:</strong> {formatDateString(productDetail.modified_at)}</small>
-                                        </div>
-                                        <div className="col-md-6 mb-2">
-                                            <small className="text-muted text-break"><strong>Người sửa:</strong> {productDetail.modified_by || '-'}</small>
-                                        </div>
+                                        <div className="col-md-6 mb-1"><small className="text-muted text-break"><strong>Ngày tạo:</strong> {formatDateString(productDetail.created_at)}</small></div>
+                                        <div className="col-md-6 mb-1"><small className="text-muted text-break"><strong>Người tạo:</strong> {productDetail.created_by || '-'}</small></div>
+                                        <div className="col-md-6 mb-1"><small className="text-muted text-break"><strong>Ngày sửa:</strong> {formatDateString(productDetail.modified_at)}</small></div>
+                                        <div className="col-md-6 mb-1"><small className="text-muted text-break"><strong>Người sửa:</strong> {productDetail.modified_by || '-'}</small></div>
                                     </div>
                                 </div>
                             </div>

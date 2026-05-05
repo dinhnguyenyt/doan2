@@ -45,7 +45,7 @@ class ControllerUser {
             const admin = dataUser.isAdmin;
             const role = dataUser.role || (admin ? 'admin' : 'user'); // Lấy role từ DB hoặc fallback
             const token = jwt.sign({ email, admin, role }, process.env.JWT_SECRET, { expiresIn: process.env.EXPIRES_IN });
-            res.setHeader('Set-Cookie', `Token=${token}  ; max-age=3600 ;path=/`).json({
+            res.setHeader('Set-Cookie', `Token=${token}; max-age=3600; path=/`).json({
                 message: 'Đăng Nhập Thành Công !!!',
                 role: role // Trả về role cho client dễ dàng lưu vào Redux
             });
@@ -171,7 +171,7 @@ class ControllerUser {
             .then((dataComments) => res.status(200).json(dataComments));
     }
     async PostComments(req, res) {
-        const { comment, product_id, blog_id } = req.body;
+        const { comment, product_id, blog_id, rating } = req.body;
         try {
             const token = req.cookies.Token;
             if (!token) return res.status(401).json({ message: 'Bạn cần đăng nhập để bình luận' });
@@ -184,8 +184,18 @@ class ControllerUser {
                 product_id: product_id || null,
                 blog_id: blog_id || null,
                 comments: comment,
+                rating: rating ? Number(rating) : null,
             });
             await newComments.save();
+
+            if (product_id && rating) {
+                const ModelProducts = require('../../model/ModelProducts');
+                const allRatings = await ModelComments.find({ product_id, rating: { $ne: null } });
+                const total = allRatings.reduce((sum, c) => sum + c.rating, 0);
+                const avg = Math.round((total / allRatings.length) * 10) / 10;
+                await ModelProducts.updateOne({ _id: product_id }, { rating_avg: avg, rating_count: allRatings.length });
+            }
+
             return res.status(200).json({ message: 'Success' });
         } catch (err) {
             console.error(err);

@@ -14,26 +14,26 @@ const cx = classNames.bind(styles);
 function DefaultPage() {
     const [valueType, setValueType] = useState('');
     const [searchValue, setSearchValue] = useState('');
-    const [allProducts, setAllProducts] = useState([]);
+    const [serverProducts, setServerProducts] = useState([]);
     const [dataProducts, setDataProducts] = useState([]);
     const [valueMax, setValueMax] = useState(1000000);
     const [valueMin, setValueMin] = useState(0);
 
     useEffect(() => {
-        request.get('/api/products').then((res) => {
-            setAllProducts(res.data);
+        const params = valueType ? { category_id: valueType } : {};
+        request.get('/api/products', { params }).then((res) => {
+            setServerProducts(res.data);
         });
-    }, []);
+    }, [valueType]);
 
     useEffect(() => {
-        const filtered = allProducts.filter((item) => {
-            const matchCategory = valueType === '' || String(item.category_id) === valueType;
+        const filtered = serverProducts.filter((item) => {
             const matchSearch = searchValue === '' || item.nameProducts?.toLowerCase().includes(searchValue.toLowerCase());
             const matchPrice = item.priceNew >= valueMin && item.priceNew <= valueMax;
-            return matchCategory && matchSearch && matchPrice;
+            return matchSearch && matchPrice;
         });
         setDataProducts(filtered);
-    }, [valueType, searchValue, valueMin, valueMax, allProducts]);
+    }, [searchValue, valueMin, valueMax, serverProducts]);
 
     return (
         <div className={cx('wrapper')}>

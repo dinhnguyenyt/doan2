@@ -91,7 +91,7 @@ class ControllerAdmin {
     }
 
     async AddProduct(req, res) {
-        const { nameProduct, imgProduct, priceProduct, desProduct, checkProduct, category_id, stock_quantity } = req.body;
+        const { nameProduct, imgProduct, images, priceProduct, desProduct, checkProduct, category_id, stock_quantity, free_shipping, shipping_note, return_days, has_fashion_insurance } = req.body;
         const decoded = jwtDecode(req.cookies.Token);
         try {
             let dataProduct = await ModelProducts.findOne({}).sort({ id: 'desc' }).exec();
@@ -105,11 +105,16 @@ class ControllerAdmin {
                 id: newProductId,
                 nameProducts: nameProduct,
                 img: imgProduct,
+                images: Array.isArray(images) ? images : (images ? images.split(',').map(s => s.trim()).filter(Boolean) : []),
                 priceNew: priceProduct,
                 des: desProduct,
                 checkProducts: checkProduct,
                 category_id: category_id || null,
                 stock_quantity: stock_quantity || 100,
+                free_shipping: free_shipping || false,
+                shipping_note: shipping_note || '',
+                return_days: return_days !== undefined ? Number(return_days) : 15,
+                has_fashion_insurance: has_fashion_insurance || false,
                 created_by: decoded.email,
                 created_at: new Date(),
             });
@@ -129,7 +134,7 @@ class ControllerAdmin {
     }
 
     async EditProduct(req, res) {
-        const { nameProduct, imgProduct, priceProduct, desProduct, category_id, stock_quantity } = req.body;
+        const { nameProduct, imgProduct, images, priceProduct, desProduct, category_id, stock_quantity, free_shipping, shipping_note, return_days, has_fashion_insurance } = req.body;
         const decoded = jwtDecode(req.cookies.Token);
 
         ModelProducts.findOne({ id: req.body.id }).then((dataProduct) => {
@@ -138,10 +143,15 @@ class ControllerAdmin {
                     .updateOne({
                         nameProducts: nameProduct || dataProduct.nameProducts,
                         img: imgProduct || dataProduct.img,
+                        images: images !== undefined ? (Array.isArray(images) ? images : images.split(',').map(s => s.trim()).filter(Boolean)) : dataProduct.images,
                         priceNew: priceProduct || dataProduct.priceNew,
                         des: desProduct || dataProduct.des,
                         category_id: category_id || dataProduct.category_id,
                         stock_quantity: stock_quantity !== undefined ? stock_quantity : dataProduct.stock_quantity,
+                        free_shipping: free_shipping !== undefined ? free_shipping : dataProduct.free_shipping,
+                        shipping_note: shipping_note !== undefined ? shipping_note : dataProduct.shipping_note,
+                        return_days: return_days !== undefined ? Number(return_days) : dataProduct.return_days,
+                        has_fashion_insurance: has_fashion_insurance !== undefined ? has_fashion_insurance : dataProduct.has_fashion_insurance,
                         modified_by: decoded.email,
                         modified_at: new Date(),
                     })

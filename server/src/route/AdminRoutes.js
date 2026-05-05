@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 
 const ControllerAdmin = require('../controller/ControllerAdmin/ControllerAdmin');
-
 const ControllerCategory = require('../controller/ControllerCategory/ControllerCategory');
+const ControllerVariant = require('../controller/ControllerVariant/ControllerVariant');
 
 router.get('/api/auth/me', ControllerAdmin.GetDataAuth);
 
@@ -39,5 +39,11 @@ router.get('/api/order/:id', ControllerAdmin.GetOrderById);
 router.get('/api/coupon/:id', ControllerAdmin.GetCouponById);
 router.get('/api/blog/:id', ControllerAdmin.GetBlogById);
 router.get('/api/customer/:id', ControllerAdmin.GetCustomerById);
+
+// Variants
+router.get('/api/variants/:product_id', ControllerVariant.GetVariants);
+router.post('/api/addvariant', ControllerVariant.AddVariant);
+router.post('/api/editvariant', ControllerVariant.EditVariant);
+router.post('/api/deletevariant', ControllerVariant.DeleteVariant);
 
 module.exports = router;

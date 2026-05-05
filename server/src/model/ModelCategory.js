@@ -5,6 +5,8 @@ const Schema = mongoose.Schema;
 const ModelCategory = new Schema({
     name: { type: String, required: true },
     description: { type: String, default: '' },
+    parent_ids: [{ type: Schema.Types.ObjectId, ref: 'category' }],
+    slug: { type: String, default: '' },
     created_by: { type: String, default: '' },
     created_at: { type: Date, default: Date.now },
     modified_by: { type: String, default: '' },
