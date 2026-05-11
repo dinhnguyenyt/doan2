@@ -83,6 +83,32 @@
     }
 }
 
+.footer-title-link {
+    color: #ffffff;
+    text-decoration: none;
+    &:hover {
+        color: #ff2020;
+    }
+}
+
+.footer-item-link {
+    color: #bbb9b5;
+    text-decoration: none;
+    &:hover {
+        color: #ffffff;
+        text-decoration: underline;
+    }
+}
+
+.copyright {
+    text-align: center;
+    padding: 20px 0;
+    p {
+        color: #666;
+        font-size: 12px;
+    }
+}
+
 @media only screen and (max-width: 600px) {
     .row-1 {
         display: flex;

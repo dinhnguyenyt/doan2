@@ -36,7 +36,7 @@ function Header() {
         } catch (error) {
             console.log(error);
         }
-    }, [debounce]); 
+    }, [debounce, searchValue]);
 
     return (
         <div className={cx('wrapper')}>
@@ -56,11 +56,16 @@ function Header() {
                     {dataSearch.length > 0 && searchValue ? (
                         <div className={cx('result')}>
                             {dataSearch.map((item) => (
-                                <Link to={`/prodetail/${item?.id}`} key={item?._id} id={cx('test')}>
+                                <Link
+                                    to={`/prodetail/${item?.id}`}
+                                    key={item?._id}
+                                    className={cx('result-link')}
+                                    onClick={() => { setSearchValue(''); setDataSearch([]); }}
+                                >
                                     <div className={cx('form-result')}>
-                                        <img id={cx('img-result')} src={item?.img} alt="" />
+                                        <img className={cx('img-result')} src={item?.img} alt="" />
                                         <h5>{item?.nameProducts}</h5>
-                                        <span>{item?.priceNew?.toLocaleString()} đ</span>
+                                        <span>{item?.priceNew?.toLocaleString()} VNĐ</span>
                                     </div>
                                 </Link>
                             ))}

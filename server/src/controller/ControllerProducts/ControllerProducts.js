@@ -1,5 +1,6 @@
 const ModelProducts = require('../../model/ModelProducts');
 const ModelCart = require('../../model/ModelCart');
+const ModelProductVariant = require('../../model/ModelProductVariant');
 
 const { jwtDecode } = require('jwt-decode');
 
@@ -42,10 +43,23 @@ class ControllerProducts {
                 const dataProducts = await ModelProducts.findOne({ id: item.id });
 
                 if (dataProducts) {
+                    let price = dataProducts.priceNew;
+
+                    // Tính giá theo variant nếu có chọn size/color
+                    if (item.size || item.color) {
+                        const filter = { product_id: dataProducts._id };
+                        if (item.size)  filter.size  = item.size;
+                        if (item.color) filter.color = item.color;
+                        const variant = await ModelProductVariant.findOne(filter);
+                        if (variant) price = dataProducts.priceNew + (variant.price_adjustment || 0);
+                    }
+
                     products.push({
                         nameProduct: dataProducts.nameProducts,
                         quantity: item.quantity,
-                        price: dataProducts.priceNew,
+                        price,
+                        size:  item.size  || '',
+                        color: item.color || '',
                     });
                 }
             }

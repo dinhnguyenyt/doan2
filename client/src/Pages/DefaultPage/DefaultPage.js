@@ -5,19 +5,32 @@ import Footer from '../../Layouts/Footer/Footer';
 import Banner from '../Layouts/Banner/Banner';
 import SlideBar from '../Layouts/SlideBar/Slidebar';
 import HomePage from '../Layouts/HomePage/HomePage';
+import CategoryGrid from '../Layouts/CategoryGrid/CategoryGrid';
 import request from '../../config/Connect';
 
 import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
 function DefaultPage() {
-    const [valueType, setValueType] = useState('');
+    const [searchParams] = useSearchParams();
+    const [valueType, setValueType] = useState(searchParams.get('category_id') || '');
     const [searchValue, setSearchValue] = useState('');
     const [serverProducts, setServerProducts] = useState([]);
     const [dataProducts, setDataProducts] = useState([]);
     const [valueMax, setValueMax] = useState(1000000);
     const [valueMin, setValueMin] = useState(0);
+    const [categories, setCategories] = useState([]);
+
+    // Đồng bộ valueType khi URL thay đổi (ví dụ: click link footer trong cùng trang)
+    useEffect(() => {
+        setValueType(searchParams.get('category_id') || '');
+    }, [searchParams]);
+
+    useEffect(() => {
+        request.get('/api/categories').then((res) => setCategories(res.data));
+    }, []);
 
     useEffect(() => {
         const params = valueType ? { category_id: valueType } : {};
@@ -45,7 +58,9 @@ function DefaultPage() {
                 <Banner />
             </div>
 
-            <main className={cx('main-category')}>
+            <CategoryGrid categories={categories} setValueType={setValueType} />
+
+            <main className={cx('main-category')} id="product-list-section">
                 <div className={cx('container')}>
                     <div>
                         <SlideBar

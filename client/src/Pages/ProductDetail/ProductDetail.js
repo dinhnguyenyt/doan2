@@ -9,6 +9,7 @@ import request from '../../config/Connect';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addProduct } from '../../redux/actions';
+import { Link } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
@@ -24,18 +25,20 @@ function StarDisplay({ value, size = 16 }) {
     );
 }
 
+// Trả về mảng các path, mỗi path là [{name, id}, ...]
 function buildAllPaths(catId, allCats, visited = new Set()) {
     if (visited.has(String(catId))) return [];
     const cat = allCats.find((c) => String(c._id) === String(catId));
     if (!cat) return [];
     const newVisited = new Set(visited).add(String(catId));
     const parentIds = cat.parent_ids || [];
-    if (parentIds.length === 0) return [[cat.name]];
+    const node = { name: cat.name, id: cat._id };
+    if (parentIds.length === 0) return [[node]];
     const paths = [];
     for (const pid of parentIds) {
         const parentPaths = buildAllPaths(String(pid), allCats, newVisited);
-        if (parentPaths.length === 0) paths.push([cat.name]);
-        else parentPaths.forEach((pp) => paths.push([...pp, cat.name]));
+        if (parentPaths.length === 0) paths.push([node]);
+        else parentPaths.forEach((pp) => paths.push([...pp, node]));
     }
     return paths;
 }
@@ -50,6 +53,7 @@ function ProductDetail() {
     const [variants, setVariants] = useState([]);
     const [selectedColor, setSelectedColor] = useState('');
     const [selectedSize, setSelectedSize] = useState('');
+    const [displayPrice, setDisplayPrice] = useState(null);
     const [mainImage, setMainImage] = useState('');
     const [liked, setLiked] = useState(false);
     const [categories, setCategories] = useState([]);
@@ -63,6 +67,9 @@ function ProductDetail() {
         request.get('/api/getproduct', { params: { id: idProduct } }).then((res) => {
             setDataProducts(res.data);
             setMainImage(res.data?.img || '');
+            setSelectedSize('');
+            setSelectedColor('');
+            setDisplayPrice(null);
         });
     }, [idProduct]);
 
@@ -77,7 +84,16 @@ function ProductDetail() {
     }, [dataProducts?._id]);
 
     const handleAddProduct = () => {
-        dispatch(addProduct(dataProducts));
+        if (uniqueSizes.length > 0 && !selectedSize) {
+            alert('Vui lòng chọn kích thước trước khi thêm vào giỏ hàng');
+            return;
+        }
+        dispatch(addProduct({
+            ...dataProducts,
+            priceNew: currentPrice,
+            selectedSize:  selectedSize  || '',
+            selectedColor: selectedColor || '',
+        }));
     };
 
     const handleToggleLike = async () => {
@@ -114,10 +130,26 @@ function ProductDetail() {
     };
 
     const uniqueColors = [...new Set(variants.map((v) => v.color).filter(Boolean))];
-    const sizesForColor = selectedColor
-        ? variants.filter((v) => v.color === selectedColor).map((v) => ({ size: v.size, size_note: v.size_note, stock: v.stock_quantity }))
-        : [];
-    const selectedVariant = variants.find((v) => v.color === selectedColor && v.size === selectedSize);
+
+    // Size độc lập: lấy từ tất cả variants, ưu tiên variant khớp màu nếu đã chọn
+    const uniqueSizes = [...new Map(
+        variants.filter((v) => v.size).map((v) => [v.size, {
+            size: v.size,
+            size_note: v.size_note,
+            price_adjustment: v.price_adjustment || 0,
+            stock: variants.filter((sv) => sv.size === v.size).reduce((s, sv) => s + (sv.stock_quantity || 0), 0),
+        }])
+    ).values()];
+
+    const selectedVariant = variants.find((v) => v.color === selectedColor && v.size === selectedSize)
+        || variants.find((v) => v.size === selectedSize);
+
+    const handleSelectSize = (size, priceAdj) => {
+        setSelectedSize(size);
+        setDisplayPrice((dataProducts?.priceNew || 0) + (priceAdj || 0));
+    };
+
+    const currentPrice = displayPrice !== null ? displayPrice : dataProducts?.priceNew;
     const allImages = [dataProducts?.img, ...(dataProducts?.images || [])].filter(Boolean);
 
     return (
@@ -125,6 +157,50 @@ function ProductDetail() {
             <header>
                 <Header />
             </header>
+
+            {/* Thanh danh mục cha */}
+            <div className={cx('category-navbar')}>
+                <div className={cx('category-navbar-inner')}>
+                    {categories
+                        .filter(c => !c.parent_ids || c.parent_ids.length === 0)
+                        .map(cat => (
+                            <Link
+                                key={cat._id}
+                                to={`/category?category_id=${cat._id}`}
+                                className={cx('category-nav-item')}
+                            >
+                                {cat.name}
+                            </Link>
+                        ))
+                    }
+                </div>
+            </div>
+
+            {/* Breadcrumb đường dẫn category sản phẩm */}
+            {dataProducts?.category_id && categories.length > 0 && (() => {
+                const paths = buildAllPaths(dataProducts.category_id, categories);
+                return paths.length > 0 ? (
+                    <div className={cx('breadcrumb-bar')}>
+                        <div className={cx('breadcrumb-inner')}>
+                            {paths.map((parts, pi) => (
+                                <nav key={pi} className={cx('breadcrumb-path')}>
+                                    <Link to="/category" className={cx('breadcrumb-link')}>Trang chủ</Link>
+                                    {parts.map((item, i) => (
+                                        <span key={i} style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                                            <span className={cx('breadcrumb-sep')}>›</span>
+                                            {i === parts.length - 1 ? (
+                                                <span className={cx('breadcrumb-current')}>{item.name}</span>
+                                            ) : (
+                                                <Link to={`/category?category_id=${item.id}`} className={cx('breadcrumb-link')}>{item.name}</Link>
+                                            )}
+                                        </span>
+                                    ))}
+                                </nav>
+                            ))}
+                        </div>
+                    </div>
+                ) : null;
+            })()}
 
             <main className={cx('form-detail')}>
                 <div className={cx('inner-detail')}>
@@ -152,25 +228,6 @@ function ProductDetail() {
 
                         {/* Thông tin sản phẩm */}
                         <div className={cx('features-caption')} style={{ flex: 1, padding: '0 20px' }}>
-                            {/* Breadcrumb danh mục (hỗ trợ nhiều đường dẫn) */}
-                            {dataProducts?.category_id && categories.length > 0 && (() => {
-                                const paths = buildAllPaths(dataProducts.category_id, categories);
-                                return paths.length > 0 ? (
-                                    <div style={{ marginBottom: '8px' }}>
-                                        {paths.map((parts, pi) => (
-                                            <nav key={pi} style={{ fontSize: '13px', color: '#767676', display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '4px' }}>
-                                                <span style={{ color: '#ee4d2d' }}>Trang chủ</span>
-                                                {parts.map((part, i) => (
-                                                    <span key={i} style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                                                        <span style={{ color: '#bbb' }}>›</span>
-                                                        <span style={{ color: i === parts.length - 1 ? '#333' : '#ee4d2d' }}>{part}</span>
-                                                    </span>
-                                                ))}
-                                            </nav>
-                                        ))}
-                                    </div>
-                                ) : null;
-                            })()}
                             <h3 style={{ fontSize: '18px', fontWeight: 600 }}>{dataProducts?.nameProducts}</h3>
 
                             {/* Đánh giá */}
@@ -187,17 +244,22 @@ function ProductDetail() {
                             {/* Giá */}
                             <div style={{ background: '#fafafa', padding: '12px', borderRadius: '4px', margin: '10px 0' }}>
                                 <span style={{ fontSize: '24px', color: '#ee4d2d', fontWeight: 600 }}>
-                                    {dataProducts?.priceNew?.toLocaleString()} VNĐ
+                                    {currentPrice?.toLocaleString()} VNĐ
                                 </span>
                                 {dataProducts?.priceOld > 0 && (
                                     <span style={{ textDecoration: 'line-through', color: '#999', marginLeft: '10px', fontSize: '14px' }}>
                                         {dataProducts?.priceOld?.toLocaleString()} VNĐ
                                     </span>
                                 )}
+                                {selectedSize && (displayPrice - dataProducts?.priceNew) !== 0 && (
+                                    <span style={{ fontSize: '12px', color: '#26aa99', marginLeft: '8px' }}>
+                                        (+{(displayPrice - dataProducts?.priceNew)?.toLocaleString()} VNĐ cho size {selectedSize})
+                                    </span>
+                                )}
                             </div>
 
                             {/* Vận chuyển */}
-                            <div style={{ display: 'flex', gap: '8px', alignItems: 'center', margin: '8px 0', fontSize: '14px' }}>
+                            <div style={{ display: 'flex', gap: '8px', alignItems: 'center', margin: '8px 0', fontSize: '18px' }}>
                                 <span style={{ color: '#767676', minWidth: '90px' }}>Vận chuyển:</span>
                                 {dataProducts?.free_shipping
                                     ? <span style={{ color: '#26aa99' }}>Miễn phí vận chuyển</span>
@@ -229,26 +291,49 @@ function ProductDetail() {
                             )}
 
                             {/* Chọn size */}
-                            {sizesForColor.length > 0 && (
+                            {uniqueSizes.length > 0 && (
                                 <div style={{ margin: '10px 0' }}>
-                                    <span style={{ color: '#767676', fontSize: '14px', minWidth: '90px', display: 'inline-block' }}>Kích thước:</span>
+                                    <span style={{ color: '#767676', fontSize: '14px', minWidth: '90px', display: 'inline-block' }}>
+                                        Kích thước:
+                                    </span>
                                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '6px' }}>
-                                        {sizesForColor.map(({ size, size_note, stock }) => (
+                                        {uniqueSizes.map(({ size, size_note, price_adjustment, stock }) => (
                                             <button
                                                 key={size}
-                                                onClick={() => setSelectedSize(size)}
+                                                onClick={() => handleSelectSize(size, price_adjustment)}
                                                 disabled={stock === 0}
+                                                title={price_adjustment > 0 ? `+${price_adjustment.toLocaleString()} VNĐ` : ''}
                                                 style={{
-                                                    padding: '6px 14px', fontSize: '13px', cursor: stock > 0 ? 'pointer' : 'not-allowed',
+                                                    padding: '6px 16px', fontSize: '13px',
+                                                    cursor: stock > 0 ? 'pointer' : 'not-allowed',
                                                     border: selectedSize === size ? '2px solid #ee4d2d' : '1px solid #ddd',
-                                                    borderRadius: '4px', background: stock === 0 ? '#f5f5f5' : '#fff',
+                                                    borderRadius: '4px',
+                                                    background: stock === 0 ? '#f5f5f5' : selectedSize === size ? '#fff5f5' : '#fff',
                                                     color: stock === 0 ? '#bbb' : selectedSize === size ? '#ee4d2d' : '#333',
+                                                    fontWeight: selectedSize === size ? 600 : 400,
+                                                    position: 'relative',
                                                 }}
                                             >
-                                                {size} {size_note && <span style={{ fontSize: '11px', color: '#999' }}>({size_note})</span>}
+                                                {size}
+                                                {price_adjustment > 0 && (
+                                                    <span style={{ fontSize: '10px', color: '#26aa99', display: 'block', lineHeight: 1 }}>
+                                                        +{(price_adjustment / 1000).toFixed(0)}k
+                                                    </span>
+                                                )}
+                                                {size_note && (
+                                                    <span style={{ fontSize: '10px', color: '#999', display: 'block', lineHeight: 1 }}>
+                                                        {size_note}
+                                                    </span>
+                                                )}
                                             </button>
                                         ))}
                                     </div>
+                                    {selectedSize && (
+                                        <div style={{ fontSize: '12px', color: '#767676', marginTop: '4px' }}>
+                                            Đã chọn: <strong style={{ color: '#ee4d2d' }}>{selectedSize}</strong>
+                                            {' · '}Còn lại: <strong>{uniqueSizes.find(s => s.size === selectedSize)?.stock || 0}</strong> sản phẩm
+                                        </div>
+                                    )}
                                 </div>
                             )}
 
@@ -260,7 +345,7 @@ function ProductDetail() {
                             )}
 
                             {/* Chính sách */}
-                            <div style={{ margin: '12px 0', fontSize: '13px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                            <div style={{ margin: '12px 0', fontSize: '18px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
                                 {dataProducts?.return_days > 0 && (
                                     <span>🔄 Trả hàng miễn phí trong <strong>{dataProducts.return_days} ngày</strong></span>
                                 )}

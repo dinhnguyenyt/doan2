@@ -16,6 +16,9 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const cx = classNames.bind(styles);
 
+// Key duy nhất cho mỗi dòng giỏ hàng: id + size + color
+const cartKey = (item) => `${item.id}_${item.selectedSize || ''}_${item.selectedColor || ''}`;
+
 function CartUser() {
     const [cartItems, setCartItems] = useState([]);
     const [quantity, setQuantity] = useState({});
@@ -23,129 +26,134 @@ function CartUser() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        const dataCart = localStorage.getItem('products');
-        const parsedCart = JSON.parse(dataCart);
-        setCartItems(parsedCart || []);
+        const parsedCart = JSON.parse(localStorage.getItem('products') || '[]');
+        setCartItems(parsedCart);
+        // Khởi tạo quantity mặc định = 1 cho mỗi dòng
+        const initQty = {};
+        parsedCart.forEach((item) => { initQty[cartKey(item)] = 1; });
+        setQuantity(initQty);
     }, []);
 
     const total = useMemo(() => {
-        return cartItems.reduce((acc, item) => acc + item.priceNew * (quantity[item.id] || 1), 0);
+        return cartItems.reduce((acc, item) => acc + item.priceNew * (quantity[cartKey(item)] || 1), 0);
     }, [cartItems, quantity]);
 
-    const handleIncreaseQuantity = (id) => {
-        setQuantity((prevQuantity) => ({
-            ...prevQuantity,
-            [id]: (prevQuantity[id] || 0) + 1,
-        }));
+    const handleIncreaseQuantity = (key) => {
+        setQuantity((prev) => ({ ...prev, [key]: (prev[key] || 1) + 1 }));
     };
 
-    const handleDecreaseQuantity = (id) => {
-        if (quantity[id] > 1) {
-            setQuantity((prevQuantity) => ({
-                ...prevQuantity,
-                [id]: prevQuantity[id] - 1,
-            }));
-        }
+    const handleDecreaseQuantity = (key) => {
+        setQuantity((prev) => ({ ...prev, [key]: Math.max((prev[key] || 1) - 1, 1) }));
     };
 
-    const handleDeleteProduct = (id) => {
-        const updatedCart = [...cartItems];
-        const index = updatedCart.findIndex((item) => item.id === id);
-        if (index !== -1) {
-            updatedCart.splice(index, 1);
-            setCartItems(updatedCart);
-            localStorage.setItem('products', JSON.stringify(updatedCart));
-        }
+    const handleDeleteProduct = (item) => {
+        const key = cartKey(item);
+        const updated = cartItems.filter((c) => cartKey(c) !== key);
+        setCartItems(updated);
+        localStorage.setItem('products', JSON.stringify(updated));
+        setQuantity((prev) => { const n = { ...prev }; delete n[key]; return n; });
     };
 
     const handlePostCart = async () => {
         if (!token) {
             toast.error('Bạn Cần Đăng Nhập !!!');
             return;
-        } else if (cartItems.length <= 0) {
-            toast.error('Please add product to cart');
-        } else {
-            try {
-                const dataToSend = cartItems.map((item) => ({
-                    id: item.id,
-                    quantity: quantity[item.id] || 1,
-                }));
-                const res = await request.post('/api/cart', dataToSend);
-                dispatch(removeProduct([]));
-                toast.success(res.data.message);
-            } catch (error) {
-                toast.error(error.response.data.message);
-            }
+        }
+        if (cartItems.length <= 0) {
+            toast.error('Vui lòng thêm sản phẩm vào giỏ hàng');
+            return;
+        }
+        try {
+            const dataToSend = cartItems.map((item) => ({
+                id:       item.id,
+                quantity: quantity[cartKey(item)] || 1,
+                size:     item.selectedSize  || '',
+                color:    item.selectedColor || '',
+            }));
+            const res = await request.post('/api/cart', dataToSend);
+            dispatch(removeProduct([]));
+            toast.success(res.data.message);
+        } catch (error) {
+            toast.error(error.response?.data?.message || 'Lỗi xử lý giỏ hàng');
         }
     };
 
     return (
         <div className={cx('wrapper')}>
             <ToastContainer />
-            <header>
-                <Header />
-            </header>
-            <div>
-                <Banner />
-            </div>
+            <header><Header /></header>
+            <div><Banner /></div>
             <main>
                 <div className={cx('inner')}>
                     <div>
                         <table className="table">
                             <thead>
                                 <tr>
-                                    <th scope="col">Product</th>
-                                    <th scope="col">Price</th>
-                                    <th scope="col">Quantity</th>
-                                    <th scope="col">Total</th>
-                                    <th scope="col">Action</th>
+                                    <th scope="col">Sản phẩm</th>
+                                    <th scope="col">Size / Màu</th>
+                                    <th scope="col">Đơn giá</th>
+                                    <th scope="col">Số lượng</th>
+                                    <th scope="col">Thành tiền</th>
+                                    <th scope="col">Xoá</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {cartItems.map((item) => (
-                                    <tr key={item.id}>
-                                        <td>{item.nameProducts}</td>
-                                        <td>$ {item?.priceNew?.toLocaleString()}</td>
-                                        <td>
-                                            <div className={cx('btn-value-products')}>
-                                                <button onClick={() => handleDecreaseQuantity(item.id)}>-</button>
-                                                <span>{quantity[item.id] || 1}</span>
-                                                <button onClick={() => handleIncreaseQuantity(item.id)}>+</button>
-                                            </div>
-                                        </td>
-                                        <td>$ {(item.priceNew * (quantity[item.id] || 1)).toLocaleString()}</td>
-                                        <td>
-                                            <button
-                                                onClick={() => handleDeleteProduct(item.id)}
-                                                type="button"
-                                                className="btn btn-danger"
-                                            >
-                                                Delete
-                                            </button>
-                                        </td>
-                                    </tr>
-                                ))}
+                                {cartItems.map((item) => {
+                                    const key = cartKey(item);
+                                    const qty = quantity[key] || 1;
+                                    return (
+                                        <tr key={key}>
+                                            <td>
+                                                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                                    <img src={item.img} alt="" style={{ width: 48, height: 48, objectFit: 'cover', borderRadius: 4 }} />
+                                                    <span>{item.nameProducts}</span>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                {item.selectedSize && (
+                                                    <span style={{ background: '#f0f0f0', padding: '2px 8px', borderRadius: 4, fontSize: 13, marginRight: 4 }}>
+                                                        {item.selectedSize}
+                                                    </span>
+                                                )}
+                                                {item.selectedColor && (
+                                                    <span style={{ background: '#f0f0f0', padding: '2px 8px', borderRadius: 4, fontSize: 13 }}>
+                                                        {item.selectedColor}
+                                                    </span>
+                                                )}
+                                                {!item.selectedSize && !item.selectedColor && <span style={{ color: '#aaa', fontSize: 12 }}>—</span>}
+                                            </td>
+                                            <td>{item?.priceNew?.toLocaleString()} VNĐ</td>
+                                            <td>
+                                                <div className={cx('btn-value-products')}>
+                                                    <button onClick={() => handleDecreaseQuantity(key)}>-</button>
+                                                    <span>{qty}</span>
+                                                    <button onClick={() => handleIncreaseQuantity(key)}>+</button>
+                                                </div>
+                                            </td>
+                                            <td>{(item.priceNew * qty).toLocaleString()} VNĐ</td>
+                                            <td>
+                                                <button onClick={() => handleDeleteProduct(item)} type="button" className="btn btn-danger btn-sm">
+                                                    Xoá
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    );
+                                })}
                                 <tr>
-                                    <td colSpan="3">Sub Total</td>
-                                    <td>$ {total.toLocaleString()}</td>
+                                    <td colSpan="4"><strong>Tổng cộng</strong></td>
+                                    <td><strong>{total.toLocaleString()} VNĐ</strong></td>
                                     <td></td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                     <div className={cx('btn-cart')}>
-                        <Link to="/category">
-                            <button>Continue Shopping</button>
-                        </Link>
-                        <Link to="/checkout">
-                            <button onClick={handlePostCart}>Proceed to checkout</button>
-                        </Link>
+                        <Link to="/category"><button>Tiếp tục mua sắm</button></Link>
+                        <Link to="/checkout"><button onClick={handlePostCart}>Tiến hành thanh toán</button></Link>
                     </div>
                 </div>
             </main>
-            <footer>
-                <Footer />
-            </footer>
+            <footer><Footer /></footer>
         </div>
     );
 }

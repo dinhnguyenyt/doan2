@@ -249,17 +249,31 @@ function Checkout() {
                                 <table className="table table-hover">
                                     <thead>
                                         <tr>
-                                            <th scope="col">Product</th>
-                                            <th scope="col">Quantity</th>
-                                            <th scope="col">Total</th>
+                                            <th scope="col">Sản phẩm</th>
+                                            <th scope="col">Size</th>
+                                            <th scope="col">SL</th>
+                                            <th scope="col">Thành tiền</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {dataCart?.products?.map((item) => (
                                             <tr key={item?._id}>
                                                 <td>{item?.nameProduct}</td>
+                                                <td>
+                                                    {item?.size && (
+                                                        <span style={{ background: '#f0f0f0', padding: '1px 6px', borderRadius: 3, fontSize: 12 }}>
+                                                            {item.size}
+                                                        </span>
+                                                    )}
+                                                    {item?.color && (
+                                                        <span style={{ background: '#f0f0f0', padding: '1px 6px', borderRadius: 3, fontSize: 12, marginLeft: 4 }}>
+                                                            {item.color}
+                                                        </span>
+                                                    )}
+                                                    {!item?.size && !item?.color && <span style={{ color: '#aaa' }}>—</span>}
+                                                </td>
                                                 <td>x {item?.quantity}</td>
-                                                <td>$ {item.price?.toLocaleString()}</td>
+                                                <td>{item.price?.toLocaleString()} VNĐ</td>
                                             </tr>
                                         ))}
                                     </tbody>
@@ -268,19 +282,19 @@ function Checkout() {
                                         <tr>
                                             <td>Subtotal</td>
                                             <td></td>
-                                            <td>$ {dataCart?.sumPrice?.toLocaleString()}</td>
+                                            <td>{dataCart?.sumPrice?.toLocaleString()} VNĐ</td>
                                         </tr>
                                         {discountPercent > 0 && (
                                             <tr>
                                                 <td>Discount ({discountPercent}%)</td>
                                                 <td></td>
-                                                <td>- $ {(dataCart?.sumPrice * discountPercent / 100).toLocaleString()}</td>
+                                                <td>- {(dataCart?.sumPrice * discountPercent / 100).toLocaleString()} VNĐ</td>
                                             </tr>
                                         )}
                                         <tr>
                                             <td>Total</td>
                                             <td></td>
-                                            <td>$ {(dataCart?.sumPrice * (1 - discountPercent / 100)).toLocaleString()}</td>
+                                            <td>{(dataCart?.sumPrice * (1 - discountPercent / 100)).toLocaleString()} VNĐ</td>
                                         </tr>
                                     </tbody>
                                 </table>

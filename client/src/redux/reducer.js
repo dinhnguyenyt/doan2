@@ -6,21 +6,20 @@ function reducerUser(state = initState, action) {
     switch (
         action.type // Khi thay đổi action.type thì thay đổi state
     ) {
-        case 'ADD_PRODUCT': // xử lý action 'ADD_PRODUCT'
-            const existingProductIndex = state.findIndex((product) => product.id === action.payload.id); // tìm Id sp có  trùng với Id của sp trong cart
+        case 'ADD_PRODUCT':
+            const existingProductIndex = state.findIndex(
+                (product) =>
+                    product.id === action.payload.id &&
+                    (product.selectedSize  || '') === (action.payload.selectedSize  || '') &&
+                    (product.selectedColor || '') === (action.payload.selectedColor || '')
+            );
             if (existingProductIndex === -1) {
-                // nếu sp ko tồn tại trong cart
-                const updatedState = [...state, action.payload]; // tạo mảng updatedState sẽ là state + action.payload. Thêm sản phẩm mới vào cart
-                localStorage.setItem('products', JSON.stringify(updatedState)); //cập nhật localStorage với updatedState
-                return updatedState; //trả về updatedState
-            } else {
-                const updatedState = [...state]; // mảng updatedState sẽ là state
-                updatedState[existingProductIndex] = {
-                    ...updatedState[existingProductIndex], // cập nhật mảng updatedState với updatedState[existingProductIndex] (sẽ là state)
-                    quantity: updatedState[existingProductIndex].quantity + action.payload.quantity, // cập nhật số lượng của sp
-                };
+                const updatedState = [...state, action.payload];
                 localStorage.setItem('products', JSON.stringify(updatedState));
-                return updatedState; // trả về trạng thái updatedState là state
+                return updatedState;
+            } else {
+                // Cùng sản phẩm + cùng size/color → không thêm trùng
+                return state;
             }
         case 'REMOVE_PRODUCT': // xử lý action 'REMOVE_PRODUCT'
             const updatedState = []; // lọc với updatedState

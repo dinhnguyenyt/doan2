@@ -10,6 +10,8 @@ const ModelCart = new Schema({
             nameProduct: { type: String, default: '' },
             quantity: { type: Number, default: 0 },
             price: { type: Number, default: 0 },
+            size: { type: String, default: '' },
+            color: { type: String, default: '' },
         },
     ],
     sumPrice: { type: Number, default: 0 },

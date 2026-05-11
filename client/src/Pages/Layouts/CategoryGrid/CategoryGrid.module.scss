@@ -1,0 +1,194 @@
+.wrapper {
+    width: 80%;
+    margin: 24px auto 0;
+    border: 1px solid #e8e8e8;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+// ── Thanh tiêu đề (luôn hiển thị) ──────────────────────
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 20px;
+    background: #fff;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.15s;
+
+    &:hover {
+        background: #fafafa;
+    }
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.header-icon {
+    font-size: 22px;
+}
+
+.section-header h2 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0 0 2px;
+}
+
+.section-header p {
+    font-size: 12px;
+    color: #999;
+    margin: 0;
+}
+
+.toggle-btn {
+    font-size: 13px;
+    font-weight: 600;
+    color: #c0392b;
+    padding: 5px 14px;
+    border-radius: 20px;
+    border: 1px solid #c0392b;
+    background: #fff;
+    white-space: nowrap;
+    transition: all 0.15s;
+
+    &:hover, &.toggle-open {
+        background: #c0392b;
+        color: #fff;
+    }
+}
+
+// ── Nội dung mở rộng ───────────────────────────────────
+.content {
+    padding: 20px;
+    border-top: 1px solid #f0f0f0;
+    background: #fafafa;
+}
+
+// ── Cấp 1 ──────────────────────────────────────────────
+.group {
+    margin-bottom: 28px;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.group-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-left: 4px solid #c0392b;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-bottom: 14px;
+    transition: background 0.2s;
+
+    &:hover {
+        background: linear-gradient(135deg, #fff0f0 0%, #ffe0e0 100%);
+    }
+}
+
+.group-icon { font-size: 20px; }
+
+.group-name {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1a1a1a;
+    flex: 1;
+}
+
+.group-count {
+    font-size: 12px;
+    color: #888;
+    background: #fff;
+    padding: 2px 10px;
+    border-radius: 20px;
+    border: 1px solid #ddd;
+}
+
+// ── Cấp 2 grid ─────────────────────────────────────────
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    gap: 12px;
+}
+
+.card {
+    border: 1px solid #e8e8e8;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    transition: transform 0.18s, box-shadow 0.18s;
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    }
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 14px;
+    cursor: pointer;
+    background: #fafafa;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background 0.15s;
+
+    &:hover { background: #fff5f5; }
+}
+
+.card-icon { font-size: 18px; }
+
+.card-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: #222;
+}
+
+// ── Cấp 3 tags ─────────────────────────────────────────
+.tags {
+    padding: 8px 10px 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.tag {
+    background: #f5f5f5;
+    border: 1px solid #e0e0e0;
+    border-radius: 20px;
+    padding: 3px 10px;
+    font-size: 11px;
+    color: #444;
+    cursor: pointer;
+    transition: all 0.15s;
+    white-space: nowrap;
+
+    &:hover {
+        background: #c0392b;
+        color: #fff;
+        border-color: #c0392b;
+    }
+}
+
+// ── Responsive ─────────────────────────────────────────
+@media (max-width: 768px) {
+    .wrapper { width: 95%; }
+    .cards-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+    .section-header h2 { font-size: 14px; }
+}
+
+@media (max-width: 480px) {
+    .cards-grid { grid-template-columns: 1fr 1fr; }
+}
