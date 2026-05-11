@@ -1,0 +1,38 @@
+[{
+  "_id": {
+    "$oid": "69f1db6696c505576c8f0783"
+  },
+  "fullname": "dinh nguyen",
+  "avatar": "1",
+  "email": "dinhyentan@gmail.com",
+  "password": "$2b$10$gORwJFWcoeBlozqapezg.eQSCveVuBaPO4BBi7v1gwqL6aESfKZrW",
+  "isAdmin": true,
+  "role": "admin",
+  "phone": 398191197,
+  "surplus": 0,
+  "modified_by": "",
+  "modified_at": null,
+  "created_at": {
+    "$date": "2026-04-29T10:20:22.012Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69f1dc1196c505576c8f078a"
+  },
+  "fullname": "dinh nguyen",
+  "avatar": "1",
+  "email": "dinhyt2001@gmail.com",
+  "password": "$2b$10$O/wsrZ1LQ3QRLD9HzITakOPEjpIrs3CPaMUglmAOX4RXVX9YE1zQq",
+  "isAdmin": false,
+  "role": "admin",
+  "phone": 3981191197,
+  "surplus": 0,
+  "modified_by": "",
+  "modified_at": null,
+  "created_at": {
+    "$date": "2026-04-29T10:23:13.039Z"
+  },
+  "__v": 0
+}]

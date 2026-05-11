@@ -1,0 +1,9993 @@
+[{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94c6e"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000001"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "S",
+  "size_note": "Dưới 50kg",
+  "stock_quantity": 54,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94c6f"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000001"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "M",
+  "size_note": "50-60kg",
+  "stock_quantity": 33,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94c70"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000001"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "L",
+  "size_note": "60-70kg",
+  "stock_quantity": 55,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94c71"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000001"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XL",
+  "size_note": "70-80kg",
+  "stock_quantity": 30,
+  "price_adjustment": 30000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94c72"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000001"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XXL",
+  "size_note": "Trên 80kg",
+  "stock_quantity": 23,
+  "price_adjustment": 50000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94c73"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000002"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "S",
+  "size_note": "Dưới 50kg",
+  "stock_quantity": 13,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94c74"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000002"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "M",
+  "size_note": "50-60kg",
+  "stock_quantity": 48,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94c75"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000002"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "L",
+  "size_note": "60-70kg",
+  "stock_quantity": 57,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94c76"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000002"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XL",
+  "size_note": "70-80kg",
+  "stock_quantity": 50,
+  "price_adjustment": 30000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94c77"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000002"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XXL",
+  "size_note": "Trên 80kg",
+  "stock_quantity": 20,
+  "price_adjustment": 50000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94c78"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000003"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "S",
+  "size_note": "Dưới 50kg",
+  "stock_quantity": 13,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94c79"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000003"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "M",
+  "size_note": "50-60kg",
+  "stock_quantity": 53,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94c7a"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000003"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "L",
+  "size_note": "60-70kg",
+  "stock_quantity": 38,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94c7b"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000003"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XL",
+  "size_note": "70-80kg",
+  "stock_quantity": 56,
+  "price_adjustment": 30000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94c7c"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000003"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XXL",
+  "size_note": "Trên 80kg",
+  "stock_quantity": 43,
+  "price_adjustment": 50000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94c7d"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000004"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "S",
+  "size_note": "Dưới 50kg",
+  "stock_quantity": 42,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94c7e"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000004"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "M",
+  "size_note": "50-60kg",
+  "stock_quantity": 58,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94c7f"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000004"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "L",
+  "size_note": "60-70kg",
+  "stock_quantity": 34,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94c80"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000004"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XL",
+  "size_note": "70-80kg",
+  "stock_quantity": 47,
+  "price_adjustment": 30000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94c81"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000004"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XXL",
+  "size_note": "Trên 80kg",
+  "stock_quantity": 15,
+  "price_adjustment": 50000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94c82"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000005"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "S",
+  "size_note": "Dưới 50kg",
+  "stock_quantity": 58,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94c83"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000005"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "M",
+  "size_note": "50-60kg",
+  "stock_quantity": 18,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94c84"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000005"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "L",
+  "size_note": "60-70kg",
+  "stock_quantity": 15,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94c85"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000005"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XL",
+  "size_note": "70-80kg",
+  "stock_quantity": 30,
+  "price_adjustment": 30000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94c86"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000005"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XXL",
+  "size_note": "Trên 80kg",
+  "stock_quantity": 29,
+  "price_adjustment": 50000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94c87"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000006"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "S",
+  "size_note": "Dưới 50kg",
+  "stock_quantity": 32,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94c88"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000006"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "M",
+  "size_note": "50-60kg",
+  "stock_quantity": 12,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94c89"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000006"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "L",
+  "size_note": "60-70kg",
+  "stock_quantity": 51,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94c8a"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000006"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XL",
+  "size_note": "70-80kg",
+  "stock_quantity": 23,
+  "price_adjustment": 30000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94c8b"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000006"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XXL",
+  "size_note": "Trên 80kg",
+  "stock_quantity": 25,
+  "price_adjustment": 50000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94c8c"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000007"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "S",
+  "size_note": "Dưới 50kg",
+  "stock_quantity": 19,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94c8d"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000007"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "M",
+  "size_note": "50-60kg",
+  "stock_quantity": 39,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94c8e"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000007"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "L",
+  "size_note": "60-70kg",
+  "stock_quantity": 43,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94c8f"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000007"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XL",
+  "size_note": "70-80kg",
+  "stock_quantity": 50,
+  "price_adjustment": 30000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94c90"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000007"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XXL",
+  "size_note": "Trên 80kg",
+  "stock_quantity": 12,
+  "price_adjustment": 50000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94c91"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000008"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "S",
+  "size_note": "Dưới 50kg",
+  "stock_quantity": 41,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94c92"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000008"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "M",
+  "size_note": "50-60kg",
+  "stock_quantity": 26,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94c93"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000008"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "L",
+  "size_note": "60-70kg",
+  "stock_quantity": 44,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94c94"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000008"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XL",
+  "size_note": "70-80kg",
+  "stock_quantity": 10,
+  "price_adjustment": 30000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94c95"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000008"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XXL",
+  "size_note": "Trên 80kg",
+  "stock_quantity": 19,
+  "price_adjustment": 50000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94c96"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000009"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "S",
+  "size_note": "Dưới 50kg",
+  "stock_quantity": 14,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94c97"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000009"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "M",
+  "size_note": "50-60kg",
+  "stock_quantity": 29,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94c98"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000009"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "L",
+  "size_note": "60-70kg",
+  "stock_quantity": 32,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94c99"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000009"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XL",
+  "size_note": "70-80kg",
+  "stock_quantity": 26,
+  "price_adjustment": 30000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94c9a"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000009"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XXL",
+  "size_note": "Trên 80kg",
+  "stock_quantity": 26,
+  "price_adjustment": 50000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94c9b"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000010"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "S",
+  "size_note": "Dưới 50kg",
+  "stock_quantity": 52,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94c9c"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000010"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "M",
+  "size_note": "50-60kg",
+  "stock_quantity": 47,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94c9d"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000010"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "L",
+  "size_note": "60-70kg",
+  "stock_quantity": 27,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94c9e"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000010"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XL",
+  "size_note": "70-80kg",
+  "stock_quantity": 45,
+  "price_adjustment": 30000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94c9f"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000010"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XXL",
+  "size_note": "Trên 80kg",
+  "stock_quantity": 52,
+  "price_adjustment": 50000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94ca0"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000011"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "S",
+  "size_note": "Dưới 50kg",
+  "stock_quantity": 31,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94ca1"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000011"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "M",
+  "size_note": "50-60kg",
+  "stock_quantity": 55,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94ca2"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000011"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "L",
+  "size_note": "60-70kg",
+  "stock_quantity": 22,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94ca3"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000011"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XL",
+  "size_note": "70-80kg",
+  "stock_quantity": 56,
+  "price_adjustment": 30000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94ca4"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000011"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XXL",
+  "size_note": "Trên 80kg",
+  "stock_quantity": 41,
+  "price_adjustment": 50000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94ca5"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000012"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "S",
+  "size_note": "Dưới 50kg",
+  "stock_quantity": 47,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94ca6"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000012"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "M",
+  "size_note": "50-60kg",
+  "stock_quantity": 38,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94ca7"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000012"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "L",
+  "size_note": "60-70kg",
+  "stock_quantity": 15,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94ca8"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000012"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XL",
+  "size_note": "70-80kg",
+  "stock_quantity": 10,
+  "price_adjustment": 30000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94ca9"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000012"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XXL",
+  "size_note": "Trên 80kg",
+  "stock_quantity": 27,
+  "price_adjustment": 50000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94caa"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000013"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "S",
+  "size_note": "Dưới 50kg",
+  "stock_quantity": 55,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94cab"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000013"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "M",
+  "size_note": "50-60kg",
+  "stock_quantity": 37,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94cac"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000013"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "L",
+  "size_note": "60-70kg",
+  "stock_quantity": 54,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94cad"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000013"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XL",
+  "size_note": "70-80kg",
+  "stock_quantity": 53,
+  "price_adjustment": 30000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94cae"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000013"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XXL",
+  "size_note": "Trên 80kg",
+  "stock_quantity": 57,
+  "price_adjustment": 50000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94caf"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000014"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "S",
+  "size_note": "Dưới 50kg",
+  "stock_quantity": 49,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94cb0"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000014"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "M",
+  "size_note": "50-60kg",
+  "stock_quantity": 40,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94cb1"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000014"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "L",
+  "size_note": "60-70kg",
+  "stock_quantity": 20,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94cb2"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000014"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XL",
+  "size_note": "70-80kg",
+  "stock_quantity": 55,
+  "price_adjustment": 30000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94cb3"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000014"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XXL",
+  "size_note": "Trên 80kg",
+  "stock_quantity": 34,
+  "price_adjustment": 50000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94cb4"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000015"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "S",
+  "size_note": "Dưới 50kg",
+  "stock_quantity": 36,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94cb5"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000015"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "M",
+  "size_note": "50-60kg",
+  "stock_quantity": 16,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94cb6"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000015"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "L",
+  "size_note": "60-70kg",
+  "stock_quantity": 55,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94cb7"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000015"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XL",
+  "size_note": "70-80kg",
+  "stock_quantity": 39,
+  "price_adjustment": 30000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94cb8"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000015"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XXL",
+  "size_note": "Trên 80kg",
+  "stock_quantity": 21,
+  "price_adjustment": 50000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94cb9"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000016"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "S",
+  "size_note": "Dưới 50kg",
+  "stock_quantity": 24,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94cba"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000016"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "M",
+  "size_note": "50-60kg",
+  "stock_quantity": 57,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94cbb"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000016"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "L",
+  "size_note": "60-70kg",
+  "stock_quantity": 53,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94cbc"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000016"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XL",
+  "size_note": "70-80kg",
+  "stock_quantity": 24,
+  "price_adjustment": 30000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94cbd"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000016"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XXL",
+  "size_note": "Trên 80kg",
+  "stock_quantity": 28,
+  "price_adjustment": 50000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94cbe"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000017"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "S",
+  "size_note": "Dưới 50kg",
+  "stock_quantity": 22,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94cbf"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000017"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "M",
+  "size_note": "50-60kg",
+  "stock_quantity": 35,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94cc0"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000017"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "L",
+  "size_note": "60-70kg",
+  "stock_quantity": 49,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94cc1"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000017"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XL",
+  "size_note": "70-80kg",
+  "stock_quantity": 47,
+  "price_adjustment": 30000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94cc2"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000017"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XXL",
+  "size_note": "Trên 80kg",
+  "stock_quantity": 14,
+  "price_adjustment": 50000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94cc3"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000018"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "28",
+  "size_note": "Eo 68-72cm",
+  "stock_quantity": 34,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94cc4"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000018"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "30",
+  "size_note": "Eo 74-78cm",
+  "stock_quantity": 45,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94cc5"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000018"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "32",
+  "size_note": "Eo 80-84cm",
+  "stock_quantity": 49,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94cc6"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000018"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "34",
+  "size_note": "Eo 86-90cm",
+  "stock_quantity": 59,
+  "price_adjustment": 20000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94cc7"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000019"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "28",
+  "size_note": "Eo 68-72cm",
+  "stock_quantity": 14,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94cc8"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000019"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "30",
+  "size_note": "Eo 74-78cm",
+  "stock_quantity": 49,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94cc9"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000019"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "32",
+  "size_note": "Eo 80-84cm",
+  "stock_quantity": 26,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94cca"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000019"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "34",
+  "size_note": "Eo 86-90cm",
+  "stock_quantity": 28,
+  "price_adjustment": 20000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94ccb"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000020"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "28",
+  "size_note": "Eo 68-72cm",
+  "stock_quantity": 35,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94ccc"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000020"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "30",
+  "size_note": "Eo 74-78cm",
+  "stock_quantity": 28,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94ccd"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000020"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "32",
+  "size_note": "Eo 80-84cm",
+  "stock_quantity": 29,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94cce"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000020"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "34",
+  "size_note": "Eo 86-90cm",
+  "stock_quantity": 47,
+  "price_adjustment": 20000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94ccf"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000021"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "28",
+  "size_note": "Eo 68-72cm",
+  "stock_quantity": 16,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94cd0"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000021"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "30",
+  "size_note": "Eo 74-78cm",
+  "stock_quantity": 40,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94cd1"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000021"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "32",
+  "size_note": "Eo 80-84cm",
+  "stock_quantity": 46,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94cd2"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000021"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "34",
+  "size_note": "Eo 86-90cm",
+  "stock_quantity": 42,
+  "price_adjustment": 20000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94cd3"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000022"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "28",
+  "size_note": "Eo 68-72cm",
+  "stock_quantity": 40,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94cd4"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000022"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "30",
+  "size_note": "Eo 74-78cm",
+  "stock_quantity": 36,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94cd5"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000022"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "32",
+  "size_note": "Eo 80-84cm",
+  "stock_quantity": 29,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94cd6"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000022"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "34",
+  "size_note": "Eo 86-90cm",
+  "stock_quantity": 48,
+  "price_adjustment": 20000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94cd7"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000023"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "28",
+  "size_note": "Eo 68-72cm",
+  "stock_quantity": 43,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94cd8"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000023"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "30",
+  "size_note": "Eo 74-78cm",
+  "stock_quantity": 46,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94cd9"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000023"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "32",
+  "size_note": "Eo 80-84cm",
+  "stock_quantity": 19,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94cda"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000023"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "34",
+  "size_note": "Eo 86-90cm",
+  "stock_quantity": 59,
+  "price_adjustment": 20000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94cdb"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000024"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "28",
+  "size_note": "Eo 68-72cm",
+  "stock_quantity": 27,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94cdc"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000024"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "30",
+  "size_note": "Eo 74-78cm",
+  "stock_quantity": 19,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94cdd"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000024"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "32",
+  "size_note": "Eo 80-84cm",
+  "stock_quantity": 28,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94cde"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000024"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "34",
+  "size_note": "Eo 86-90cm",
+  "stock_quantity": 24,
+  "price_adjustment": 20000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94cdf"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000025"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "28",
+  "size_note": "Eo 68-72cm",
+  "stock_quantity": 30,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94ce0"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000025"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "30",
+  "size_note": "Eo 74-78cm",
+  "stock_quantity": 45,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94ce1"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000025"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "32",
+  "size_note": "Eo 80-84cm",
+  "stock_quantity": 28,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94ce2"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000025"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "34",
+  "size_note": "Eo 86-90cm",
+  "stock_quantity": 10,
+  "price_adjustment": 20000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94ce3"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000026"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "28",
+  "size_note": "Eo 68-72cm",
+  "stock_quantity": 43,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94ce4"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000026"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "30",
+  "size_note": "Eo 74-78cm",
+  "stock_quantity": 26,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94ce5"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000026"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "32",
+  "size_note": "Eo 80-84cm",
+  "stock_quantity": 23,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94ce6"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000026"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "34",
+  "size_note": "Eo 86-90cm",
+  "stock_quantity": 29,
+  "price_adjustment": 20000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94ce7"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000027"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "28",
+  "size_note": "Eo 68-72cm",
+  "stock_quantity": 42,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94ce8"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000027"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "30",
+  "size_note": "Eo 74-78cm",
+  "stock_quantity": 40,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94ce9"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000027"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "32",
+  "size_note": "Eo 80-84cm",
+  "stock_quantity": 29,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94cea"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000027"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "34",
+  "size_note": "Eo 86-90cm",
+  "stock_quantity": 22,
+  "price_adjustment": 20000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94ceb"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000028"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "28",
+  "size_note": "Eo 68-72cm",
+  "stock_quantity": 33,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94cec"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000028"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "30",
+  "size_note": "Eo 74-78cm",
+  "stock_quantity": 59,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94ced"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000028"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "32",
+  "size_note": "Eo 80-84cm",
+  "stock_quantity": 35,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94cee"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000028"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "34",
+  "size_note": "Eo 86-90cm",
+  "stock_quantity": 19,
+  "price_adjustment": 20000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94cef"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000029"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "S",
+  "size_note": "Dưới 50kg",
+  "stock_quantity": 17,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94cf0"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000029"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "M",
+  "size_note": "50-60kg",
+  "stock_quantity": 59,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94cf1"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000029"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "L",
+  "size_note": "60-70kg",
+  "stock_quantity": 39,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94cf2"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000029"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XL",
+  "size_note": "70-80kg",
+  "stock_quantity": 26,
+  "price_adjustment": 30000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94cf3"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000029"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XXL",
+  "size_note": "Trên 80kg",
+  "stock_quantity": 33,
+  "price_adjustment": 50000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94cf4"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000030"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "S",
+  "size_note": "Dưới 50kg",
+  "stock_quantity": 59,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94cf5"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000030"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "M",
+  "size_note": "50-60kg",
+  "stock_quantity": 55,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94cf6"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000030"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "L",
+  "size_note": "60-70kg",
+  "stock_quantity": 33,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94cf7"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000030"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XL",
+  "size_note": "70-80kg",
+  "stock_quantity": 55,
+  "price_adjustment": 30000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94cf8"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000030"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XXL",
+  "size_note": "Trên 80kg",
+  "stock_quantity": 49,
+  "price_adjustment": 50000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94cf9"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000031"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "S",
+  "size_note": "Dưới 50kg",
+  "stock_quantity": 42,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94cfa"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000031"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "M",
+  "size_note": "50-60kg",
+  "stock_quantity": 42,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94cfb"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000031"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "L",
+  "size_note": "60-70kg",
+  "stock_quantity": 47,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94cfc"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000031"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XL",
+  "size_note": "70-80kg",
+  "stock_quantity": 51,
+  "price_adjustment": 30000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94cfd"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000031"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XXL",
+  "size_note": "Trên 80kg",
+  "stock_quantity": 45,
+  "price_adjustment": 50000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94cfe"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000032"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "S",
+  "size_note": "Dưới 50kg",
+  "stock_quantity": 24,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94cff"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000032"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "M",
+  "size_note": "50-60kg",
+  "stock_quantity": 41,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d00"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000032"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "L",
+  "size_note": "60-70kg",
+  "stock_quantity": 33,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d01"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000032"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XL",
+  "size_note": "70-80kg",
+  "stock_quantity": 30,
+  "price_adjustment": 30000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d02"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000032"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XXL",
+  "size_note": "Trên 80kg",
+  "stock_quantity": 53,
+  "price_adjustment": 50000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d03"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000033"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "S",
+  "size_note": "Dưới 50kg",
+  "stock_quantity": 16,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d04"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000033"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "M",
+  "size_note": "50-60kg",
+  "stock_quantity": 14,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d05"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000033"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "L",
+  "size_note": "60-70kg",
+  "stock_quantity": 29,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d06"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000033"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XL",
+  "size_note": "70-80kg",
+  "stock_quantity": 51,
+  "price_adjustment": 30000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d07"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000033"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XXL",
+  "size_note": "Trên 80kg",
+  "stock_quantity": 29,
+  "price_adjustment": 50000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d08"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000034"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "S",
+  "size_note": "Dưới 50kg",
+  "stock_quantity": 27,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d09"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000034"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "M",
+  "size_note": "50-60kg",
+  "stock_quantity": 51,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d0a"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000034"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "L",
+  "size_note": "60-70kg",
+  "stock_quantity": 32,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d0b"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000034"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XL",
+  "size_note": "70-80kg",
+  "stock_quantity": 25,
+  "price_adjustment": 30000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d0c"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000034"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XXL",
+  "size_note": "Trên 80kg",
+  "stock_quantity": 26,
+  "price_adjustment": 50000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d0d"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000035"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "S",
+  "size_note": "Dưới 50kg",
+  "stock_quantity": 49,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d0e"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000035"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "M",
+  "size_note": "50-60kg",
+  "stock_quantity": 25,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d0f"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000035"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "L",
+  "size_note": "60-70kg",
+  "stock_quantity": 19,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d10"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000035"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XL",
+  "size_note": "70-80kg",
+  "stock_quantity": 36,
+  "price_adjustment": 30000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d11"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000035"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XXL",
+  "size_note": "Trên 80kg",
+  "stock_quantity": 18,
+  "price_adjustment": 50000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d12"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000036"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "S",
+  "size_note": "Dưới 50kg",
+  "stock_quantity": 13,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d13"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000036"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "M",
+  "size_note": "50-60kg",
+  "stock_quantity": 28,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d14"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000036"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "L",
+  "size_note": "60-70kg",
+  "stock_quantity": 31,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d15"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000036"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XL",
+  "size_note": "70-80kg",
+  "stock_quantity": 59,
+  "price_adjustment": 30000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d16"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000036"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XXL",
+  "size_note": "Trên 80kg",
+  "stock_quantity": 19,
+  "price_adjustment": 50000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d17"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000037"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "S",
+  "size_note": "Dưới 50kg",
+  "stock_quantity": 30,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d18"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000037"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "M",
+  "size_note": "50-60kg",
+  "stock_quantity": 51,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d19"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000037"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "L",
+  "size_note": "60-70kg",
+  "stock_quantity": 28,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d1a"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000037"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XL",
+  "size_note": "70-80kg",
+  "stock_quantity": 48,
+  "price_adjustment": 30000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d1b"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000037"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XXL",
+  "size_note": "Trên 80kg",
+  "stock_quantity": 36,
+  "price_adjustment": 50000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d1c"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000038"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "S",
+  "size_note": "Dưới 50kg",
+  "stock_quantity": 37,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d1d"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000038"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "M",
+  "size_note": "50-60kg",
+  "stock_quantity": 48,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d1e"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000038"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "L",
+  "size_note": "60-70kg",
+  "stock_quantity": 15,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d1f"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000038"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XL",
+  "size_note": "70-80kg",
+  "stock_quantity": 50,
+  "price_adjustment": 30000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d20"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000038"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XXL",
+  "size_note": "Trên 80kg",
+  "stock_quantity": 23,
+  "price_adjustment": 50000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d21"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000039"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "S",
+  "size_note": "Dưới 50kg",
+  "stock_quantity": 11,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d22"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000039"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "M",
+  "size_note": "50-60kg",
+  "stock_quantity": 27,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d23"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000039"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "L",
+  "size_note": "60-70kg",
+  "stock_quantity": 14,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d24"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000039"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XL",
+  "size_note": "70-80kg",
+  "stock_quantity": 34,
+  "price_adjustment": 30000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d25"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000039"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XXL",
+  "size_note": "Trên 80kg",
+  "stock_quantity": 20,
+  "price_adjustment": 50000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d26"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000040"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "S",
+  "size_note": "Dưới 50kg",
+  "stock_quantity": 32,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d27"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000040"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "M",
+  "size_note": "50-60kg",
+  "stock_quantity": 33,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d28"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000040"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "L",
+  "size_note": "60-70kg",
+  "stock_quantity": 38,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d29"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000040"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XL",
+  "size_note": "70-80kg",
+  "stock_quantity": 48,
+  "price_adjustment": 30000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d2a"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000040"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XXL",
+  "size_note": "Trên 80kg",
+  "stock_quantity": 11,
+  "price_adjustment": 50000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d2b"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000041"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "28",
+  "size_note": "Eo 68-72cm",
+  "stock_quantity": 31,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d2c"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000041"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "30",
+  "size_note": "Eo 74-78cm",
+  "stock_quantity": 52,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d2d"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000041"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "32",
+  "size_note": "Eo 80-84cm",
+  "stock_quantity": 21,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d2e"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000041"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "34",
+  "size_note": "Eo 86-90cm",
+  "stock_quantity": 55,
+  "price_adjustment": 20000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d2f"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000042"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "28",
+  "size_note": "Eo 68-72cm",
+  "stock_quantity": 55,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d30"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000042"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "30",
+  "size_note": "Eo 74-78cm",
+  "stock_quantity": 13,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d31"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000042"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "32",
+  "size_note": "Eo 80-84cm",
+  "stock_quantity": 18,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d32"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000042"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "34",
+  "size_note": "Eo 86-90cm",
+  "stock_quantity": 48,
+  "price_adjustment": 20000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d33"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000043"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "28",
+  "size_note": "Eo 68-72cm",
+  "stock_quantity": 16,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d34"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000043"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "30",
+  "size_note": "Eo 74-78cm",
+  "stock_quantity": 18,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d35"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000043"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "32",
+  "size_note": "Eo 80-84cm",
+  "stock_quantity": 32,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d36"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000043"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "34",
+  "size_note": "Eo 86-90cm",
+  "stock_quantity": 59,
+  "price_adjustment": 20000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d37"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000044"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "28",
+  "size_note": "Eo 68-72cm",
+  "stock_quantity": 38,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d38"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000044"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "30",
+  "size_note": "Eo 74-78cm",
+  "stock_quantity": 19,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d39"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000044"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "32",
+  "size_note": "Eo 80-84cm",
+  "stock_quantity": 54,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d3a"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000044"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "34",
+  "size_note": "Eo 86-90cm",
+  "stock_quantity": 16,
+  "price_adjustment": 20000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d3b"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000045"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "S",
+  "size_note": "Dưới 50kg",
+  "stock_quantity": 59,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d3c"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000045"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "M",
+  "size_note": "50-60kg",
+  "stock_quantity": 35,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d3d"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000045"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "L",
+  "size_note": "60-70kg",
+  "stock_quantity": 55,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d3e"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000045"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XL",
+  "size_note": "70-80kg",
+  "stock_quantity": 55,
+  "price_adjustment": 30000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d3f"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000045"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XXL",
+  "size_note": "Trên 80kg",
+  "stock_quantity": 24,
+  "price_adjustment": 50000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d40"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000046"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "S",
+  "size_note": "Dưới 50kg",
+  "stock_quantity": 48,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d41"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000046"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "M",
+  "size_note": "50-60kg",
+  "stock_quantity": 18,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d42"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000046"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "L",
+  "size_note": "60-70kg",
+  "stock_quantity": 23,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d43"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000046"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XL",
+  "size_note": "70-80kg",
+  "stock_quantity": 40,
+  "price_adjustment": 30000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d44"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000046"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XXL",
+  "size_note": "Trên 80kg",
+  "stock_quantity": 41,
+  "price_adjustment": 50000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d45"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000047"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "S",
+  "size_note": "Dưới 50kg",
+  "stock_quantity": 14,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d46"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000047"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "M",
+  "size_note": "50-60kg",
+  "stock_quantity": 30,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d47"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000047"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "L",
+  "size_note": "60-70kg",
+  "stock_quantity": 58,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d48"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000047"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XL",
+  "size_note": "70-80kg",
+  "stock_quantity": 11,
+  "price_adjustment": 30000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d49"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000047"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XXL",
+  "size_note": "Trên 80kg",
+  "stock_quantity": 40,
+  "price_adjustment": 50000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d4a"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000048"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "S",
+  "size_note": "Dưới 50kg",
+  "stock_quantity": 45,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d4b"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000048"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "M",
+  "size_note": "50-60kg",
+  "stock_quantity": 37,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d4c"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000048"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "L",
+  "size_note": "60-70kg",
+  "stock_quantity": 21,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d4d"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000048"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XL",
+  "size_note": "70-80kg",
+  "stock_quantity": 43,
+  "price_adjustment": 30000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d4e"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000048"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XXL",
+  "size_note": "Trên 80kg",
+  "stock_quantity": 26,
+  "price_adjustment": 50000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d4f"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000049"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "S",
+  "size_note": "Dưới 50kg",
+  "stock_quantity": 53,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d50"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000049"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "M",
+  "size_note": "50-60kg",
+  "stock_quantity": 27,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d51"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000049"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "L",
+  "size_note": "60-70kg",
+  "stock_quantity": 27,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d52"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000049"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XL",
+  "size_note": "70-80kg",
+  "stock_quantity": 15,
+  "price_adjustment": 30000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d53"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000049"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XXL",
+  "size_note": "Trên 80kg",
+  "stock_quantity": 18,
+  "price_adjustment": 50000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d54"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000050"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "S",
+  "size_note": "Dưới 50kg",
+  "stock_quantity": 40,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d55"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000050"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "M",
+  "size_note": "50-60kg",
+  "stock_quantity": 57,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d56"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000050"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "L",
+  "size_note": "60-70kg",
+  "stock_quantity": 29,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d57"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000050"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XL",
+  "size_note": "70-80kg",
+  "stock_quantity": 13,
+  "price_adjustment": 30000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d58"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000050"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XXL",
+  "size_note": "Trên 80kg",
+  "stock_quantity": 53,
+  "price_adjustment": 50000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d59"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000051"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "S",
+  "size_note": "Dưới 50kg",
+  "stock_quantity": 49,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d5a"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000051"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "M",
+  "size_note": "50-60kg",
+  "stock_quantity": 18,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d5b"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000051"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "L",
+  "size_note": "60-70kg",
+  "stock_quantity": 52,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d5c"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000051"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XL",
+  "size_note": "70-80kg",
+  "stock_quantity": 15,
+  "price_adjustment": 30000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d5d"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000051"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XXL",
+  "size_note": "Trên 80kg",
+  "stock_quantity": 49,
+  "price_adjustment": 50000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d5e"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000052"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "S",
+  "size_note": "Dưới 50kg",
+  "stock_quantity": 52,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d5f"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000052"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "M",
+  "size_note": "50-60kg",
+  "stock_quantity": 24,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d60"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000052"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "L",
+  "size_note": "60-70kg",
+  "stock_quantity": 32,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d61"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000052"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XL",
+  "size_note": "70-80kg",
+  "stock_quantity": 55,
+  "price_adjustment": 30000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d62"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000052"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XXL",
+  "size_note": "Trên 80kg",
+  "stock_quantity": 36,
+  "price_adjustment": 50000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d63"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000053"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "S",
+  "size_note": "Dưới 50kg",
+  "stock_quantity": 10,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d64"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000053"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "M",
+  "size_note": "50-60kg",
+  "stock_quantity": 30,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d65"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000053"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "L",
+  "size_note": "60-70kg",
+  "stock_quantity": 45,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d66"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000053"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XL",
+  "size_note": "70-80kg",
+  "stock_quantity": 39,
+  "price_adjustment": 30000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d67"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000053"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XXL",
+  "size_note": "Trên 80kg",
+  "stock_quantity": 44,
+  "price_adjustment": 50000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d68"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000054"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "S",
+  "size_note": "Dưới 50kg",
+  "stock_quantity": 41,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d69"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000054"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "M",
+  "size_note": "50-60kg",
+  "stock_quantity": 53,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d6a"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000054"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "L",
+  "size_note": "60-70kg",
+  "stock_quantity": 18,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d6b"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000054"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XL",
+  "size_note": "70-80kg",
+  "stock_quantity": 20,
+  "price_adjustment": 30000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d6c"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000054"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XXL",
+  "size_note": "Trên 80kg",
+  "stock_quantity": 34,
+  "price_adjustment": 50000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d6d"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000055"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "S",
+  "size_note": "Dưới 50kg",
+  "stock_quantity": 39,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d6e"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000055"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "M",
+  "size_note": "50-60kg",
+  "stock_quantity": 43,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d6f"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000055"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "L",
+  "size_note": "60-70kg",
+  "stock_quantity": 36,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d70"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000055"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XL",
+  "size_note": "70-80kg",
+  "stock_quantity": 23,
+  "price_adjustment": 30000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d71"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000055"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XXL",
+  "size_note": "Trên 80kg",
+  "stock_quantity": 12,
+  "price_adjustment": 50000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d72"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000056"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "S",
+  "size_note": "Dưới 50kg",
+  "stock_quantity": 46,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d73"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000056"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "M",
+  "size_note": "50-60kg",
+  "stock_quantity": 21,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d74"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000056"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "L",
+  "size_note": "60-70kg",
+  "stock_quantity": 35,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d75"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000056"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XL",
+  "size_note": "70-80kg",
+  "stock_quantity": 36,
+  "price_adjustment": 30000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d76"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000056"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XXL",
+  "size_note": "Trên 80kg",
+  "stock_quantity": 43,
+  "price_adjustment": 50000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d77"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000057"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "28",
+  "size_note": "Eo 68-72cm",
+  "stock_quantity": 41,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d78"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000057"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "30",
+  "size_note": "Eo 74-78cm",
+  "stock_quantity": 44,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d79"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000057"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "32",
+  "size_note": "Eo 80-84cm",
+  "stock_quantity": 39,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d7a"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000057"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "34",
+  "size_note": "Eo 86-90cm",
+  "stock_quantity": 40,
+  "price_adjustment": 20000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d7b"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000058"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "28",
+  "size_note": "Eo 68-72cm",
+  "stock_quantity": 23,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d7c"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000058"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "30",
+  "size_note": "Eo 74-78cm",
+  "stock_quantity": 22,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d7d"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000058"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "32",
+  "size_note": "Eo 80-84cm",
+  "stock_quantity": 59,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d7e"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000058"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "34",
+  "size_note": "Eo 86-90cm",
+  "stock_quantity": 51,
+  "price_adjustment": 20000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d7f"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000059"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "S",
+  "size_note": "Dưới 50kg",
+  "stock_quantity": 58,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d80"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000059"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "M",
+  "size_note": "50-60kg",
+  "stock_quantity": 38,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d81"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000059"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "L",
+  "size_note": "60-70kg",
+  "stock_quantity": 44,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d82"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000059"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XL",
+  "size_note": "70-80kg",
+  "stock_quantity": 54,
+  "price_adjustment": 30000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d83"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000059"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XXL",
+  "size_note": "Trên 80kg",
+  "stock_quantity": 53,
+  "price_adjustment": 50000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d84"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000060"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "28",
+  "size_note": "Eo 68-72cm",
+  "stock_quantity": 36,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d85"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000060"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "30",
+  "size_note": "Eo 74-78cm",
+  "stock_quantity": 44,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d86"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000060"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "32",
+  "size_note": "Eo 80-84cm",
+  "stock_quantity": 40,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d87"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000060"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "34",
+  "size_note": "Eo 86-90cm",
+  "stock_quantity": 16,
+  "price_adjustment": 20000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d88"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000061"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "S",
+  "size_note": "Dưới 50kg",
+  "stock_quantity": 40,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d89"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000061"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "M",
+  "size_note": "50-60kg",
+  "stock_quantity": 51,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d8a"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000061"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "L",
+  "size_note": "60-70kg",
+  "stock_quantity": 53,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d8b"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000061"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XL",
+  "size_note": "70-80kg",
+  "stock_quantity": 26,
+  "price_adjustment": 30000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d8c"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000061"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "XXL",
+  "size_note": "Trên 80kg",
+  "stock_quantity": 19,
+  "price_adjustment": 50000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d8d"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000062"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "28",
+  "size_note": "Eo 68-72cm",
+  "stock_quantity": 14,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d8e"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000062"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "30",
+  "size_note": "Eo 74-78cm",
+  "stock_quantity": 13,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d8f"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000062"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "32",
+  "size_note": "Eo 80-84cm",
+  "stock_quantity": 38,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a01d8eb11a3997472a94d90"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000062"
+  },
+  "color": "",
+  "color_hex": "",
+  "size": "34",
+  "size_note": "Eo 86-90cm",
+  "stock_quantity": 48,
+  "price_adjustment": 20000,
+  "img": "",
+  "created_at": {
+    "$date": "2026-05-11T13:26:03.587Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000001"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000001"
+  },
+  "color": "Trắng",
+  "color_hex": "#FFFFFF",
+  "size": "S",
+  "size_note": "Dưới 50kg",
+  "stock_quantity": 45,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-05T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000002"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000001"
+  },
+  "color": "Trắng",
+  "color_hex": "#FFFFFF",
+  "size": "M",
+  "size_note": "50-60kg",
+  "stock_quantity": 60,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-05T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000003"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000001"
+  },
+  "color": "Trắng",
+  "color_hex": "#FFFFFF",
+  "size": "L",
+  "size_note": "60-70kg",
+  "stock_quantity": 30,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-05T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000004"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000001"
+  },
+  "color": "Trắng",
+  "color_hex": "#FFFFFF",
+  "size": "XL",
+  "size_note": "70-80kg",
+  "stock_quantity": 20,
+  "price_adjustment": 30000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-05T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000005"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000002"
+  },
+  "color": "Đen",
+  "color_hex": "#111111",
+  "size": "S",
+  "size_note": "Dưới 50kg",
+  "stock_quantity": 40,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-05T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000006"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000002"
+  },
+  "color": "Đen",
+  "color_hex": "#111111",
+  "size": "M",
+  "size_note": "50-60kg",
+  "stock_quantity": 50,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-05T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000007"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000002"
+  },
+  "color": "Đen",
+  "color_hex": "#111111",
+  "size": "L",
+  "size_note": "60-70kg",
+  "stock_quantity": 30,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-05T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000008"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000002"
+  },
+  "color": "Đen",
+  "color_hex": "#111111",
+  "size": "XL",
+  "size_note": "70-80kg",
+  "stock_quantity": 20,
+  "price_adjustment": 30000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-05T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000009"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000003"
+  },
+  "color": "Xám",
+  "color_hex": "#808080",
+  "size": "S",
+  "size_note": "Dưới 50kg",
+  "stock_quantity": 35,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-06T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000010"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000003"
+  },
+  "color": "Xám",
+  "color_hex": "#808080",
+  "size": "M",
+  "size_note": "50-60kg",
+  "stock_quantity": 45,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-06T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000011"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000003"
+  },
+  "color": "Xám",
+  "color_hex": "#808080",
+  "size": "L",
+  "size_note": "60-70kg",
+  "stock_quantity": 25,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-06T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000012"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000003"
+  },
+  "color": "Xám",
+  "color_hex": "#808080",
+  "size": "XL",
+  "size_note": "70-80kg",
+  "stock_quantity": 15,
+  "price_adjustment": 30000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-06T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000013"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000004"
+  },
+  "color": "Trắng sọc",
+  "color_hex": "#F5F5F5",
+  "size": "S",
+  "size_note": "Dưới 50kg",
+  "stock_quantity": 30,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-06T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000014"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000004"
+  },
+  "color": "Trắng sọc",
+  "color_hex": "#F5F5F5",
+  "size": "M",
+  "size_note": "50-60kg",
+  "stock_quantity": 40,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-06T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000015"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000004"
+  },
+  "color": "Trắng sọc",
+  "color_hex": "#F5F5F5",
+  "size": "L",
+  "size_note": "60-70kg",
+  "stock_quantity": 25,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-06T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000016"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000004"
+  },
+  "color": "Trắng sọc",
+  "color_hex": "#F5F5F5",
+  "size": "XL",
+  "size_note": "70-80kg",
+  "stock_quantity": 15,
+  "price_adjustment": 30000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-06T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000017"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000005"
+  },
+  "color": "Đen",
+  "color_hex": "#111111",
+  "size": "S",
+  "size_note": "Dưới 50kg",
+  "stock_quantity": 35,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-07T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000018"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000005"
+  },
+  "color": "Đen",
+  "color_hex": "#111111",
+  "size": "M",
+  "size_note": "50-60kg",
+  "stock_quantity": 50,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-07T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000019"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000005"
+  },
+  "color": "Đen",
+  "color_hex": "#111111",
+  "size": "L",
+  "size_note": "60-70kg",
+  "stock_quantity": 30,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-07T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000020"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000005"
+  },
+  "color": "Đen",
+  "color_hex": "#111111",
+  "size": "XL",
+  "size_note": "70-80kg",
+  "stock_quantity": 20,
+  "price_adjustment": 30000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-07T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000021"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000006"
+  },
+  "color": "Trắng",
+  "color_hex": "#FFFFFF",
+  "size": "S",
+  "size_note": "Dưới 50kg",
+  "stock_quantity": 25,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-08T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000022"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000006"
+  },
+  "color": "Trắng",
+  "color_hex": "#FFFFFF",
+  "size": "M",
+  "size_note": "50-60kg",
+  "stock_quantity": 35,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-08T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000023"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000006"
+  },
+  "color": "Trắng",
+  "color_hex": "#FFFFFF",
+  "size": "L",
+  "size_note": "60-70kg",
+  "stock_quantity": 20,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-08T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000024"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000006"
+  },
+  "color": "Trắng",
+  "color_hex": "#FFFFFF",
+  "size": "XL",
+  "size_note": "70-80kg",
+  "stock_quantity": 15,
+  "price_adjustment": 30000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-08T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000025"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000007"
+  },
+  "color": "Xanh caro",
+  "color_hex": "#4B6FA5",
+  "size": "S",
+  "size_note": "Dưới 50kg",
+  "stock_quantity": 20,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-08T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000026"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000007"
+  },
+  "color": "Xanh caro",
+  "color_hex": "#4B6FA5",
+  "size": "M",
+  "size_note": "50-60kg",
+  "stock_quantity": 30,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-08T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000027"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000007"
+  },
+  "color": "Xanh caro",
+  "color_hex": "#4B6FA5",
+  "size": "L",
+  "size_note": "60-70kg",
+  "stock_quantity": 20,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-08T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000028"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000007"
+  },
+  "color": "Xanh caro",
+  "color_hex": "#4B6FA5",
+  "size": "XL",
+  "size_note": "70-80kg",
+  "stock_quantity": 10,
+  "price_adjustment": 30000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-08T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000029"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000008"
+  },
+  "color": "Xanh navy",
+  "color_hex": "#1B2A4A",
+  "size": "S",
+  "size_note": "Dưới 50kg",
+  "stock_quantity": 30,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-09T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000030"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000008"
+  },
+  "color": "Xanh navy",
+  "color_hex": "#1B2A4A",
+  "size": "M",
+  "size_note": "50-60kg",
+  "stock_quantity": 40,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-09T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000031"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000008"
+  },
+  "color": "Xanh navy",
+  "color_hex": "#1B2A4A",
+  "size": "L",
+  "size_note": "60-70kg",
+  "stock_quantity": 25,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-09T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000032"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000008"
+  },
+  "color": "Xanh navy",
+  "color_hex": "#1B2A4A",
+  "size": "XL",
+  "size_note": "70-80kg",
+  "stock_quantity": 15,
+  "price_adjustment": 30000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-09T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000033"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000009"
+  },
+  "color": "Xanh denim",
+  "color_hex": "#4B76A3",
+  "size": "S",
+  "size_note": "Dưới 50kg",
+  "stock_quantity": 20,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-09T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000034"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000009"
+  },
+  "color": "Xanh denim",
+  "color_hex": "#4B76A3",
+  "size": "M",
+  "size_note": "50-60kg",
+  "stock_quantity": 30,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-09T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000035"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000009"
+  },
+  "color": "Xanh denim",
+  "color_hex": "#4B76A3",
+  "size": "L",
+  "size_note": "60-70kg",
+  "stock_quantity": 15,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-09T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000036"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000009"
+  },
+  "color": "Xanh denim",
+  "color_hex": "#4B76A3",
+  "size": "XL",
+  "size_note": "70-80kg",
+  "stock_quantity": 10,
+  "price_adjustment": 30000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-09T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000037"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000010"
+  },
+  "color": "Trắng",
+  "color_hex": "#FFFFF0",
+  "size": "S",
+  "size_note": "Dưới 50kg",
+  "stock_quantity": 25,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-10T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000038"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000010"
+  },
+  "color": "Trắng",
+  "color_hex": "#FFFFF0",
+  "size": "M",
+  "size_note": "50-60kg",
+  "stock_quantity": 35,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-10T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000039"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000010"
+  },
+  "color": "Trắng",
+  "color_hex": "#FFFFF0",
+  "size": "L",
+  "size_note": "60-70kg",
+  "stock_quantity": 20,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-10T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000040"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000010"
+  },
+  "color": "Trắng",
+  "color_hex": "#FFFFF0",
+  "size": "XL",
+  "size_note": "70-80kg",
+  "stock_quantity": 15,
+  "price_adjustment": 30000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-10T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000041"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000011"
+  },
+  "color": "Đen",
+  "color_hex": "#1A1A1A",
+  "size": "S",
+  "size_note": "Dưới 50kg",
+  "stock_quantity": 20,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-10T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000042"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000011"
+  },
+  "color": "Đen",
+  "color_hex": "#1A1A1A",
+  "size": "M",
+  "size_note": "50-60kg",
+  "stock_quantity": 25,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-10T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000043"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000011"
+  },
+  "color": "Đen",
+  "color_hex": "#1A1A1A",
+  "size": "L",
+  "size_note": "60-70kg",
+  "stock_quantity": 15,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-10T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000044"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000011"
+  },
+  "color": "Đen",
+  "color_hex": "#1A1A1A",
+  "size": "XL",
+  "size_note": "70-80kg",
+  "stock_quantity": 10,
+  "price_adjustment": 30000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-10T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000045"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000012"
+  },
+  "color": "Xanh jean",
+  "color_hex": "#3C6E9F",
+  "size": "S",
+  "size_note": "Dưới 50kg",
+  "stock_quantity": 15,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-11T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000046"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000012"
+  },
+  "color": "Xanh jean",
+  "color_hex": "#3C6E9F",
+  "size": "M",
+  "size_note": "50-60kg",
+  "stock_quantity": 20,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-11T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000047"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000012"
+  },
+  "color": "Xanh jean",
+  "color_hex": "#3C6E9F",
+  "size": "L",
+  "size_note": "60-70kg",
+  "stock_quantity": 15,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-11T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000048"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000012"
+  },
+  "color": "Xanh jean",
+  "color_hex": "#3C6E9F",
+  "size": "XL",
+  "size_note": "70-80kg",
+  "stock_quantity": 10,
+  "price_adjustment": 30000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-11T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000049"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000013"
+  },
+  "color": "Xám",
+  "color_hex": "#696969",
+  "size": "S",
+  "size_note": "Dưới 50kg",
+  "stock_quantity": 30,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-11T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000050"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000013"
+  },
+  "color": "Xám",
+  "color_hex": "#696969",
+  "size": "M",
+  "size_note": "50-60kg",
+  "stock_quantity": 40,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-11T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000051"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000013"
+  },
+  "color": "Xám",
+  "color_hex": "#696969",
+  "size": "L",
+  "size_note": "60-70kg",
+  "stock_quantity": 25,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-11T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000052"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000013"
+  },
+  "color": "Xám",
+  "color_hex": "#696969",
+  "size": "XL",
+  "size_note": "70-80kg",
+  "stock_quantity": 20,
+  "price_adjustment": 30000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-11T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000053"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000014"
+  },
+  "color": "Đen",
+  "color_hex": "#111111",
+  "size": "S",
+  "size_note": "Dưới 50kg",
+  "stock_quantity": 10,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-12T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000054"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000014"
+  },
+  "color": "Đen",
+  "color_hex": "#111111",
+  "size": "M",
+  "size_note": "50-60kg",
+  "stock_quantity": 15,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-12T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000055"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000014"
+  },
+  "color": "Đen",
+  "color_hex": "#111111",
+  "size": "L",
+  "size_note": "60-70kg",
+  "stock_quantity": 10,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-12T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000056"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000014"
+  },
+  "color": "Đen",
+  "color_hex": "#111111",
+  "size": "XL",
+  "size_note": "70-80kg",
+  "stock_quantity": 5,
+  "price_adjustment": 30000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-12T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000057"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000015"
+  },
+  "color": "Trắng",
+  "color_hex": "#FFFFFF",
+  "size": "S",
+  "size_note": "Dưới 50kg",
+  "stock_quantity": 35,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-12T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000058"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000015"
+  },
+  "color": "Trắng",
+  "color_hex": "#FFFFFF",
+  "size": "M",
+  "size_note": "50-60kg",
+  "stock_quantity": 45,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-12T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000059"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000015"
+  },
+  "color": "Trắng",
+  "color_hex": "#FFFFFF",
+  "size": "L",
+  "size_note": "60-70kg",
+  "stock_quantity": 25,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-12T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000060"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000015"
+  },
+  "color": "Trắng",
+  "color_hex": "#FFFFFF",
+  "size": "XL",
+  "size_note": "70-80kg",
+  "stock_quantity": 15,
+  "price_adjustment": 30000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-12T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000061"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000016"
+  },
+  "color": "Xanh navy",
+  "color_hex": "#1B2A4A",
+  "size": "S",
+  "size_note": "Dưới 50kg",
+  "stock_quantity": 30,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-13T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000062"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000016"
+  },
+  "color": "Xanh navy",
+  "color_hex": "#1B2A4A",
+  "size": "M",
+  "size_note": "50-60kg",
+  "stock_quantity": 40,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-13T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000063"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000016"
+  },
+  "color": "Xanh navy",
+  "color_hex": "#1B2A4A",
+  "size": "L",
+  "size_note": "60-70kg",
+  "stock_quantity": 20,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-13T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000064"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000016"
+  },
+  "color": "Xanh navy",
+  "color_hex": "#1B2A4A",
+  "size": "XL",
+  "size_note": "70-80kg",
+  "stock_quantity": 10,
+  "price_adjustment": 30000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-13T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000065"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000017"
+  },
+  "color": "Trắng viền đỏ",
+  "color_hex": "#FFFFFF",
+  "size": "S",
+  "size_note": "Dưới 50kg",
+  "stock_quantity": 25,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-13T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000066"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000017"
+  },
+  "color": "Trắng viền đỏ",
+  "color_hex": "#FFFFFF",
+  "size": "M",
+  "size_note": "50-60kg",
+  "stock_quantity": 35,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-13T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000067"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000017"
+  },
+  "color": "Trắng viền đỏ",
+  "color_hex": "#FFFFFF",
+  "size": "L",
+  "size_note": "60-70kg",
+  "stock_quantity": 20,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-13T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000068"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000017"
+  },
+  "color": "Trắng viền đỏ",
+  "color_hex": "#FFFFFF",
+  "size": "XL",
+  "size_note": "70-80kg",
+  "stock_quantity": 10,
+  "price_adjustment": 30000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-13T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000069"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000018"
+  },
+  "color": "Xanh",
+  "color_hex": "#3A6896",
+  "size": "28",
+  "size_note": "Eo 68-72cm",
+  "stock_quantity": 30,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-14T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000070"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000018"
+  },
+  "color": "Xanh",
+  "color_hex": "#3A6896",
+  "size": "30",
+  "size_note": "Eo 74-78cm",
+  "stock_quantity": 40,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-14T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000071"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000018"
+  },
+  "color": "Xanh",
+  "color_hex": "#3A6896",
+  "size": "32",
+  "size_note": "Eo 80-84cm",
+  "stock_quantity": 20,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-14T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000072"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000018"
+  },
+  "color": "Xanh",
+  "color_hex": "#3A6896",
+  "size": "34",
+  "size_note": "Eo 86-90cm",
+  "stock_quantity": 10,
+  "price_adjustment": 20000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-14T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000073"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000019"
+  },
+  "color": "Đen",
+  "color_hex": "#1A1A1A",
+  "size": "28",
+  "size_note": "Eo 68-72cm",
+  "stock_quantity": 25,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-14T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000074"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000019"
+  },
+  "color": "Đen",
+  "color_hex": "#1A1A1A",
+  "size": "30",
+  "size_note": "Eo 74-78cm",
+  "stock_quantity": 35,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-14T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000075"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000019"
+  },
+  "color": "Đen",
+  "color_hex": "#1A1A1A",
+  "size": "32",
+  "size_note": "Eo 80-84cm",
+  "stock_quantity": 20,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-14T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000076"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000019"
+  },
+  "color": "Đen",
+  "color_hex": "#1A1A1A",
+  "size": "34",
+  "size_note": "Eo 86-90cm",
+  "stock_quantity": 10,
+  "price_adjustment": 20000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-14T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000077"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000020"
+  },
+  "color": "Xanh nhạt",
+  "color_hex": "#5B92C0",
+  "size": "28",
+  "size_note": "Eo 68-72cm",
+  "stock_quantity": 20,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-15T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000078"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000020"
+  },
+  "color": "Xanh nhạt",
+  "color_hex": "#5B92C0",
+  "size": "30",
+  "size_note": "Eo 74-78cm",
+  "stock_quantity": 25,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-15T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000079"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000020"
+  },
+  "color": "Xanh nhạt",
+  "color_hex": "#5B92C0",
+  "size": "32",
+  "size_note": "Eo 80-84cm",
+  "stock_quantity": 15,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-15T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000080"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000020"
+  },
+  "color": "Xanh nhạt",
+  "color_hex": "#5B92C0",
+  "size": "34",
+  "size_note": "Eo 86-90cm",
+  "stock_quantity": 10,
+  "price_adjustment": 20000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-15T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000081"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000021"
+  },
+  "color": "Xanh",
+  "color_hex": "#3A6896",
+  "size": "28",
+  "size_note": "Eo 68-72cm",
+  "stock_quantity": 35,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-15T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000082"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000021"
+  },
+  "color": "Xanh",
+  "color_hex": "#3A6896",
+  "size": "30",
+  "size_note": "Eo 74-78cm",
+  "stock_quantity": 45,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-15T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000083"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000021"
+  },
+  "color": "Xanh",
+  "color_hex": "#3A6896",
+  "size": "32",
+  "size_note": "Eo 80-84cm",
+  "stock_quantity": 20,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-15T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000084"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000021"
+  },
+  "color": "Xanh",
+  "color_hex": "#3A6896",
+  "size": "34",
+  "size_note": "Eo 86-90cm",
+  "stock_quantity": 10,
+  "price_adjustment": 20000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-15T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000085"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000022"
+  },
+  "color": "Xám",
+  "color_hex": "#808080",
+  "size": "28",
+  "size_note": "Eo 68-72cm",
+  "stock_quantity": 20,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-16T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000086"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000022"
+  },
+  "color": "Xám",
+  "color_hex": "#808080",
+  "size": "30",
+  "size_note": "Eo 74-78cm",
+  "stock_quantity": 30,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-16T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000087"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000022"
+  },
+  "color": "Xám",
+  "color_hex": "#808080",
+  "size": "32",
+  "size_note": "Eo 80-84cm",
+  "stock_quantity": 15,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-16T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000088"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000022"
+  },
+  "color": "Xám",
+  "color_hex": "#808080",
+  "size": "34",
+  "size_note": "Eo 86-90cm",
+  "stock_quantity": 10,
+  "price_adjustment": 20000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-16T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000089"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000023"
+  },
+  "color": "Kaki",
+  "color_hex": "#C3A45B",
+  "size": "28",
+  "size_note": "Eo 68-72cm",
+  "stock_quantity": 30,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-16T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000090"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000023"
+  },
+  "color": "Kaki",
+  "color_hex": "#C3A45B",
+  "size": "30",
+  "size_note": "Eo 74-78cm",
+  "stock_quantity": 40,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-16T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000091"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000023"
+  },
+  "color": "Kaki",
+  "color_hex": "#C3A45B",
+  "size": "32",
+  "size_note": "Eo 80-84cm",
+  "stock_quantity": 20,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-16T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000092"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000023"
+  },
+  "color": "Kaki",
+  "color_hex": "#C3A45B",
+  "size": "34",
+  "size_note": "Eo 86-90cm",
+  "stock_quantity": 10,
+  "price_adjustment": 20000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-16T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000093"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000024"
+  },
+  "color": "Xanh rêu",
+  "color_hex": "#556B2F",
+  "size": "28",
+  "size_note": "Eo 68-72cm",
+  "stock_quantity": 25,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-17T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000094"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000024"
+  },
+  "color": "Xanh rêu",
+  "color_hex": "#556B2F",
+  "size": "30",
+  "size_note": "Eo 74-78cm",
+  "stock_quantity": 30,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-17T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000095"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000024"
+  },
+  "color": "Xanh rêu",
+  "color_hex": "#556B2F",
+  "size": "32",
+  "size_note": "Eo 80-84cm",
+  "stock_quantity": 15,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-17T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000096"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000024"
+  },
+  "color": "Xanh rêu",
+  "color_hex": "#556B2F",
+  "size": "34",
+  "size_note": "Eo 86-90cm",
+  "stock_quantity": 10,
+  "price_adjustment": 20000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-17T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000097"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000025"
+  },
+  "color": "Rêu",
+  "color_hex": "#4A5C3A",
+  "size": "28",
+  "size_note": "Eo 68-72cm",
+  "stock_quantity": 20,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-17T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000098"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000025"
+  },
+  "color": "Rêu",
+  "color_hex": "#4A5C3A",
+  "size": "30",
+  "size_note": "Eo 74-78cm",
+  "stock_quantity": 25,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-17T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000099"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000025"
+  },
+  "color": "Rêu",
+  "color_hex": "#4A5C3A",
+  "size": "32",
+  "size_note": "Eo 80-84cm",
+  "stock_quantity": 15,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-17T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000100"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000025"
+  },
+  "color": "Rêu",
+  "color_hex": "#4A5C3A",
+  "size": "34",
+  "size_note": "Eo 86-90cm",
+  "stock_quantity": 10,
+  "price_adjustment": 20000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-17T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000101"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000026"
+  },
+  "color": "Kaki",
+  "color_hex": "#C3A45B",
+  "size": "28",
+  "size_note": "Eo 68-72cm",
+  "stock_quantity": 40,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-18T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000102"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000026"
+  },
+  "color": "Kaki",
+  "color_hex": "#C3A45B",
+  "size": "30",
+  "size_note": "Eo 74-78cm",
+  "stock_quantity": 50,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-18T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000103"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000026"
+  },
+  "color": "Kaki",
+  "color_hex": "#C3A45B",
+  "size": "32",
+  "size_note": "Eo 80-84cm",
+  "stock_quantity": 25,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-18T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000104"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000026"
+  },
+  "color": "Kaki",
+  "color_hex": "#C3A45B",
+  "size": "34",
+  "size_note": "Eo 86-90cm",
+  "stock_quantity": 15,
+  "price_adjustment": 20000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-18T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000105"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000027"
+  },
+  "color": "Đen",
+  "color_hex": "#1A1A1A",
+  "size": "28",
+  "size_note": "Eo 68-72cm",
+  "stock_quantity": 45,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-18T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000106"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000027"
+  },
+  "color": "Đen",
+  "color_hex": "#1A1A1A",
+  "size": "30",
+  "size_note": "Eo 74-78cm",
+  "stock_quantity": 55,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-18T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000107"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000027"
+  },
+  "color": "Đen",
+  "color_hex": "#1A1A1A",
+  "size": "32",
+  "size_note": "Eo 80-84cm",
+  "stock_quantity": 30,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-18T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000108"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000027"
+  },
+  "color": "Đen",
+  "color_hex": "#1A1A1A",
+  "size": "34",
+  "size_note": "Eo 86-90cm",
+  "stock_quantity": 20,
+  "price_adjustment": 20000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-18T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000109"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000028"
+  },
+  "color": "Xanh nhạt",
+  "color_hex": "#5B92C0",
+  "size": "28",
+  "size_note": "Eo 68-72cm",
+  "stock_quantity": 25,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-19T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000110"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000028"
+  },
+  "color": "Xanh nhạt",
+  "color_hex": "#5B92C0",
+  "size": "30",
+  "size_note": "Eo 74-78cm",
+  "stock_quantity": 35,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-19T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000111"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000028"
+  },
+  "color": "Xanh nhạt",
+  "color_hex": "#5B92C0",
+  "size": "32",
+  "size_note": "Eo 80-84cm",
+  "stock_quantity": 20,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-19T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000112"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000028"
+  },
+  "color": "Xanh nhạt",
+  "color_hex": "#5B92C0",
+  "size": "34",
+  "size_note": "Eo 86-90cm",
+  "stock_quantity": 10,
+  "price_adjustment": 20000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-19T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000113"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000029"
+  },
+  "color": "Trắng",
+  "color_hex": "#FFFFFF",
+  "size": "XS",
+  "size_note": "Dưới 45kg",
+  "stock_quantity": 35,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-19T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000114"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000029"
+  },
+  "color": "Trắng",
+  "color_hex": "#FFFFFF",
+  "size": "S",
+  "size_note": "45-52kg",
+  "stock_quantity": 50,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-19T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000115"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000029"
+  },
+  "color": "Trắng",
+  "color_hex": "#FFFFFF",
+  "size": "M",
+  "size_note": "52-60kg",
+  "stock_quantity": 30,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-19T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000116"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000029"
+  },
+  "color": "Trắng",
+  "color_hex": "#FFFFFF",
+  "size": "L",
+  "size_note": "60-68kg",
+  "stock_quantity": 15,
+  "price_adjustment": 20000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-19T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000117"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000030"
+  },
+  "color": "Be",
+  "color_hex": "#F5F0E8",
+  "size": "XS",
+  "size_note": "Dưới 45kg",
+  "stock_quantity": 30,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-20T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000118"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000030"
+  },
+  "color": "Be",
+  "color_hex": "#F5F0E8",
+  "size": "S",
+  "size_note": "45-52kg",
+  "stock_quantity": 45,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-20T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000119"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000030"
+  },
+  "color": "Be",
+  "color_hex": "#F5F0E8",
+  "size": "M",
+  "size_note": "52-60kg",
+  "stock_quantity": 25,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-20T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000120"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000030"
+  },
+  "color": "Be",
+  "color_hex": "#F5F0E8",
+  "size": "L",
+  "size_note": "60-68kg",
+  "stock_quantity": 15,
+  "price_adjustment": 20000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-20T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000121"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000031"
+  },
+  "color": "Hồng",
+  "color_hex": "#FFB6C1",
+  "size": "XS",
+  "size_note": "Dưới 45kg",
+  "stock_quantity": 30,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-20T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000122"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000031"
+  },
+  "color": "Hồng",
+  "color_hex": "#FFB6C1",
+  "size": "S",
+  "size_note": "45-52kg",
+  "stock_quantity": 40,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-20T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000123"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000031"
+  },
+  "color": "Hồng",
+  "color_hex": "#FFB6C1",
+  "size": "M",
+  "size_note": "52-60kg",
+  "stock_quantity": 20,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-20T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000124"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000031"
+  },
+  "color": "Hồng",
+  "color_hex": "#FFB6C1",
+  "size": "L",
+  "size_note": "60-68kg",
+  "stock_quantity": 10,
+  "price_adjustment": 20000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-20T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000125"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000032"
+  },
+  "color": "Xanh navy",
+  "color_hex": "#1B2A4A",
+  "size": "XS",
+  "size_note": "Dưới 45kg",
+  "stock_quantity": 35,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-21T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000126"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000032"
+  },
+  "color": "Xanh navy",
+  "color_hex": "#1B2A4A",
+  "size": "S",
+  "size_note": "45-52kg",
+  "stock_quantity": 45,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-21T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000127"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000032"
+  },
+  "color": "Xanh navy",
+  "color_hex": "#1B2A4A",
+  "size": "M",
+  "size_note": "52-60kg",
+  "stock_quantity": 25,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-21T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000128"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000032"
+  },
+  "color": "Xanh navy",
+  "color_hex": "#1B2A4A",
+  "size": "L",
+  "size_note": "60-68kg",
+  "stock_quantity": 15,
+  "price_adjustment": 20000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-21T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000129"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000033"
+  },
+  "color": "Hồng đậm",
+  "color_hex": "#FF69B4",
+  "size": "XS",
+  "size_note": "Dưới 45kg",
+  "stock_quantity": 25,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-21T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000130"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000033"
+  },
+  "color": "Hồng đậm",
+  "color_hex": "#FF69B4",
+  "size": "S",
+  "size_note": "45-52kg",
+  "stock_quantity": 35,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-21T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000131"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000033"
+  },
+  "color": "Hồng đậm",
+  "color_hex": "#FF69B4",
+  "size": "M",
+  "size_note": "52-60kg",
+  "stock_quantity": 20,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-21T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000132"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000033"
+  },
+  "color": "Hồng đậm",
+  "color_hex": "#FF69B4",
+  "size": "L",
+  "size_note": "60-68kg",
+  "stock_quantity": 10,
+  "price_adjustment": 20000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-21T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000133"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000034"
+  },
+  "color": "Trắng",
+  "color_hex": "#FFFFFF",
+  "size": "XS",
+  "size_note": "Dưới 45kg",
+  "stock_quantity": 20,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-22T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000134"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000034"
+  },
+  "color": "Trắng",
+  "color_hex": "#FFFFFF",
+  "size": "S",
+  "size_note": "45-52kg",
+  "stock_quantity": 30,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-22T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000135"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000034"
+  },
+  "color": "Trắng",
+  "color_hex": "#FFFFFF",
+  "size": "M",
+  "size_note": "52-60kg",
+  "stock_quantity": 15,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-22T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000136"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000034"
+  },
+  "color": "Trắng",
+  "color_hex": "#FFFFFF",
+  "size": "L",
+  "size_note": "60-68kg",
+  "stock_quantity": 10,
+  "price_adjustment": 20000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-22T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000137"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000035"
+  },
+  "color": "Xanh caro",
+  "color_hex": "#4B6FA5",
+  "size": "XS",
+  "size_note": "Dưới 45kg",
+  "stock_quantity": 25,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-22T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000138"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000035"
+  },
+  "color": "Xanh caro",
+  "color_hex": "#4B6FA5",
+  "size": "S",
+  "size_note": "45-52kg",
+  "stock_quantity": 35,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-22T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000139"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000035"
+  },
+  "color": "Xanh caro",
+  "color_hex": "#4B6FA5",
+  "size": "M",
+  "size_note": "52-60kg",
+  "stock_quantity": 20,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-22T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000140"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000035"
+  },
+  "color": "Xanh caro",
+  "color_hex": "#4B6FA5",
+  "size": "L",
+  "size_note": "60-68kg",
+  "stock_quantity": 10,
+  "price_adjustment": 20000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-22T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000141"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000036"
+  },
+  "color": "Be",
+  "color_hex": "#F5F0E8",
+  "size": "XS",
+  "size_note": "Dưới 45kg",
+  "stock_quantity": 30,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-23T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000142"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000036"
+  },
+  "color": "Be",
+  "color_hex": "#F5F0E8",
+  "size": "S",
+  "size_note": "45-52kg",
+  "stock_quantity": 40,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-23T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000143"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000036"
+  },
+  "color": "Be",
+  "color_hex": "#F5F0E8",
+  "size": "M",
+  "size_note": "52-60kg",
+  "stock_quantity": 20,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-23T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000144"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000036"
+  },
+  "color": "Be",
+  "color_hex": "#F5F0E8",
+  "size": "L",
+  "size_note": "60-68kg",
+  "stock_quantity": 10,
+  "price_adjustment": 20000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-23T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000145"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000037"
+  },
+  "color": "Xanh denim",
+  "color_hex": "#4B76A3",
+  "size": "XS",
+  "size_note": "Dưới 45kg",
+  "stock_quantity": 20,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-23T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000146"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000037"
+  },
+  "color": "Xanh denim",
+  "color_hex": "#4B76A3",
+  "size": "S",
+  "size_note": "45-52kg",
+  "stock_quantity": 25,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-23T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000147"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000037"
+  },
+  "color": "Xanh denim",
+  "color_hex": "#4B76A3",
+  "size": "M",
+  "size_note": "52-60kg",
+  "stock_quantity": 15,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-23T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000148"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000037"
+  },
+  "color": "Xanh denim",
+  "color_hex": "#4B76A3",
+  "size": "L",
+  "size_note": "60-68kg",
+  "stock_quantity": 10,
+  "price_adjustment": 20000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-23T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000149"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000038"
+  },
+  "color": "Kem",
+  "color_hex": "#FFF8E7",
+  "size": "XS",
+  "size_note": "Dưới 45kg",
+  "stock_quantity": 15,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-24T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000150"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000038"
+  },
+  "color": "Kem",
+  "color_hex": "#FFF8E7",
+  "size": "S",
+  "size_note": "45-52kg",
+  "stock_quantity": 20,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-24T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000151"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000038"
+  },
+  "color": "Kem",
+  "color_hex": "#FFF8E7",
+  "size": "M",
+  "size_note": "52-60kg",
+  "stock_quantity": 10,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-24T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000152"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000038"
+  },
+  "color": "Kem",
+  "color_hex": "#FFF8E7",
+  "size": "L",
+  "size_note": "60-68kg",
+  "stock_quantity": 5,
+  "price_adjustment": 20000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-24T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000153"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000039"
+  },
+  "color": "Đa sắc",
+  "color_hex": "#FF9999",
+  "size": "XS",
+  "size_note": "Dưới 45kg",
+  "stock_quantity": 20,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-24T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000154"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000039"
+  },
+  "color": "Đa sắc",
+  "color_hex": "#FF9999",
+  "size": "S",
+  "size_note": "45-52kg",
+  "stock_quantity": 30,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-24T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000155"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000039"
+  },
+  "color": "Đa sắc",
+  "color_hex": "#FF9999",
+  "size": "M",
+  "size_note": "52-60kg",
+  "stock_quantity": 15,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-24T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000156"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000039"
+  },
+  "color": "Đa sắc",
+  "color_hex": "#FF9999",
+  "size": "L",
+  "size_note": "60-68kg",
+  "stock_quantity": 10,
+  "price_adjustment": 20000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-24T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000157"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000040"
+  },
+  "color": "Kem",
+  "color_hex": "#F5F0E8",
+  "size": "XS",
+  "size_note": "Dưới 45kg",
+  "stock_quantity": 25,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-25T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000158"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000040"
+  },
+  "color": "Kem",
+  "color_hex": "#F5F0E8",
+  "size": "S",
+  "size_note": "45-52kg",
+  "stock_quantity": 35,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-25T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000159"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000040"
+  },
+  "color": "Kem",
+  "color_hex": "#F5F0E8",
+  "size": "M",
+  "size_note": "52-60kg",
+  "stock_quantity": 20,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-25T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000160"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000040"
+  },
+  "color": "Kem",
+  "color_hex": "#F5F0E8",
+  "size": "L",
+  "size_note": "60-68kg",
+  "stock_quantity": 10,
+  "price_adjustment": 20000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-25T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000161"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000041"
+  },
+  "color": "Xanh",
+  "color_hex": "#3A6896",
+  "size": "26",
+  "size_note": "Eo 62-66cm",
+  "stock_quantity": 30,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-25T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000162"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000041"
+  },
+  "color": "Xanh",
+  "color_hex": "#3A6896",
+  "size": "28",
+  "size_note": "Eo 68-72cm",
+  "stock_quantity": 40,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-25T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000163"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000041"
+  },
+  "color": "Xanh",
+  "color_hex": "#3A6896",
+  "size": "30",
+  "size_note": "Eo 74-78cm",
+  "stock_quantity": 20,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-25T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000164"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000041"
+  },
+  "color": "Xanh",
+  "color_hex": "#3A6896",
+  "size": "32",
+  "size_note": "Eo 80-84cm",
+  "stock_quantity": 10,
+  "price_adjustment": 20000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-25T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000165"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000042"
+  },
+  "color": "Xanh nhạt",
+  "color_hex": "#87CEEB",
+  "size": "26",
+  "size_note": "Eo 62-66cm",
+  "stock_quantity": 25,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-26T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000166"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000042"
+  },
+  "color": "Xanh nhạt",
+  "color_hex": "#87CEEB",
+  "size": "28",
+  "size_note": "Eo 68-72cm",
+  "stock_quantity": 35,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-26T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000167"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000042"
+  },
+  "color": "Xanh nhạt",
+  "color_hex": "#87CEEB",
+  "size": "30",
+  "size_note": "Eo 74-78cm",
+  "stock_quantity": 20,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-26T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000168"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000042"
+  },
+  "color": "Xanh nhạt",
+  "color_hex": "#87CEEB",
+  "size": "32",
+  "size_note": "Eo 80-84cm",
+  "stock_quantity": 10,
+  "price_adjustment": 20000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-26T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000169"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000043"
+  },
+  "color": "Trắng",
+  "color_hex": "#F5F5F5",
+  "size": "26",
+  "size_note": "Eo 62-66cm",
+  "stock_quantity": 20,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-26T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000170"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000043"
+  },
+  "color": "Trắng",
+  "color_hex": "#F5F5F5",
+  "size": "28",
+  "size_note": "Eo 68-72cm",
+  "stock_quantity": 30,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-26T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000171"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000043"
+  },
+  "color": "Trắng",
+  "color_hex": "#F5F5F5",
+  "size": "30",
+  "size_note": "Eo 74-78cm",
+  "stock_quantity": 15,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-26T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000172"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000043"
+  },
+  "color": "Trắng",
+  "color_hex": "#F5F5F5",
+  "size": "32",
+  "size_note": "Eo 80-84cm",
+  "stock_quantity": 10,
+  "price_adjustment": 20000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-26T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000173"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000044"
+  },
+  "color": "Xanh",
+  "color_hex": "#3A6896",
+  "size": "26",
+  "size_note": "Eo 62-66cm",
+  "stock_quantity": 25,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-27T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000174"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000044"
+  },
+  "color": "Xanh",
+  "color_hex": "#3A6896",
+  "size": "28",
+  "size_note": "Eo 68-72cm",
+  "stock_quantity": 35,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-27T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000175"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000044"
+  },
+  "color": "Xanh",
+  "color_hex": "#3A6896",
+  "size": "30",
+  "size_note": "Eo 74-78cm",
+  "stock_quantity": 20,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-27T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000176"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000044"
+  },
+  "color": "Xanh",
+  "color_hex": "#3A6896",
+  "size": "32",
+  "size_note": "Eo 80-84cm",
+  "stock_quantity": 10,
+  "price_adjustment": 20000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-27T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000177"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000045"
+  },
+  "color": "Hồng pastel",
+  "color_hex": "#FFD1DC",
+  "size": "XS",
+  "size_note": "Dưới 45kg",
+  "stock_quantity": 30,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-27T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000178"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000045"
+  },
+  "color": "Hồng pastel",
+  "color_hex": "#FFD1DC",
+  "size": "S",
+  "size_note": "45-52kg",
+  "stock_quantity": 40,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-27T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000179"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000045"
+  },
+  "color": "Hồng pastel",
+  "color_hex": "#FFD1DC",
+  "size": "M",
+  "size_note": "52-60kg",
+  "stock_quantity": 20,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-27T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000180"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000045"
+  },
+  "color": "Hồng pastel",
+  "color_hex": "#FFD1DC",
+  "size": "L",
+  "size_note": "60-68kg",
+  "stock_quantity": 10,
+  "price_adjustment": 20000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-27T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000181"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000046"
+  },
+  "color": "Xanh denim",
+  "color_hex": "#4B76A3",
+  "size": "XS",
+  "size_note": "Dưới 45kg",
+  "stock_quantity": 25,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-28T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000182"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000046"
+  },
+  "color": "Xanh denim",
+  "color_hex": "#4B76A3",
+  "size": "S",
+  "size_note": "45-52kg",
+  "stock_quantity": 35,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-28T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000183"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000046"
+  },
+  "color": "Xanh denim",
+  "color_hex": "#4B76A3",
+  "size": "M",
+  "size_note": "52-60kg",
+  "stock_quantity": 20,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-28T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000184"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000046"
+  },
+  "color": "Xanh denim",
+  "color_hex": "#4B76A3",
+  "size": "L",
+  "size_note": "60-68kg",
+  "stock_quantity": 10,
+  "price_adjustment": 20000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-28T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000185"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000047"
+  },
+  "color": "Trắng hoa",
+  "color_hex": "#FFF0F5",
+  "size": "XS",
+  "size_note": "Dưới 45kg",
+  "stock_quantity": 30,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-28T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000186"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000047"
+  },
+  "color": "Trắng hoa",
+  "color_hex": "#FFF0F5",
+  "size": "S",
+  "size_note": "45-52kg",
+  "stock_quantity": 40,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-28T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000187"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000047"
+  },
+  "color": "Trắng hoa",
+  "color_hex": "#FFF0F5",
+  "size": "M",
+  "size_note": "52-60kg",
+  "stock_quantity": 20,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-28T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000188"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000047"
+  },
+  "color": "Trắng hoa",
+  "color_hex": "#FFF0F5",
+  "size": "L",
+  "size_note": "60-68kg",
+  "stock_quantity": 10,
+  "price_adjustment": 20000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-28T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000189"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000048"
+  },
+  "color": "Trắng",
+  "color_hex": "#FFFFFF",
+  "size": "XS",
+  "size_note": "Dưới 45kg",
+  "stock_quantity": 30,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-29T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000190"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000048"
+  },
+  "color": "Trắng",
+  "color_hex": "#FFFFFF",
+  "size": "S",
+  "size_note": "45-52kg",
+  "stock_quantity": 40,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-29T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000191"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000048"
+  },
+  "color": "Trắng",
+  "color_hex": "#FFFFFF",
+  "size": "M",
+  "size_note": "52-60kg",
+  "stock_quantity": 25,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-29T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000192"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000048"
+  },
+  "color": "Trắng",
+  "color_hex": "#FFFFFF",
+  "size": "L",
+  "size_note": "60-68kg",
+  "stock_quantity": 15,
+  "price_adjustment": 20000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-29T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000193"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000049"
+  },
+  "color": "Vàng hoa",
+  "color_hex": "#FFB347",
+  "size": "XS",
+  "size_note": "Dưới 45kg",
+  "stock_quantity": 20,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-29T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000194"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000049"
+  },
+  "color": "Vàng hoa",
+  "color_hex": "#FFB347",
+  "size": "S",
+  "size_note": "45-52kg",
+  "stock_quantity": 30,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-29T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000195"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000049"
+  },
+  "color": "Vàng hoa",
+  "color_hex": "#FFB347",
+  "size": "M",
+  "size_note": "52-60kg",
+  "stock_quantity": 15,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-29T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000196"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000049"
+  },
+  "color": "Vàng hoa",
+  "color_hex": "#FFB347",
+  "size": "L",
+  "size_note": "60-68kg",
+  "stock_quantity": 10,
+  "price_adjustment": 20000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-29T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000197"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000050"
+  },
+  "color": "Be",
+  "color_hex": "#F5F0E8",
+  "size": "XS",
+  "size_note": "Dưới 45kg",
+  "stock_quantity": 20,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-30T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000198"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000050"
+  },
+  "color": "Be",
+  "color_hex": "#F5F0E8",
+  "size": "S",
+  "size_note": "45-52kg",
+  "stock_quantity": 25,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-30T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000199"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000050"
+  },
+  "color": "Be",
+  "color_hex": "#F5F0E8",
+  "size": "M",
+  "size_note": "52-60kg",
+  "stock_quantity": 15,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-30T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000200"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000050"
+  },
+  "color": "Be",
+  "color_hex": "#F5F0E8",
+  "size": "L",
+  "size_note": "60-68kg",
+  "stock_quantity": 10,
+  "price_adjustment": 20000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-30T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000201"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000051"
+  },
+  "color": "Tím",
+  "color_hex": "#9B59B6",
+  "size": "XS",
+  "size_note": "Dưới 45kg",
+  "stock_quantity": 15,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-30T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000202"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000051"
+  },
+  "color": "Tím",
+  "color_hex": "#9B59B6",
+  "size": "S",
+  "size_note": "45-52kg",
+  "stock_quantity": 20,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-30T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000203"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000051"
+  },
+  "color": "Tím",
+  "color_hex": "#9B59B6",
+  "size": "M",
+  "size_note": "52-60kg",
+  "stock_quantity": 10,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-30T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000204"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000051"
+  },
+  "color": "Tím",
+  "color_hex": "#9B59B6",
+  "size": "L",
+  "size_note": "60-68kg",
+  "stock_quantity": 5,
+  "price_adjustment": 20000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-30T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000205"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000052"
+  },
+  "color": "Đen",
+  "color_hex": "#1A1A1A",
+  "size": "XS",
+  "size_note": "Dưới 45kg",
+  "stock_quantity": 10,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-31T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000206"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000052"
+  },
+  "color": "Đen",
+  "color_hex": "#1A1A1A",
+  "size": "S",
+  "size_note": "45-52kg",
+  "stock_quantity": 15,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-31T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000207"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000052"
+  },
+  "color": "Đen",
+  "color_hex": "#1A1A1A",
+  "size": "M",
+  "size_note": "52-60kg",
+  "stock_quantity": 8,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-31T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000208"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000052"
+  },
+  "color": "Đen",
+  "color_hex": "#1A1A1A",
+  "size": "L",
+  "size_note": "60-68kg",
+  "stock_quantity": 5,
+  "price_adjustment": 20000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-31T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000209"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000053"
+  },
+  "color": "Đỏ",
+  "color_hex": "#CC0000",
+  "size": "XS",
+  "size_note": "Dưới 45kg",
+  "stock_quantity": 8,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-31T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000210"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000053"
+  },
+  "color": "Đỏ",
+  "color_hex": "#CC0000",
+  "size": "S",
+  "size_note": "45-52kg",
+  "stock_quantity": 12,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-31T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000211"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000053"
+  },
+  "color": "Đỏ",
+  "color_hex": "#CC0000",
+  "size": "M",
+  "size_note": "52-60kg",
+  "stock_quantity": 8,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-31T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000212"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000053"
+  },
+  "color": "Đỏ",
+  "color_hex": "#CC0000",
+  "size": "L",
+  "size_note": "60-68kg",
+  "stock_quantity": 5,
+  "price_adjustment": 20000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-01-31T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000213"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000054"
+  },
+  "color": "Xanh",
+  "color_hex": "#4B89DC",
+  "size": "3T",
+  "size_note": "3 tuổi ~14kg",
+  "stock_quantity": 40,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-02-01T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000214"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000054"
+  },
+  "color": "Xanh",
+  "color_hex": "#4B89DC",
+  "size": "4T",
+  "size_note": "4 tuổi ~16kg",
+  "stock_quantity": 50,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-02-01T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000215"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000054"
+  },
+  "color": "Xanh",
+  "color_hex": "#4B89DC",
+  "size": "5T",
+  "size_note": "5 tuổi ~18kg",
+  "stock_quantity": 45,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-02-01T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000216"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000054"
+  },
+  "color": "Xanh",
+  "color_hex": "#4B89DC",
+  "size": "6T",
+  "size_note": "6 tuổi ~20kg",
+  "stock_quantity": 35,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-02-01T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000217"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000055"
+  },
+  "color": "Hồng",
+  "color_hex": "#FF69B4",
+  "size": "3T",
+  "size_note": "3 tuổi ~14kg",
+  "stock_quantity": 40,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-02-01T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000218"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000055"
+  },
+  "color": "Hồng",
+  "color_hex": "#FF69B4",
+  "size": "4T",
+  "size_note": "4 tuổi ~16kg",
+  "stock_quantity": 50,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-02-01T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000219"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000055"
+  },
+  "color": "Hồng",
+  "color_hex": "#FF69B4",
+  "size": "5T",
+  "size_note": "5 tuổi ~18kg",
+  "stock_quantity": 45,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-02-01T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000220"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000055"
+  },
+  "color": "Hồng",
+  "color_hex": "#FF69B4",
+  "size": "6T",
+  "size_note": "6 tuổi ~20kg",
+  "stock_quantity": 35,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-02-01T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000221"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000056"
+  },
+  "color": "Xanh nhạt",
+  "color_hex": "#87CEEB",
+  "size": "3T",
+  "size_note": "3 tuổi ~14kg",
+  "stock_quantity": 50,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-02-02T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000222"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000056"
+  },
+  "color": "Xanh nhạt",
+  "color_hex": "#87CEEB",
+  "size": "4T",
+  "size_note": "4 tuổi ~16kg",
+  "stock_quantity": 60,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-02-02T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000223"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000056"
+  },
+  "color": "Xanh nhạt",
+  "color_hex": "#87CEEB",
+  "size": "5T",
+  "size_note": "5 tuổi ~18kg",
+  "stock_quantity": 55,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-02-02T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000224"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000056"
+  },
+  "color": "Xanh nhạt",
+  "color_hex": "#87CEEB",
+  "size": "6T",
+  "size_note": "6 tuổi ~20kg",
+  "stock_quantity": 40,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-02-02T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000225"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000057"
+  },
+  "color": "Xanh",
+  "color_hex": "#3A6896",
+  "size": "3T",
+  "size_note": "3 tuổi ~14kg",
+  "stock_quantity": 35,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-02-02T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000226"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000057"
+  },
+  "color": "Xanh",
+  "color_hex": "#3A6896",
+  "size": "4T",
+  "size_note": "4 tuổi ~16kg",
+  "stock_quantity": 45,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-02-02T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000227"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000057"
+  },
+  "color": "Xanh",
+  "color_hex": "#3A6896",
+  "size": "5T",
+  "size_note": "5 tuổi ~18kg",
+  "stock_quantity": 40,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-02-02T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000228"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000057"
+  },
+  "color": "Xanh",
+  "color_hex": "#3A6896",
+  "size": "6T",
+  "size_note": "6 tuổi ~20kg",
+  "stock_quantity": 30,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-02-02T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000229"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000058"
+  },
+  "color": "Xanh",
+  "color_hex": "#4B89DC",
+  "size": "3T",
+  "size_note": "3 tuổi ~14kg",
+  "stock_quantity": 30,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-02-03T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000230"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000058"
+  },
+  "color": "Xanh",
+  "color_hex": "#4B89DC",
+  "size": "4T",
+  "size_note": "4 tuổi ~16kg",
+  "stock_quantity": 40,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-02-03T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000231"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000058"
+  },
+  "color": "Xanh",
+  "color_hex": "#4B89DC",
+  "size": "5T",
+  "size_note": "5 tuổi ~18kg",
+  "stock_quantity": 35,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-02-03T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000232"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000058"
+  },
+  "color": "Xanh",
+  "color_hex": "#4B89DC",
+  "size": "6T",
+  "size_note": "6 tuổi ~20kg",
+  "stock_quantity": 25,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-02-03T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000233"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000059"
+  },
+  "color": "Xám",
+  "color_hex": "#808080",
+  "size": "S",
+  "size_note": "Dưới 50kg",
+  "stock_quantity": 25,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-02-03T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000234"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000059"
+  },
+  "color": "Xám",
+  "color_hex": "#808080",
+  "size": "M",
+  "size_note": "50-60kg",
+  "stock_quantity": 35,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-02-03T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000235"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000059"
+  },
+  "color": "Xám",
+  "color_hex": "#808080",
+  "size": "L",
+  "size_note": "60-70kg",
+  "stock_quantity": 20,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-02-03T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000236"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000059"
+  },
+  "color": "Xám",
+  "color_hex": "#808080",
+  "size": "XL",
+  "size_note": "70-80kg",
+  "stock_quantity": 15,
+  "price_adjustment": 30000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-02-03T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000237"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000060"
+  },
+  "color": "Đen",
+  "color_hex": "#1A1A1A",
+  "size": "28",
+  "size_note": "Eo 68-72cm",
+  "stock_quantity": 35,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-02-04T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000238"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000060"
+  },
+  "color": "Đen",
+  "color_hex": "#1A1A1A",
+  "size": "30",
+  "size_note": "Eo 74-78cm",
+  "stock_quantity": 45,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-02-04T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000239"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000060"
+  },
+  "color": "Đen",
+  "color_hex": "#1A1A1A",
+  "size": "32",
+  "size_note": "Eo 80-84cm",
+  "stock_quantity": 25,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-02-04T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000240"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000060"
+  },
+  "color": "Đen",
+  "color_hex": "#1A1A1A",
+  "size": "34",
+  "size_note": "Eo 86-90cm",
+  "stock_quantity": 15,
+  "price_adjustment": 20000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-02-04T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000241"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000061"
+  },
+  "color": "Đen",
+  "color_hex": "#1A1A1A",
+  "size": "XS",
+  "size_note": "Dưới 45kg",
+  "stock_quantity": 30,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-02-04T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000242"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000061"
+  },
+  "color": "Đen",
+  "color_hex": "#1A1A1A",
+  "size": "S",
+  "size_note": "45-52kg",
+  "stock_quantity": 40,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-02-04T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000243"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000061"
+  },
+  "color": "Đen",
+  "color_hex": "#1A1A1A",
+  "size": "M",
+  "size_note": "52-60kg",
+  "stock_quantity": 25,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-02-04T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000244"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000061"
+  },
+  "color": "Đen",
+  "color_hex": "#1A1A1A",
+  "size": "L",
+  "size_note": "60-68kg",
+  "stock_quantity": 15,
+  "price_adjustment": 20000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-02-04T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000245"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000062"
+  },
+  "color": "Đen",
+  "color_hex": "#1A1A1A",
+  "size": "26",
+  "size_note": "Eo 62-66cm",
+  "stock_quantity": 35,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-02-05T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000246"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000062"
+  },
+  "color": "Đen",
+  "color_hex": "#1A1A1A",
+  "size": "28",
+  "size_note": "Eo 68-72cm",
+  "stock_quantity": 45,
+  "price_adjustment": 0,
+  "img": "",
+  "created_at": {
+    "$date": "2024-02-05T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000247"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000062"
+  },
+  "color": "Đen",
+  "color_hex": "#1A1A1A",
+  "size": "30",
+  "size_note": "Eo 74-78cm",
+  "stock_quantity": 30,
+  "price_adjustment": 10000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-02-05T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "880000000000000000000248"
+  },
+  "product_id": {
+    "$oid": "770000000000000000000062"
+  },
+  "color": "Đen",
+  "color_hex": "#1A1A1A",
+  "size": "32",
+  "size_note": "Eo 80-84cm",
+  "stock_quantity": 20,
+  "price_adjustment": 20000,
+  "img": "",
+  "created_at": {
+    "$date": "2024-02-05T00:00:00.000Z"
+  }
+}]
