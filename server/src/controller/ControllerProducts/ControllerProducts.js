@@ -68,28 +68,12 @@ class ControllerProducts {
                 total += item.price * item.quantity;
             }, 0);
 
-            // Tìm kiếm giỏ hàng hiện tại dựa trên email
-            let cart = await ModelCart.findOne({ email: decoded.email });
-            let newProductId = 1;
-            if (cart) {
-                newProductId = cart.id + 1;
-            }
-            if (cart) {
-                // Nếu giỏ hàng đã tồn tại, thêm sản phẩm vào mảng products và cập nhật sumPrice
-                cart.products.push(...products);
-
-                cart.sumPrice += total;
-            } else {
-                // Nếu giỏ hàng chưa tồn tại, tạo giỏ hàng mới
-                cart = new ModelCart({
-                    id: newProductId,
-                    email: decoded.email,
-                    products: products,
-                    sumPrice: total,
-                });
-            }
-
-            await cart.save();
+            // Luôn thay thế toàn bộ giỏ hàng (không cộng dồn)
+            await ModelCart.findOneAndUpdate(
+                { email: decoded.email },
+                { email: decoded.email, products, sumPrice: total, couponCode: '' },
+                { upsert: true, new: true }
+            );
 
             return res.status(200).json({ message: 'Success' });
         } catch (error) {
@@ -104,6 +88,17 @@ class ControllerProducts {
         ModelCart.findOne({ email: decoded.email }).then((dataCart) => {
             return res.status(200).json([dataCart]);
         });
+    }
+
+    async ClearCart(req, res) {
+        try {
+            const token = req.cookies;
+            const decoded = jwtDecode(token.Token);
+            await ModelCart.findOneAndDelete({ email: decoded.email });
+            return res.status(200).json({ message: 'Cart cleared' });
+        } catch (err) {
+            return res.status(500).json({ message: 'Internal Server Error' });
+        }
     }
     async SearchProduct(req, res) {
         const keyword = req.query.nameProduct;

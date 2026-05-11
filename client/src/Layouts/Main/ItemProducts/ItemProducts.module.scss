@@ -1,40 +1,70 @@
 .wrapper {
     display: flex;
     justify-content: space-around;
+    width: 80%;
+    margin: 40px auto;
+    gap: 16px;
 }
 
 .row-product {
     transition: transform 0.3s;
     position: relative;
     text-align: center;
+    flex: 1;
+    overflow: hidden;
+    border-radius: 8px;
+    cursor: pointer;
+
     #img-item {
-        width: 320px;
-        background-repeat: no-repeat;
+        width: 100%;
+        height: 380px;
+        object-fit: cover;
+        display: block;
+        border-radius: 8px;
+        filter: brightness(0.82);
+        transition: filter 0.3s;
     }
 
     span {
         position: absolute;
-        left: 25px;
-        bottom: 0px;
+        left: 0;
         right: 0;
+        bottom: 18px;
         font-weight: 800;
         color: white;
         font-size: 20px;
+        text-shadow: 0 2px 6px rgba(0,0,0,0.5);
+        letter-spacing: 0.5px;
     }
 }
 
 .row-product:hover {
     transform: scale(1.03);
+
+    #img-item {
+        filter: brightness(0.65);
+    }
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 768px) {
+    .wrapper {
+        width: 95%;
+        gap: 10px;
+    }
+    .row-product #img-item {
+        height: 240px;
+    }
+    .row-product span {
+        font-size: 15px;
+    }
+}
+
+@media only screen and (max-width: 480px) {
     .wrapper {
         flex-direction: column;
-        gap: 20px;
     }
-    .row-product {
-        img {
-            width: 90%;
-        }
+    .row-product #img-item {
+        height: 200px;
+        width: 100%;
     }
 }

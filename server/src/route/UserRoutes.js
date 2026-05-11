@@ -31,4 +31,8 @@ router.get('/api/dataorder', ControllerUser.GetOrder);
 router.post('/api/wishlist/toggle', ControllerWishlist.Toggle);
 router.get('/api/wishlist/check', ControllerWishlist.CheckLiked);
 
+// Address
+router.get('/api/address', ControllerUser.GetAddress);
+router.post('/api/address', ControllerUser.SaveAddress);
+
 module.exports = router;

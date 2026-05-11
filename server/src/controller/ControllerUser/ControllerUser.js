@@ -1,4 +1,5 @@
 const ModelUser = require('../../model/ModelUser');
+const ModelAddress = require('../../model/ModelAddress');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { jwtDecode } = require('jwt-decode');
@@ -222,6 +223,36 @@ class ControllerUser {
                 console.error(error);
                 return res.status(500).json({ message: 'Server error' });
             }
+        }
+    }
+
+    async GetAddress(req, res) {
+        try {
+            const token = req.cookies.Token;
+            if (!token) return res.status(401).json({ message: 'Unauthorized' });
+            const decoded = jwtDecode(token);
+            const address = await ModelAddress.findOne({ email: decoded.email });
+            return res.status(200).json(address || null);
+        } catch (err) {
+            return res.status(500).json({ message: 'Server error' });
+        }
+    }
+
+    async SaveAddress(req, res) {
+        try {
+            const token = req.cookies.Token;
+            if (!token) return res.status(401).json({ message: 'Unauthorized' });
+            const decoded = jwtDecode(token);
+            const { fullname, phone, company, country, address_line1, address_line2, city, zip } = req.body;
+
+            const address = await ModelAddress.findOneAndUpdate(
+                { email: decoded.email },
+                { fullname, phone, company, country, address_line1, address_line2, city, zip, modified_at: new Date() },
+                { upsert: true, new: true }
+            );
+            return res.status(200).json({ message: 'Đã lưu địa chỉ thành công', address });
+        } catch (err) {
+            return res.status(500).json({ message: 'Server error' });
         }
     }
 }

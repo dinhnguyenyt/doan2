@@ -22,6 +22,11 @@ function Checkout() {
     const [couponCode, setCouponCode] = useState('');
     const [discountPercent, setDiscountPercent] = useState(0);
 
+    // Địa chỉ đã lưu
+    const [savedAddress, setSavedAddress] = useState(null);
+    const [useNewAddress, setUseNewAddress] = useState(false);
+
+    // Form nhập mới (chỉ dùng khi useNewAddress = true)
     const [firstName, setFirsName] = useState('');
     const [lastName, setLastName] = useState('');
     const [companyName, setCompanyName] = useState('');
@@ -34,14 +39,33 @@ function Checkout() {
     const [zip, setZip] = useState('');
 
     const navigate = useNavigate();
-
     const token = document.cookie;
 
-    const dataAddress = { firstName, lastName, phoneNumber, email, country, addressLine1, city };
+    // Địa chỉ thực sự dùng khi đặt hàng
+    const dataAddress = useNewAddress || !savedAddress
+        ? { firstName, lastName, phoneNumber, email, country, addressLine1, city }
+        : {
+            firstName: savedAddress.fullname?.split(' ')[0] || '',
+            lastName:  savedAddress.fullname?.split(' ').slice(1).join(' ') || '',
+            phoneNumber: savedAddress.phone || '',
+            email: '',
+            country: savedAddress.country || '',
+            addressLine1: savedAddress.address_line1 || '',
+            city: savedAddress.city || '',
+          };
 
     useEffect(() => {
         if (token) {
-            request.get('/api/getcart').then((res) => res.data.map((item) => setDataCart(item)));
+            request.get('/api/getcart').then((res) => {
+                // Chỉ hiển thị khi cart có sản phẩm thực sự
+                const cart = res.data?.[0];
+                if (cart && cart.products && cart.products.length > 0) {
+                    setDataCart(cart);
+                } else {
+                    setDataCart(null);
+                }
+            }).catch(() => setDataCart(null));
+            request.get('/api/address').then((res) => setSavedAddress(res.data)).catch(() => {});
         }
     }, [token]);
 
@@ -57,23 +81,26 @@ function Checkout() {
         }
     };
 
+    const validateBeforePayment = () => {
+        if (!checkBox) {
+            toast.error('Vui lòng chấp nhận điều khoản & điều kiện');
+            return false;
+        }
+        // Đã có địa chỉ mặc định và đang dùng nó → bỏ qua validate form
+        if (savedAddress && !useNewAddress) return true;
+        // Chưa có địa chỉ hoặc đang dùng địa chỉ khác → validate form billing
+        const missing = [firstName, lastName, companyName, phoneNumber, email, country, addressLine1, addressLine2, city, zip].some(v => v === '');
+        if (missing) {
+            toast.error('Vui lòng điền đầy đủ thông tin địa chỉ giao hàng');
+            return false;
+        }
+        return true;
+    };
+
     const handlePaymentMomo = async () => {
-        if (
-            checkBox === false ||
-            firstName === '' ||
-            lastName === '' ||
-            companyName === '' ||
-            phoneNumber === '' ||
-            email === '' ||
-            country === '' ||
-            addressLine1 === '' ||
-            addressLine2 === '' ||
-            city === '' ||
-            zip === ''
-        ) {
-            toast.error('Please accept our terms or you are missing information');
-        } else if (!dataCart) {
-            toast.error('Please Return to Purchase Page !!!');
+        if (!validateBeforePayment()) return;
+        if (!dataCart) {
+            toast.error('Giỏ hàng trống, vui lòng thêm sản phẩm');
         } else {
             try {
                 setIsLoading(true);
@@ -84,7 +111,7 @@ function Checkout() {
                 if (res) {
                     setIsLoading(false);
                     toast.success(res.data.message);
-
+                    await request.post('/api/clearcart');
                     window.open(res.data);
                     navigate('/thanks');
                 }
@@ -95,22 +122,9 @@ function Checkout() {
     };
 
     const handlePayment = async () => {
-        if (
-            checkBox === false ||
-            firstName === '' ||
-            lastName === '' ||
-            companyName === '' ||
-            phoneNumber === '' ||
-            email === '' ||
-            country === '' ||
-            addressLine1 === '' ||
-            addressLine2 === '' ||
-            city === '' ||
-            zip === ''
-        ) {
-            toast.error('Please accept our terms or you are missing information');
-        } else if (!dataCart) {
-            toast.error('Please Return to Purchase Page !!!');
+        if (!validateBeforePayment()) return;
+        if (!dataCart) {
+            toast.error('Giỏ hàng trống, vui lòng thêm sản phẩm');
         } else {
             try {
                 setIsLoading(true);
@@ -118,6 +132,7 @@ function Checkout() {
                     dataAddress,
                     couponCode: discountPercent > 0 ? couponCode : ''
                 });
+                await request.post('/api/clearcart');
                 setIsLoading(false);
                 navigate('/thanks');
             } catch (error) {
@@ -143,7 +158,36 @@ function Checkout() {
             <main className={cx('inner')}>
                 <div className={cx('inner-checkout')}>
                     <div className={cx('column-billing')}>
-                        <h1 id={cx('title-billing')}>Billing Details</h1>
+                        {/* Địa chỉ đã lưu */}
+                        {savedAddress && (
+                            <div style={{ background: '#f8f9fa', border: '1px solid #dee2e6', borderRadius: 8, padding: '14px 16px', marginBottom: 20 }}>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+                                    <strong style={{ fontSize: 15 }}>📍 Địa chỉ giao hàng đã lưu</strong>
+                                    <span style={{ fontSize: 12, color: useNewAddress ? '#aaa' : '#26aa99', fontWeight: 600 }}>
+                                        {useNewAddress ? '' : '✓ Đang dùng'}
+                                    </span>
+                                </div>
+                                <div style={{ fontSize: 13, color: '#444', lineHeight: 1.7 }}>
+                                    <div><strong>{savedAddress.fullname}</strong> · {savedAddress.phone}</div>
+                                    {savedAddress.company && <div>{savedAddress.company}</div>}
+                                    <div>{savedAddress.address_line1}{savedAddress.address_line2 ? `, ${savedAddress.address_line2}` : ''}</div>
+                                    <div>{savedAddress.city}{savedAddress.country ? `, ${savedAddress.country}` : ''} {savedAddress.zip}</div>
+                                </div>
+                                <div style={{ marginTop: 10 }}>
+                                    <label style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer', fontSize: 13, color: '#555' }}>
+                                        <input
+                                            type="checkbox"
+                                            checked={useNewAddress}
+                                            onChange={(e) => setUseNewAddress(e.target.checked)}
+                                        />
+                                        Giao đến địa chỉ khác
+                                    </label>
+                                </div>
+                            </div>
+                        )}
+
+                        <h1 id={cx('title-billing')} style={{ display: (!savedAddress || useNewAddress) ? 'block' : 'none' }}>Billing Details</h1>
+                        <div style={{ display: (!savedAddress || useNewAddress) ? 'block' : 'none' }}>
                         <div className={cx('input-name')}>
                             <div className="input-group mb-3">
                                 <input
@@ -239,6 +283,7 @@ function Checkout() {
                                 />
                             </div>
                         </div>
+                        </div>{/* end collapsible billing form */}
                     </div>
 
                     <div className={cx('form-order')}>

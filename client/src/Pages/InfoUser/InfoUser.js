@@ -3,7 +3,7 @@ import styles from './InfoUser.module.scss';
 
 import Header from '../../Layouts/Header/Header';
 import Footer from '../../Layouts/Footer/Footer';
-import EditInfo, { ChangePassword } from './modal/Modal';
+import EditInfo, { ChangePassword, AddressModal } from './modal/Modal';
 import request from '../../config/Connect';
 
 import { useEffect, useState } from 'react';
@@ -18,6 +18,8 @@ function InfoUser() {
     const [dataOrder, setDataOrder] = useState([]);
 
     const [showModalEdit, setShowModalEdit] = useState(false);
+    const [showAddressModal, setShowAddressModal] = useState(false);
+    const [savedAddress, setSavedAddress] = useState(null);
 
     const token = document.cookie;
 
@@ -27,6 +29,7 @@ function InfoUser() {
 
     useEffect(() => {
         request.get('/api/dataorder').then((res) => setDataOrder(res.data));
+        request.get('/api/address').then((res) => setSavedAddress(res.data)).catch(() => {});
     }, []);
 
     useEffect(() => {
@@ -105,6 +108,40 @@ function InfoUser() {
                             </div>
                         </div>
 
+                        {/* Địa chỉ giao hàng */}
+                        <div style={{ marginTop: 24, borderTop: '1px solid #eee', paddingTop: 16 }}>
+                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
+                                <h2 style={{ fontSize: 20 }}>Địa chỉ giao hàng</h2>
+                                <button
+                                    onClick={() => setShowAddressModal(true)}
+                                    style={{ border: '1px solid #ff2020', background: 'none', color: '#ff2020', padding: '4px 14px', fontWeight: 600, borderRadius: 4, cursor: 'pointer' }}
+                                >
+                                    {savedAddress ? 'Cập nhật' : 'Thêm địa chỉ'}
+                                </button>
+                            </div>
+                            {savedAddress ? (
+                                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '6px 24px', fontSize: 14 }}>
+                                    {[
+                                        ['Họ tên', savedAddress.fullname],
+                                        ['SĐT', savedAddress.phone],
+                                        ['Công ty', savedAddress.company],
+                                        ['Quốc gia', savedAddress.country],
+                                        ['Địa chỉ 1', savedAddress.address_line1],
+                                        ['Địa chỉ 2', savedAddress.address_line2],
+                                        ['Thành phố', savedAddress.city],
+                                        ['Mã bưu chính', savedAddress.zip],
+                                    ].filter(([, v]) => v).map(([label, value]) => (
+                                        <div key={label}>
+                                            <span style={{ fontWeight: 700 }}>{label}: </span>
+                                            <span style={{ color: '#555' }}>{value}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            ) : (
+                                <p style={{ color: '#aaa', fontSize: 13 }}>Chưa có địa chỉ giao hàng. Nhấn "Thêm địa chỉ" để lưu.</p>
+                            )}
+                        </div>
+
                         <div className={cx('input-change')}>
                             <>
                                 <input
@@ -124,6 +161,7 @@ function InfoUser() {
                 </div>
                 <ChangePassword show={show} setShow={setShow} />
                 <EditInfo showModalEdit={showModalEdit} setShowModalEdit={setShowModalEdit} />
+                <AddressModal show={showAddressModal} setShow={setShowAddressModal} onSaved={(addr) => setSavedAddress(addr)} />
             </main>
 
             <div className={cx('info-order')}>

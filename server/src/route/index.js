@@ -22,12 +22,17 @@ function route(app) {
     app.post('/api/wishlist/toggle', UserRoute);
     app.get('/api/wishlist/check', UserRoute);
 
+    // Address
+    app.get('/api/address', UserRoute);
+    app.post('/api/address', UserRoute);
+
     // Products
     app.get('/api/products', ProductsRoutes);
     app.get('/api/getproduct', ProductsRoutes);
     app.post('/api/cart', ProductsRoutes);
     app.get('/api/getcart', ProductsRoutes);
     app.get('/api/search', ProductsRoutes);
+    app.post('/api/clearcart', ProductsRoutes);
 
     // Admin - Categories
     app.get('/api/categories', AdminRoutes);

@@ -8,12 +8,14 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 import App from './App';
+import ScrollToTop from './Layouts/ScrollToTop/ScrollToTop';
 
 const root = ReactDOM.createRoot(document.getElementById('root')); 
 root.render(
     <React.StrictMode>
         <Provider store={store}>
             <Router>
+                <ScrollToTop />
                 <Routes>
                     {publicRoutes.map((route, index) => {
                         return <Route key={index} path={route.path} element={route.element} />;

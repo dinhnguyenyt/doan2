@@ -1,54 +1,69 @@
 import classNames from 'classnames/bind';
 import styles from './SlideProducts.module.scss';
 import Slider from 'react-slick';
-
-import latest1 from './img/img.jpg';
-import latest2 from './img/img4.jpg';
-import latest3 from './img/img2.jpg';
-import latest4 from './img/img3.jpg';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import request from '../../../config/Connect';
 
 const cx = classNames.bind(styles);
 
 function SlideProducts() {
-    const checkScreen = window.screen.width;
+    const [trending, setTrending] = useState([]);
 
+    useEffect(() => {
+        request.get('/api/products').then(res => {
+            const sorted = [...(res.data || [])]
+                .sort((a, b) => (b.like_count || 0) - (a.like_count || 0))
+                .slice(0, 12);
+            setTrending(sorted);
+        });
+    }, []);
+
+    const checkScreen = window.screen.width;
     const settings = {
-        className: 'center',
         infinite: true,
-        centerPadding: '60px',
-        slidesToShow: checkScreen < 400 ? 1 : 4,
+        slidesToShow: checkScreen < 480 ? 1 : checkScreen < 768 ? 2 : 4,
         swipeToSlide: true,
         autoplay: true,
-        speed: 100,
-        cssEase: 'linear',
+        autoplaySpeed: 2500,
+        speed: 500,
+        cssEase: 'ease',
     };
+
     return (
         <div className={cx('wrapper')}>
             <header className={cx('header-slide')}>
                 <h3>Trending This Week</h3>
-                <div className={cx('select-products')}>
-                    <button>Men</button>
-                    <button>Women</button>
-                    <button>Baby</button>
-                    <button>Fashion</button>
-                </div>
+                <span className={cx('sub-title')}>Những sản phẩm được yêu thích nhất</span>
             </header>
 
             <div className={cx('slider-container')}>
-                <Slider {...settings}>
-                    <div>
-                        <img src={latest1} alt="..." />
-                    </div>
-                    <div>
-                        <img src={latest2} alt="..." />
-                    </div>
-                    <div>
-                        <img src={latest3} alt="..." />
-                    </div>
-                    <div>
-                        <img src={latest4} alt="..." />
-                    </div>
-                </Slider>
+                {trending.length > 0 && (
+                    <Slider {...settings}>
+                        {trending.map(product => (
+                            <div key={product._id} className={cx('slide-item')}>
+                                <Link to={`/prodetail/${product.id}`} style={{ textDecoration: 'none' }}>
+                                    <div className={cx('card')}>
+                                        <div className={cx('img-wrap')}>
+                                            <img
+                                                src={product.img}
+                                                alt={product.nameProducts}
+                                                onError={e => { e.target.src = 'https://picsum.photos/seed/default/300/400'; }}
+                                            />
+                                            <span className={cx('like-badge')}>
+                                                ❤️ {product.like_count || 0}
+                                            </span>
+                                        </div>
+                                        <div className={cx('card-info')}>
+                                            <h5>{product.nameProducts}</h5>
+                                            <p>{product.priceNew?.toLocaleString()} VNĐ</p>
+                                        </div>
+                                    </div>
+                                </Link>
+                            </div>
+                        ))}
+                    </Slider>
+                )}
             </div>
         </div>
     );
