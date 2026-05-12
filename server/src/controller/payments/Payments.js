@@ -4,6 +4,7 @@ const ModelOrderItem = require('../../model/ModelOrderItem');
 const ModelProducts = require('../../model/ModelProducts');
 const ModelCoupon = require('../../model/ModelCoupon');
 const { jwtDecode } = require('jwt-decode');
+const createAuditLog = require('../../utils/auditLog');
 
 const { VNPay, ignoreLogger, ProductCode, VnpLocale } = require('vnpay');
 
@@ -105,6 +106,15 @@ class ControllerPayments {
                     }
 
                     await dataCart.deleteOne({ _id: dataCart._id });
+
+                    createAuditLog(req, {
+                        action_code: 'ORDER_CREATE_VNPAY',
+                        target_id: savedOrder._id,
+                        target_label: `Đơn hàng VNPay: ${decoded.email} (#${savedOrder._id})`,
+                        data_before: null,
+                        data_after: savedOrder,
+                    });
+
                     return res.status(200).json({ message: 'Thanh toan thanh cong !!!' });
                 }
             });
@@ -187,6 +197,15 @@ class ControllerPayments {
             }
 
             await dataCart.deleteOne({ _id: dataCart._id });
+
+            createAuditLog(req, {
+                action_code: 'ORDER_CREATE_COD',
+                target_id: savedOrder._id,
+                target_label: `Đơn hàng COD: ${decoded.email} (#${savedOrder._id})`,
+                data_before: null,
+                data_after: savedOrder,
+            });
+
             return res.status(200).json({ message: 'Payment successful', dataCart });
         } catch (error) {
             console.error(error);

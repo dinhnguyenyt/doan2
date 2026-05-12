@@ -1,5 +1,6 @@
 const ModelCategory = require('../../model/ModelCategory');
 const { jwtDecode } = require('jwt-decode');
+const createAuditLog = require('../../utils/auditLog');
 
 // Lấy tất cả ID con cháu (hỗ trợ nhiều cha - DAG)
 function getAllDescendantIds(catId, allCats, visited = new Set()) {
@@ -40,6 +41,13 @@ class ControllerCategory {
                 created_at: new Date(),
             });
             await newCategory.save();
+            createAuditLog(req, {
+                action_code: 'CATEGORY_CREATE',
+                target_id: newCategory._id,
+                target_label: `Danh mục: ${name}`,
+                data_before: null,
+                data_after: newCategory,
+            });
             res.status(201).json({ message: 'Thêm danh mục thành công', data: newCategory });
         } catch (error) {
             res.status(500).json({ message: 'Internal Server Error' });
@@ -52,6 +60,9 @@ class ControllerCategory {
 
         const decoded = jwtDecode(req.cookies.Token);
         try {
+            const oldCategory = await ModelCategory.findById(id);
+            if (!oldCategory) return res.status(404).json({ message: 'Không tìm thấy danh mục' });
+
             const updatedCategory = await ModelCategory.findByIdAndUpdate(
                 id,
                 {
@@ -63,11 +74,16 @@ class ControllerCategory {
                 },
                 { new: true },
             );
-            if (updatedCategory) {
-                res.status(200).json({ message: 'Cập nhật danh mục thành công', data: updatedCategory });
-            } else {
-                res.status(404).json({ message: 'Không tìm thấy danh mục' });
-            }
+
+            createAuditLog(req, {
+                action_code: 'CATEGORY_UPDATE',
+                target_id: id,
+                target_label: `Danh mục: ${oldCategory.name}`,
+                data_before: oldCategory,
+                data_after: updatedCategory,
+            });
+
+            res.status(200).json({ message: 'Cập nhật danh mục thành công', data: updatedCategory });
         } catch (error) {
             res.status(500).json({ message: 'Internal Server Error' });
         }
@@ -76,11 +92,17 @@ class ControllerCategory {
     async DeleteCategory(req, res) {
         try {
             const deleted = await ModelCategory.findByIdAndDelete(req.body.id);
-            if (deleted) {
-                res.status(200).json({ message: 'Xóa danh mục thành công' });
-            } else {
-                res.status(404).json({ message: 'Không tìm thấy danh mục' });
-            }
+            if (!deleted) return res.status(404).json({ message: 'Không tìm thấy danh mục' });
+
+            createAuditLog(req, {
+                action_code: 'CATEGORY_DELETE',
+                target_id: req.body.id,
+                target_label: `Danh mục: ${deleted.name}`,
+                data_before: deleted,
+                data_after: null,
+            });
+
+            res.status(200).json({ message: 'Xóa danh mục thành công' });
         } catch (error) {
             res.status(500).json({ message: 'Internal Server Error' });
         }

@@ -1,5 +1,6 @@
 const ModelCoupon = require('../../model/ModelCoupon');
 const { jwtDecode } = require('jwt-decode');
+const createAuditLog = require('../../utils/auditLog');
 
 class ControllerCoupon {
     async GetCoupons(req, res) {
@@ -26,6 +27,13 @@ class ControllerCoupon {
                 created_at: new Date(),
             });
             await newCoupon.save();
+            createAuditLog(req, {
+                action_code: 'COUPON_CREATE',
+                target_id: newCoupon._id,
+                target_label: `Coupon: ${newCoupon.code}`,
+                data_before: null,
+                data_after: newCoupon,
+            });
             res.status(201).json({ message: 'Thêm Khuyến Mãi Thành Công', data: newCoupon });
         } catch (error) {
             res.status(500).json({ message: 'Internal Server Error hoặc Mã đã tồn tại' });
@@ -38,6 +46,9 @@ class ControllerCoupon {
 
         const decoded = jwtDecode(req.cookies.Token);
         try {
+            const oldCoupon = await ModelCoupon.findById(id);
+            if (!oldCoupon) return res.status(404).json({ message: 'Không tìm thấy mã' });
+
             const updatedCoupon = await ModelCoupon.findByIdAndUpdate(id, {
                 code: code.toUpperCase(),
                 discount_percent,
@@ -46,11 +57,16 @@ class ControllerCoupon {
                 modified_by: decoded.email,
                 modified_at: new Date(),
             }, { new: true });
-            if (updatedCoupon) {
-                res.status(200).json({ message: 'Cập nhật mã thành công', data: updatedCoupon });
-            } else {
-                res.status(404).json({ message: 'Không tìm thấy mã' });
-            }
+
+            createAuditLog(req, {
+                action_code: 'COUPON_UPDATE',
+                target_id: id,
+                target_label: `Coupon: ${oldCoupon.code}`,
+                data_before: oldCoupon,
+                data_after: updatedCoupon,
+            });
+
+            res.status(200).json({ message: 'Cập nhật mã thành công', data: updatedCoupon });
         } catch (error) {
             res.status(500).json({ message: 'Internal Server Error hoặc Mã đã tồn tại' });
         }
@@ -59,11 +75,17 @@ class ControllerCoupon {
     async DeleteCoupon(req, res) {
         try {
             const deleted = await ModelCoupon.findByIdAndDelete(req.body.id);
-            if (deleted) {
-                res.status(200).json({ message: 'Xóa khuyến mãi thành công' });
-            } else {
-                res.status(404).json({ message: 'Không tìm thấy mã' });
-            }
+            if (!deleted) return res.status(404).json({ message: 'Không tìm thấy mã' });
+
+            createAuditLog(req, {
+                action_code: 'COUPON_DELETE',
+                target_id: req.body.id,
+                target_label: `Coupon: ${deleted.code}`,
+                data_before: deleted,
+                data_after: null,
+            });
+
+            res.status(200).json({ message: 'Xóa khuyến mãi thành công' });
         } catch (error) {
             res.status(500).json({ message: 'Internal Server Error' });
         }

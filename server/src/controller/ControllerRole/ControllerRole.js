@@ -1,5 +1,6 @@
 const ModelRole = require('../../model/ModelRole');
 const { jwtDecode } = require('jwt-decode');
+const createAuditLog = require('../../utils/auditLog');
 
 const ALL_MENUS = ['dash', 'order', 'product', 'category', 'coupon', 'customer', 'blog', 'comment', 'role'];
 
@@ -118,6 +119,15 @@ const ControllerRole = {
                 is_system: false,
                 created_by: decoded.email,
             });
+
+            createAuditLog(req, {
+                action_code: 'ROLE_CREATE',
+                target_id: newRole._id,
+                target_label: `Role: ${newRole.name}`,
+                data_before: null,
+                data_after: newRole,
+            });
+
             res.status(201).json({ message: 'Tạo role thành công', role: newRole });
         } catch (err) {
             res.status(500).json({ message: err.message || 'Lỗi server' });
@@ -133,6 +143,8 @@ const ControllerRole = {
             const roleDoc = await ModelRole.findById(id);
             if (!roleDoc) return res.status(404).json({ message: 'Không tìm thấy role' });
 
+            const dataBefore = roleDoc.toObject();
+
             if (label !== undefined) roleDoc.label = label;
             if (description !== undefined) roleDoc.description = description;
             if (server_level !== undefined && !roleDoc.is_system) roleDoc.server_level = server_level;
@@ -142,6 +154,15 @@ const ControllerRole = {
             roleDoc.modified_at = new Date();
 
             await roleDoc.save();
+
+            createAuditLog(req, {
+                action_code: 'ROLE_UPDATE',
+                target_id: id,
+                target_label: `Role: ${roleDoc.name}`,
+                data_before: dataBefore,
+                data_after: roleDoc,
+            });
+
             res.status(200).json({ message: 'Cập nhật role thành công', role: roleDoc });
         } catch (err) {
             res.status(500).json({ message: err.message || 'Lỗi server' });
@@ -156,6 +177,15 @@ const ControllerRole = {
             if (roleDoc.is_system) return res.status(400).json({ message: 'Không thể xóa role hệ thống' });
 
             await ModelRole.findByIdAndDelete(id);
+
+            createAuditLog(req, {
+                action_code: 'ROLE_DELETE',
+                target_id: id,
+                target_label: `Role: ${roleDoc.name}`,
+                data_before: roleDoc,
+                data_after: null,
+            });
+
             res.status(200).json({ message: 'Xóa role thành công' });
         } catch {
             res.status(500).json({ message: 'Lỗi server' });

@@ -6,6 +6,7 @@ const ControllerCategory = require('../controller/ControllerCategory/ControllerC
 const ControllerVariant = require('../controller/ControllerVariant/ControllerVariant');
 const { verifyRole, verifyToken } = require('../controller/jwt/ControllerJWT');
 const ControllerRole = require('../controller/ControllerRole/ControllerRole');
+const ControllerAuditLog = require('../controller/ControllerAuditLog/ControllerAuditLog');
 
 const ALL_STAFF = ['admin', 'manager', 'staff'];
 const ADMIN_MANAGER = ['admin', 'manager'];
@@ -67,5 +68,11 @@ router.post('/api/editvariant', verifyRole(ADMIN_MANAGER), ControllerVariant.Edi
 router.post('/api/deletevariant', verifyRole(ADMIN_ONLY), ControllerVariant.DeleteVariant);
 router.post('/api/addvariantsize', verifyRole(ADMIN_MANAGER), ControllerVariant.AddVariantSize);
 router.post('/api/deletevariantsize', verifyRole(ADMIN_MANAGER), ControllerVariant.DeleteVariantSize);
+
+// Audit Logs
+router.get('/api/audit-logs', verifyRole(ADMIN_MANAGER), ControllerAuditLog.GetAuditLogs);
+router.get('/api/audit-logs/actions', verifyRole(ADMIN_MANAGER), ControllerAuditLog.GetActions);
+router.get('/api/audit-logs/target/:type/:id', verifyRole(ADMIN_MANAGER), ControllerAuditLog.GetAuditLogsByTarget);
+router.get('/api/audit-logs/:id', verifyRole(ADMIN_MANAGER), ControllerAuditLog.GetAuditLogById);
 
 module.exports = router;

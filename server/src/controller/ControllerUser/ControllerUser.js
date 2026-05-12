@@ -7,6 +7,7 @@ const sendMail = require('../ControllerEmail/SendEmail');
 const sendMailMessage = require('../ControllerEmail/SendMailMessage');
 const fs = require('fs');
 const ModelComments = require('../../model/ModelComments');
+const createAuditLog = require('../../utils/auditLog');
 require('dotenv').config();
 
 class ControllerUser {
@@ -27,6 +28,13 @@ class ControllerUser {
                         phone: phone,
                     });
                     await newUser.save();
+                    createAuditLog(req, {
+                        action_code: 'USER_REGISTER',
+                        target_id: newUser._id,
+                        target_label: `User: ${email}`,
+                        data_before: null,
+                        data_after: newUser,
+                    });
                     return res.status(200).json({ message: 'Đăng Ký Thành Công !!!' });
                 });
             }
@@ -76,7 +84,14 @@ class ControllerUser {
             const saltRounds = 10;
             const myPlaintextPassword = req.body.newPass;
             bcrypt.hash(myPlaintextPassword, saltRounds, async function (err, hash) {
-                dataUser.updateOne({ password: hash }).then();
+                await dataUser.updateOne({ password: hash });
+                createAuditLog(req, {
+                    action_code: 'USER_CHANGE_PASS',
+                    target_id: dataUser._id,
+                    target_label: `User: ${dataUser.email}`,
+                    data_before: null,
+                    data_after: null,
+                });
                 return res.status(200).json({ message: 'Change Password Success' });
             });
         } else {
@@ -93,13 +108,25 @@ class ControllerUser {
             const updateUser = await ModelUser.findOne({ email: decoded.email });
 
             if (updateUser) {
-                const updatedUser = await ModelUser.updateOne(
+                const dataBefore = updateUser.toObject();
+
+                await ModelUser.updateOne(
                     { email: decoded.email },
                     {
                         email: req.body.email || updateUser.email,
                         phone: req.body.phone || updateUser.phone,
                     },
                 );
+
+                const dataAfter = await ModelUser.findOne({ email: req.body.email || decoded.email });
+
+                createAuditLog(req, {
+                    action_code: 'USER_UPDATE',
+                    target_id: updateUser._id,
+                    target_label: `User: ${updateUser.email}`,
+                    data_before: dataBefore,
+                    data_after: dataAfter,
+                });
 
                 const admin = updateUser.isAdmin;
                 const role = admin ? 'admin' : (updateUser.role || 'user');

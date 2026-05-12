@@ -91,6 +91,12 @@ function route(app) {
     const ControllerCoupon = require('../controller/ControllerCoupon/ControllerCoupon');
     app.post('/api/check-coupon', ControllerCoupon.CheckCoupon);
 
+    // Audit Logs
+    app.get('/api/audit-logs', AdminRoutes);
+    app.get('/api/audit-logs/actions', AdminRoutes);
+    app.get('/api/audit-logs/target/:type/:id', AdminRoutes);
+    app.get('/api/audit-logs/:id', AdminRoutes);
+
     // Payments
     app.post('/api/paymentmomo', Payments);
     app.get('/api/checkdata', Payments);

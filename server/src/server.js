@@ -8,6 +8,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const ChatBot = require('./utils/ChatBot');
 const ControllerRole = require('./controller/ControllerRole/ControllerRole');
+const seedActions = require('./utils/seedActions');
 
 const http = require('http');
 const { Server } = require('socket.io');
@@ -27,7 +28,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 route(app);
 app.use(express.static('uploads'));
-connectDB().then(() => ControllerRole.SeedRoles());
+connectDB().then(async () => {
+    await ControllerRole.SeedRoles();
+    await seedActions();
+});
 
 io.on('connection', (socket) => {
     console.log('New client connected');
