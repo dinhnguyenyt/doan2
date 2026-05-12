@@ -8,9 +8,11 @@ import Button from 'react-bootstrap/Button';
 import classNames from 'classnames/bind';
 import styles from './Blog.module.scss';
 import { formatDateString } from '../../../../../utils/formatDate';
+import { usePermission } from '../../../../../contexts/PermissionContext';
 const cx = classNames.bind(styles);
 
 function Blogger() {
+    const { actions } = usePermission();
     const [show, setShow] = useState(false);
     const [dataBlog, setDataBlog] = useState([]);
     const [showViewModal, setShowViewModal] = useState(false);
@@ -38,9 +40,11 @@ function Blogger() {
     return (
         <>
             <div className={cx('btn-addBlog')}>
-                <button onClick={handleShow} type="button" className="btn btn-primary">
-                    Thêm Bài Viết
-                </button>
+                {actions.includes('blog:create') && (
+                    <button onClick={handleShow} type="button" className="btn btn-primary">
+                        Thêm Bài Viết
+                    </button>
+                )}
             </div>
             <table className="table">
                 <thead>
@@ -78,13 +82,15 @@ function Blogger() {
                                 >
                                     Xem
                                 </button>
-                                <button
-                                    onClick={() => handleDeleteBlog(item.id)}
-                                    type="button"
-                                    className="btn btn-danger"
-                                >
-                                    Xóa Bài Viết
-                                </button>
+                                {actions.includes('blog:delete') && (
+                                    <button
+                                        onClick={() => handleDeleteBlog(item.id)}
+                                        type="button"
+                                        className="btn btn-danger"
+                                    >
+                                        Xóa Bài Viết
+                                    </button>
+                                )}
                             </td>
                         </tr>
                     ))}

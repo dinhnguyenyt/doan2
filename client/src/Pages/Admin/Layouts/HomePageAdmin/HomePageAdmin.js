@@ -13,6 +13,7 @@ import ProfileAdmin from './Profile/ProfileAdmin';
 import { useEffect, useState } from 'react';
 import request from '../../../../config/Connect';
 import Blogger from './Blog/Blogger';
+import RolePermission from './RolePermission/RolePermission';
 
 const cx = classNames.bind(styles);
 
@@ -115,6 +116,14 @@ function HomePage({ activeList }) {
             {activeList === 'comment' ? (
                 <div>
                     <Comments />
+                </div>
+            ) : (
+                <></>
+            )}
+
+            {activeList === 'role' ? (
+                <div>
+                    <RolePermission />
                 </div>
             ) : (
                 <></>

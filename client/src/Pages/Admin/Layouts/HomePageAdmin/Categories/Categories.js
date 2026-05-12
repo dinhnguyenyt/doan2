@@ -5,6 +5,7 @@ import classNames from 'classnames/bind';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import { formatDateString } from '../../../../../utils/formatDate';
+import { usePermission } from '../../../../../contexts/PermissionContext';
 
 const cx = classNames.bind(styles);
 
@@ -45,6 +46,7 @@ function getDescendantIds(catId, allCats, visited = new Set()) {
 }
 
 function Categories() {
+    const { actions } = usePermission();
     const [categories, setCategories] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
 
@@ -205,9 +207,11 @@ function Categories() {
         <div className={cx('wrapper')} style={{ padding: '20px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
                 <h3>Quản Lý Danh Mục</h3>
-                <Button variant="primary" onClick={handleOpenAdd}>
-                    + Thêm Danh Mục
-                </Button>
+                {actions.includes('category:create') && (
+                    <Button variant="primary" onClick={handleOpenAdd}>
+                        + Thêm Danh Mục
+                    </Button>
+                )}
             </div>
 
             <div className="mb-4">
@@ -261,19 +265,23 @@ function Categories() {
                                     >
                                         Xem
                                     </button>
-                                    <button
-                                        className="btn btn-warning btn-sm"
-                                        onClick={() => handleOpenEdit(item)}
-                                        style={{ marginRight: '6px' }}
-                                    >
-                                        Sửa
-                                    </button>
-                                    <button
-                                        className="btn btn-danger btn-sm"
-                                        onClick={() => handleDeleteCategory(item._id)}
-                                    >
-                                        Xóa
-                                    </button>
+                                    {actions.includes('category:edit') && (
+                                        <button
+                                            className="btn btn-warning btn-sm"
+                                            onClick={() => handleOpenEdit(item)}
+                                            style={{ marginRight: '6px' }}
+                                        >
+                                            Sửa
+                                        </button>
+                                    )}
+                                    {actions.includes('category:delete') && (
+                                        <button
+                                            className="btn btn-danger btn-sm"
+                                            onClick={() => handleDeleteCategory(item._id)}
+                                        >
+                                            Xóa
+                                        </button>
+                                    )}
                                 </td>
                             </tr>
                         ))}

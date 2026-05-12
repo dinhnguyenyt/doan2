@@ -5,8 +5,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import { formatDateString } from '../../../../../utils/formatDate';
+import { usePermission } from '../../../../../contexts/PermissionContext';
 
 function Coupons() {
+    const { actions } = usePermission();
     const [coupons, setCoupons] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
 
@@ -131,9 +133,11 @@ function Coupons() {
             
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
                 <h2>Quản Lý Mã Giảm Giá</h2>
-                <Button variant="primary" onClick={handleOpenAdd}>
-                    + Thêm Mã Khuyến Mãi
-                </Button>
+                {actions.includes('coupon:create') && (
+                    <Button variant="primary" onClick={handleOpenAdd}>
+                        + Thêm Mã Khuyến Mãi
+                    </Button>
+                )}
             </div>
 
             <div className="mb-4">
@@ -174,26 +178,30 @@ function Coupons() {
                                 <td>{formatDateString(coupon.modified_at)}</td>
                                 <td>{coupon.modified_by || '-'}</td>
                                 <td>
-                                    <button 
-                                        className="btn btn-info btn-sm text-white" 
+                                    <button
+                                        className="btn btn-info btn-sm text-white"
                                         onClick={() => handleOpenView(coupon)}
                                         style={{ marginRight: '10px' }}
                                     >
                                         Xem
                                     </button>
-                                    <button 
-                                        className="btn btn-warning btn-sm" 
-                                        onClick={() => handleOpenEdit(coupon)}
-                                        style={{ marginRight: '10px' }}
-                                    >
-                                        Sửa
-                                    </button>
-                                    <button 
-                                        className="btn btn-danger btn-sm" 
-                                        onClick={() => handleDeleteCoupon(coupon._id)}
-                                    >
-                                        Xóa
-                                    </button>
+                                    {actions.includes('coupon:edit') && (
+                                        <button
+                                            className="btn btn-warning btn-sm"
+                                            onClick={() => handleOpenEdit(coupon)}
+                                            style={{ marginRight: '10px' }}
+                                        >
+                                            Sửa
+                                        </button>
+                                    )}
+                                    {actions.includes('coupon:delete') && (
+                                        <button
+                                            className="btn btn-danger btn-sm"
+                                            onClick={() => handleDeleteCoupon(coupon._id)}
+                                        >
+                                            Xóa
+                                        </button>
+                                    )}
                                 </td>
                             </tr>
                         ))}

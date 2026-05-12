@@ -6,6 +6,7 @@ import { formatDateString } from '../../../../../utils/formatDate';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import request from '../../../../../config/Connect';
+import { usePermission } from '../../../../../contexts/PermissionContext';
 
 const cx = classNames.bind(styles);
 
@@ -28,6 +29,7 @@ function Products({
     const [showViewModal, setShowViewModal] = useState(false);
     const [productDetail, setProductDetail] = useState(null);
     const [categories, setCategories] = useState([]);
+    const { actions } = usePermission();
 
     useEffect(() => {
         request.get('/api/categories').then((res) => setCategories(res.data));
@@ -74,13 +76,15 @@ function Products({
                     </select>
                 </div>
 
-                <button
-                    onClick={handleShowModalAddProduct}
-                    type="button"
-                    className="btn btn-primary"
-                >
-                    + Thêm Sản Phẩm
-                </button>
+                {actions.includes('product:create') && (
+                    <button
+                        onClick={handleShowModalAddProduct}
+                        type="button"
+                        className="btn btn-primary"
+                    >
+                        + Thêm Sản Phẩm
+                    </button>
+                )}
             </div>
             <div style={{ background: '#fff', borderRadius: '8px', padding: '15px' }}>
             <table className="table table-hover align-middle">
@@ -126,21 +130,25 @@ function Products({
                                         >
                                             Xem
                                         </button>
-                                        <button
-                                            onClick={() => handleShowModalEditProduct(item.id)}
-                                            type="button"
-                                            className="btn btn-warning"
-                                            style={{ marginRight: '10px' }}
-                                        >
-                                            Edit Product
-                                        </button>
-                                        <button
-                                            onClick={() => handleShowModalDeleteProduct(item.id)}
-                                            type="button"
-                                            className="btn btn-danger"
-                                        >
-                                            Delete Product
-                                        </button>
+                                        {actions.includes('product:edit') && (
+                                            <button
+                                                onClick={() => handleShowModalEditProduct(item.id)}
+                                                type="button"
+                                                className="btn btn-warning"
+                                                style={{ marginRight: '10px' }}
+                                            >
+                                                Edit Product
+                                            </button>
+                                        )}
+                                        {actions.includes('product:delete') && (
+                                            <button
+                                                onClick={() => handleShowModalDeleteProduct(item.id)}
+                                                type="button"
+                                                className="btn btn-danger"
+                                            >
+                                                Delete Product
+                                            </button>
+                                        )}
                                     </td>
                                 </tr>
                             ))

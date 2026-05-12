@@ -7,6 +7,7 @@ const connectDB = require('./config/connect');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const ChatBot = require('./utils/ChatBot');
+const ControllerRole = require('./controller/ControllerRole/ControllerRole');
 
 const http = require('http');
 const { Server } = require('socket.io');
@@ -26,7 +27,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 route(app);
 app.use(express.static('uploads'));
-connectDB();
+connectDB().then(() => ControllerRole.SeedRoles());
 
 io.on('connection', (socket) => {
     console.log('New client connected');

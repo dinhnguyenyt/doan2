@@ -5,11 +5,14 @@ import classNames from 'classnames';
 import { formatDateString } from '../../../../../utils/formatDate';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
+import { usePermission } from '../../../../../contexts/PermissionContext';
 
 const cx = classNames.bind(styles);
 
 function Customers() {
+    const { actions } = usePermission();
     const [dataUser, setDataUser] = useState([]);
+    const [allRoles, setAllRoles] = useState([]);
 
     const [showModal, setShowModal] = useState(false);
     const [showViewModal, setShowViewModal] = useState(false);
@@ -37,7 +40,7 @@ function Customers() {
     const handleEditUser = async (e) => {
         e.preventDefault();
         try {
-            const res = await request.post('/api/edituser', {
+            await request.post('/api/edituser', {
                 userId: currentUserId,
                 fullname: editFullName,
                 email: editEmail,
@@ -59,6 +62,7 @@ function Customers() {
 
     useEffect(() => {
         loadUsers();
+        request.get('/api/roles').then((res) => setAllRoles(res.data)).catch(() => {});
     }, []);
 
     const handleRoleChange = async (userId, newRole) => {
@@ -110,16 +114,20 @@ function Customers() {
                             <td>{item.fullname}</td>
                             <td>{item.email}</td>
                             <td>
-                                <select 
-                                    className="form-select form-select-sm"
-                                    value={item.role || (item.isAdmin ? 'admin' : 'user')}
-                                    onChange={(e) => handleRoleChange(item._id, e.target.value)}
-                                    style={{ width: 'auto' }}
-                                >
-                                    <option value="admin">Admin</option>
-                                    <option value="staff">Staff</option>
-                                    <option value="user">User</option>
-                                </select>
+                                {actions.includes('customer:change_role') ? (
+                                    <select
+                                        className="form-select form-select-sm"
+                                        value={item.role || (item.isAdmin ? 'admin' : 'user')}
+                                        onChange={(e) => handleRoleChange(item._id, e.target.value)}
+                                        style={{ width: 'auto' }}
+                                    >
+                                        {allRoles.map((r) => (
+                                            <option key={r.name} value={r.name}>{r.label}</option>
+                                        ))}
+                                    </select>
+                                ) : (
+                                    <span className="badge bg-secondary">{item.role || 'user'}</span>
+                                )}
                             </td>
                             <td>{formatDateString(item.created_at)}</td>
                             <td>{item.created_by || '-'}</td>
@@ -133,19 +141,23 @@ function Customers() {
                                 >
                                     Xem
                                 </button>
-                                <button
-                                    className="btn btn-warning btn-sm"
-                                    onClick={() => handleOpenEdit(item)}
-                                    style={{ marginRight: '10px' }}
-                                >
-                                    Sửa
-                                </button>
-                                <button
-                                    className="btn btn-danger btn-sm"
-                                    onClick={() => handleDeleteUser(item._id)}
-                                >
-                                    Xóa
-                                </button>
+                                {actions.includes('customer:edit') && (
+                                    <button
+                                        className="btn btn-warning btn-sm"
+                                        onClick={() => handleOpenEdit(item)}
+                                        style={{ marginRight: '10px' }}
+                                    >
+                                        Sửa
+                                    </button>
+                                )}
+                                {actions.includes('customer:delete') && (
+                                    <button
+                                        className="btn btn-danger btn-sm"
+                                        onClick={() => handleDeleteUser(item._id)}
+                                    >
+                                        Xóa
+                                    </button>
+                                )}
                             </td>
                         </tr>
                     ))}

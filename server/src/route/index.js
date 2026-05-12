@@ -66,6 +66,14 @@ function route(app) {
     app.post('/api/editvariant', AdminRoutes);
     app.post('/api/deletevariant', AdminRoutes);
 
+    // Admin - Roles & Permissions
+    app.get('/api/my-permissions', AdminRoutes);
+    app.get('/api/roles', AdminRoutes);
+    app.get('/api/roles/metadata', AdminRoutes);
+    app.post('/api/addrole', AdminRoutes);
+    app.post('/api/editrole', AdminRoutes);
+    app.post('/api/deleterole', AdminRoutes);
+
     // Admin - Detail APIs
     app.get('/api/category/:id', AdminRoutes);
     app.get('/api/product/:id', AdminRoutes);

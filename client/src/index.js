@@ -27,7 +27,7 @@ root.render(
                                 const token = tokenRow.split('=')[1];
                                 const decoded = jwtDecode(token);
                                 const role = decoded.role || (decoded.admin ? 'admin' : 'user');
-                                if (role === 'admin' || role === 'staff') {
+                                if (role === 'admin' || role === 'manager' || role === 'staff') {
                                     return <Route key={route.path} path={route.path} element={route.element} />;
                                 }
                             }

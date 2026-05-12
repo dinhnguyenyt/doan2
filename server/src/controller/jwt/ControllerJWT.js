@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 
 const middlewareController = {
     verifyToken: (req, res, next) => {
-        const token = req.headers.token;
+        const token = req.headers.token || req.cookies?.Token;
         if (token) {
             jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
                 if (err) {
@@ -25,14 +25,21 @@ const middlewareController = {
         });
     },
     verifyRole: (allowedRoles) => {
-        return (req, res, next) => {
-            middlewareController.verifyToken(req, res, () => {
+        return async (req, res, next) => {
+            middlewareController.verifyToken(req, res, async () => {
                 const userRole = req.user.role || (req.user.admin ? 'admin' : 'user');
                 if (allowedRoles.includes(userRole)) {
-                    next();
-                } else {
-                    res.status(403).json({ message: 'Tài khoản của bạn không có quyền truy cập khu vực này !!!' });
+                    return next();
                 }
+                // Custom roles: check server_level in DB
+                try {
+                    const ModelRole = require('../../model/ModelRole');
+                    const roleDoc = await ModelRole.findOne({ name: userRole });
+                    if (roleDoc && allowedRoles.includes(roleDoc.server_level)) {
+                        return next();
+                    }
+                } catch (_) {}
+                res.status(403).json({ message: 'Tài khoản của bạn không có quyền truy cập khu vực này !!!' });
             });
         };
     },
