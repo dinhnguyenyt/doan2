@@ -8,6 +8,7 @@ export function ChangePassword({ show, setShow }) {
     const handleClose = () => setShow(false);
 
     const [newPass, setNewPass] = useState('');
+    const [showPass, setShowPass] = useState(false);
 
     const handleChangePasswrod = async () => {
         const res = await request.post('/api/changepass', { newPass });
@@ -23,10 +24,20 @@ export function ChangePassword({ show, setShow }) {
                 </Modal.Header>
                 <Modal.Body>
                     <div className="input-group mb-3">
-                        <span className="input-group-text" id="basic-addon1">
-                            New PassWord
-                        </span>
-                        <input type="password" className="form-control" onChange={(e) => setNewPass(e.target.value)} />
+                        <span className="input-group-text">New PassWord</span>
+                        <input
+                            type={showPass ? 'text' : 'password'}
+                            className="form-control"
+                            onChange={(e) => setNewPass(e.target.value)}
+                        />
+                        <button
+                            type="button"
+                            className="btn btn-outline-secondary"
+                            onClick={() => setShowPass(!showPass)}
+                            tabIndex={-1}
+                        >
+                            {showPass ? '🙈' : '👁️'}
+                        </button>
                     </div>
                 </Modal.Body>
                 <Modal.Footer>

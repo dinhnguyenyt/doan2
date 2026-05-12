@@ -16,12 +16,20 @@ function Customers() {
 
     const [showModal, setShowModal] = useState(false);
     const [showViewModal, setShowViewModal] = useState(false);
+    const [showCreateModal, setShowCreateModal] = useState(false);
     const [userDetail, setUserDetail] = useState(null);
     const [currentUserId, setCurrentUserId] = useState('');
     const [editFullName, setEditFullName] = useState('');
     const [editEmail, setEditEmail] = useState('');
     const [editPhone, setEditPhone] = useState('');
     const [editSurplus, setEditSurplus] = useState(0);
+
+    const [createFullName, setCreateFullName] = useState('');
+    const [createEmail, setCreateEmail] = useState('');
+    const [createPassword, setCreatePassword] = useState('');
+    const [createPhone, setCreatePhone] = useState('');
+    const [createRole, setCreateRole] = useState('staff');
+    const [showCreatePassword, setShowCreatePassword] = useState(false);
 
     const handleOpenEdit = (user) => {
         setCurrentUserId(user._id);
@@ -52,6 +60,25 @@ function Customers() {
             loadUsers();
         } catch (error) {
             console.error(error);
+            alert(error.response?.data?.message || 'Có lỗi xảy ra');
+        }
+    };
+
+    const handleCreateUser = async (e) => {
+        e.preventDefault();
+        try {
+            await request.post('/api/createuser', {
+                fullname: createFullName,
+                email: createEmail,
+                password: createPassword,
+                role: createRole,
+                phone: createPhone,
+            });
+            alert('Tạo tài khoản thành công!');
+            setShowCreateModal(false);
+            setCreateFullName(''); setCreateEmail(''); setCreatePassword(''); setCreatePhone(''); setCreateRole('staff');
+            loadUsers();
+        } catch (error) {
             alert(error.response?.data?.message || 'Có lỗi xảy ra');
         }
     };
@@ -91,6 +118,13 @@ function Customers() {
 
     return (
         <div className={cx('wrapper')}>
+            {actions.includes('customer:edit') && (
+                <div className="mb-3 text-end">
+                    <button className="btn btn-success" onClick={() => setShowCreateModal(true)}>
+                        + Tạo tài khoản nhân viên
+                    </button>
+                </div>
+            )}
             <table className="table table-hover align-middle">
                 <thead className="table-dark">
                     <tr>
@@ -227,6 +261,61 @@ function Customers() {
                 <Modal.Footer>
                     <Button variant="secondary" onClick={() => setShowViewModal(false)}>Đóng</Button>
                 </Modal.Footer>
+            </Modal>
+
+            <Modal show={showCreateModal} onHide={() => setShowCreateModal(false)} backdrop="static" centered>
+                <Modal.Header closeButton>
+                    <Modal.Title>Tạo Tài Khoản Nhân Viên</Modal.Title>
+                </Modal.Header>
+                <form onSubmit={handleCreateUser}>
+                    <Modal.Body>
+                        <div className="mb-3">
+                            <label className="form-label">Họ và tên (*)</label>
+                            <input type="text" className="form-control" value={createFullName} onChange={(e) => setCreateFullName(e.target.value)} required />
+                        </div>
+                        <div className="mb-3">
+                            <label className="form-label">Email (*)</label>
+                            <input type="email" className="form-control" value={createEmail} onChange={(e) => setCreateEmail(e.target.value)} required />
+                        </div>
+                        <div className="mb-3">
+                            <label className="form-label">Mật khẩu (*)</label>
+                            <div className="input-group">
+                                <input
+                                    type={showCreatePassword ? 'text' : 'password'}
+                                    className="form-control"
+                                    value={createPassword}
+                                    onChange={(e) => setCreatePassword(e.target.value)}
+                                    required
+                                    minLength={6}
+                                />
+                                <button
+                                    type="button"
+                                    className="btn btn-outline-secondary"
+                                    onClick={() => setShowCreatePassword(!showCreatePassword)}
+                                    tabIndex={-1}
+                                >
+                                    {showCreatePassword ? '🙈' : '👁️'}
+                                </button>
+                            </div>
+                        </div>
+                        <div className="mb-3">
+                            <label className="form-label">Số điện thoại</label>
+                            <input type="text" className="form-control" value={createPhone} onChange={(e) => setCreatePhone(e.target.value)} />
+                        </div>
+                        <div className="mb-3">
+                            <label className="form-label">Vai trò</label>
+                            <select className="form-select" value={createRole} onChange={(e) => setCreateRole(e.target.value)}>
+                                {allRoles.filter(r => r.name !== 'user').map((r) => (
+                                    <option key={r.name} value={r.name}>{r.label}</option>
+                                ))}
+                            </select>
+                        </div>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={() => setShowCreateModal(false)}>Đóng</Button>
+                        <Button type="submit" variant="success">Tạo tài khoản</Button>
+                    </Modal.Footer>
+                </form>
             </Modal>
 
             <Modal show={showModal} onHide={() => setShowModal(false)} backdrop="static" centered>

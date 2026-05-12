@@ -12,6 +12,7 @@ const ModelUser = new Schema({
     phone: { type: Number, default: 0 },
     surplus: { type: Number, default: 0 },
     created_at: { type: Date, default: Date.now },
+    created_by: { type: String, default: '' },
     modified_by: { type: String, default: '' },
     modified_at: { type: Date, default: null },
 });

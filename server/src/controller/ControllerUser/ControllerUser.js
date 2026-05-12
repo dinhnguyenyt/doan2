@@ -36,7 +36,7 @@ class ControllerUser {
     }
 
     async Login(req, res, next) {
-        const { password, email } = req.body;
+        const { password, email, rememberMe } = req.body;
         const dataUser = await ModelUser.findOne({ email });
         if (!dataUser) {
             return res.status(401).json({ message: 'Email Hoặc Mật Không Chính Xác !!!' });
@@ -44,11 +44,14 @@ class ControllerUser {
         const match = await bcrypt.compare(password, dataUser.password);
         if (match) {
             const admin = dataUser.isAdmin;
-            const role = dataUser.role || (admin ? 'admin' : 'user'); // Lấy role từ DB hoặc fallback
-            const token = jwt.sign({ email, admin, role }, process.env.JWT_SECRET, { expiresIn: process.env.EXPIRES_IN });
-            res.setHeader('Set-Cookie', `Token=${token}; max-age=3600; path=/`).json({
+            const role = admin ? 'admin' : (dataUser.role || 'user');
+            const maxAge = rememberMe ? 30 * 24 * 3600 : 3600; // 30 ngày hoặc 1 giờ
+            const token = jwt.sign({ email, admin, role }, process.env.JWT_SECRET, { expiresIn: maxAge });
+            res.setHeader('Set-Cookie', `Token=${token}; max-age=${maxAge}; path=/`).json({
                 message: 'Đăng Nhập Thành Công !!!',
-                role: role // Trả về role cho client dễ dàng lưu vào Redux
+                role,
+                fullname: dataUser.fullname,
+                avatar: dataUser.avatar,
             });
         } else {
             return res.status(401).json({ message: 'Email Hoặc Mật Khẩu Không Chính Xác !!!' });
@@ -99,8 +102,9 @@ class ControllerUser {
                 );
 
                 const admin = updateUser.isAdmin;
+                const role = admin ? 'admin' : (updateUser.role || 'user');
                 const newToken = jwt.sign(
-                    { email: req.body.email || updateUser.email, admin },
+                    { email: req.body.email || updateUser.email, admin, role },
                     process.env.JWT_SECRET,
                     { expiresIn: process.env.EXPIRES_IN },
                 );

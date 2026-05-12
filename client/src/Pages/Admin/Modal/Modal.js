@@ -184,8 +184,11 @@ export function ModalEditProduct({ setShowModalEdit, showModalEdit, idProduct })
     const [hasFashionInsurance, setHasFashionInsurance] = useState(false);
     const [variants, setVariants] = useState([]);
     const [productMongoId, setProductMongoId] = useState('');
-    const [newVariant, setNewVariant] = useState({ color: '', color_hex: '', size: '', size_note: '', stock_quantity: 0, price_adjustment: 0, img: '' });
     const [activeTab, setActiveTab] = useState('info');
+    const [newColor, setNewColor] = useState({ color: '', color_hex: '#ffffff', img: '' });
+    const [newColorSizes, setNewColorSizes] = useState([{ size: '', size_note: '', stock_quantity: 0, price_adjustment: 0 }]);
+    const [addingSizeTo, setAddingSizeTo] = useState(null);
+    const [newSize, setNewSize] = useState({ size: '', size_note: '', stock_quantity: 0, price_adjustment: 0 });
     const { useEffect } = require('react');
 
     useEffect(() => {
@@ -230,19 +233,51 @@ export function ModalEditProduct({ setShowModalEdit, showModalEdit, idProduct })
         } catch (error) {}
     };
 
-    const handleAddVariant = async () => {
+    const reloadVariants = () =>
+        request.get(`/api/variants/${productMongoId}`).then((r) => setVariants(r.data || []));
+
+    const handleAddColor = async () => {
+        if (!newColor.color.trim()) return toast.error('Vui lòng nhập tên màu');
+        const validSizes = newColorSizes.filter((s) => s.size.trim());
         try {
-            const res = await request.post('/api/addvariant', { ...newVariant, product_id: productMongoId });
-            toast.success(res.data.message);
-            request.get(`/api/variants/${productMongoId}`).then((r) => setVariants(r.data || []));
-            setNewVariant({ color: '', color_hex: '', size: '', size_note: '', stock_quantity: 0, price_adjustment: 0, img: '' });
-        } catch {}
+            await request.post('/api/addvariant', { product_id: productMongoId, ...newColor, sizes: validSizes });
+            toast.success('Thêm màu thành công');
+            reloadVariants();
+            setNewColor({ color: '', color_hex: '#ffffff', img: '' });
+            setNewColorSizes([{ size: '', size_note: '', stock_quantity: 0, price_adjustment: 0 }]);
+        } catch { toast.error('Lỗi thêm màu'); }
     };
 
     const handleDeleteVariant = async (id) => {
+        if (!window.confirm('Xóa toàn bộ màu này và tất cả size?')) return;
         await request.post('/api/deletevariant', { id });
         setVariants((prev) => prev.filter((v) => v._id !== id));
     };
+
+    const handleAddSize = async (variantId) => {
+        if (!newSize.size.trim()) return toast.error('Vui lòng nhập tên size');
+        try {
+            await request.post('/api/addvariantsize', { variant_id: variantId, ...newSize });
+            toast.success('Thêm size thành công');
+            reloadVariants();
+            setAddingSizeTo(null);
+            setNewSize({ size: '', size_note: '', stock_quantity: 0, price_adjustment: 0 });
+        } catch { toast.error('Lỗi thêm size'); }
+    };
+
+    const handleDeleteSize = async (variantId, sizeId) => {
+        await request.post('/api/deletevariantsize', { variant_id: variantId, size_id: sizeId });
+        reloadVariants();
+    };
+
+    const updateNewColorSize = (idx, field, val) =>
+        setNewColorSizes((prev) => prev.map((s, i) => i === idx ? { ...s, [field]: val } : s));
+
+    const addNewColorSizeRow = () =>
+        setNewColorSizes((prev) => [...prev, { size: '', size_note: '', stock_quantity: 0, price_adjustment: 0 }]);
+
+    const removeNewColorSizeRow = (idx) =>
+        setNewColorSizes((prev) => prev.filter((_, i) => i !== idx));
 
     const tabStyle = (tab) => ({
         padding: '8px 16px', cursor: 'pointer', border: 'none',
@@ -348,62 +383,121 @@ export function ModalEditProduct({ setShowModalEdit, showModalEdit, idProduct })
 
                     {activeTab === 'variants' && (
                         <div>
-                            {/* Danh sách biến thể hiện có */}
-                            {variants.length > 0 ? (
-                                <table className="table table-sm table-bordered mb-3">
-                                    <thead className="table-light">
-                                        <tr><th>Màu</th><th>Size</th><th>Ghi chú</th><th>Tồn kho</th><th></th></tr>
-                                    </thead>
-                                    <tbody>
-                                        {variants.map((v) => (
-                                            <tr key={v._id}>
-                                                <td>
-                                                    {v.color_hex && <span style={{ display: 'inline-block', width: 14, height: 14, borderRadius: '50%', background: v.color_hex, border: '1px solid #ccc', marginRight: 4, verticalAlign: 'middle' }} />}
-                                                    {v.color}
-                                                </td>
-                                                <td>{v.size}</td>
-                                                <td><small className="text-muted">{v.size_note}</small></td>
-                                                <td>{v.stock_quantity}</td>
-                                                <td>
-                                                    <button className="btn btn-danger btn-sm" onClick={() => handleDeleteVariant(v._id)}>Xóa</button>
-                                                </td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                            ) : (
-                                <p className="text-muted text-center">Chưa có biến thể nào.</p>
-                            )}
+                            {/* Danh sách màu hiện có */}
+                            {variants.length === 0 && <p className="text-muted text-center mb-3">Chưa có biến thể nào.</p>}
+                            {variants.map((v) => (
+                                <div key={v._id} className="border rounded mb-3 overflow-hidden">
+                                    {/* Header màu */}
+                                    <div className="d-flex align-items-center gap-2 px-3 py-2" style={{ background: '#f8f9fa', borderBottom: '1px solid #dee2e6' }}>
+                                        {v.color_hex && <span style={{ width: 20, height: 20, borderRadius: '50%', background: v.color_hex, border: '1px solid #ccc', flexShrink: 0 }} />}
+                                        <strong style={{ flex: 1 }}>{v.color}</strong>
+                                        {v.img && <img src={v.img} alt="" style={{ width: 32, height: 32, objectFit: 'cover', borderRadius: 4, border: '1px solid #ddd' }} onError={(e) => { e.target.style.display = 'none'; }} />}
+                                        <button className="btn btn-sm btn-outline-primary" onClick={() => { setAddingSizeTo(addingSizeTo === v._id ? null : v._id); setNewSize({ size: '', size_note: '', stock_quantity: 0, price_adjustment: 0 }); }}>
+                                            + Thêm size
+                                        </button>
+                                        <button className="btn btn-sm btn-outline-danger" onClick={() => handleDeleteVariant(v._id)}>Xóa màu</button>
+                                    </div>
 
-                            {/* Form thêm biến thể mới */}
+                                    {/* Bảng sizes */}
+                                    {v.sizes && v.sizes.length > 0 ? (
+                                        <table className="table table-sm mb-0">
+                                            <thead className="table-light">
+                                                <tr><th>Size</th><th>Ghi chú</th><th>Tồn kho</th><th>Chênh lệch giá</th><th></th></tr>
+                                            </thead>
+                                            <tbody>
+                                                {v.sizes.map((s) => (
+                                                    <tr key={s._id}>
+                                                        <td><strong>{s.size}</strong></td>
+                                                        <td><small className="text-muted">{s.size_note}</small></td>
+                                                        <td>{s.stock_quantity}</td>
+                                                        <td>{s.price_adjustment > 0 ? `+${s.price_adjustment.toLocaleString()}` : s.price_adjustment}</td>
+                                                        <td>
+                                                            <button className="btn btn-danger btn-sm" onClick={() => handleDeleteSize(v._id, s._id)}>×</button>
+                                                        </td>
+                                                    </tr>
+                                                ))}
+                                            </tbody>
+                                        </table>
+                                    ) : (
+                                        <p className="text-muted small px-3 py-2 mb-0">Chưa có size nào.</p>
+                                    )}
+
+                                    {/* Form thêm size inline */}
+                                    {addingSizeTo === v._id && (
+                                        <div className="p-3 bg-light border-top">
+                                            <div className="row g-2 align-items-end">
+                                                <div className="col-md-2">
+                                                    <label className="form-label form-label-sm mb-1">Size *</label>
+                                                    <input type="text" className="form-control form-control-sm" placeholder="S / M / XL" value={newSize.size} onChange={(e) => setNewSize({ ...newSize, size: e.target.value })} />
+                                                </div>
+                                                <div className="col-md-3">
+                                                    <label className="form-label form-label-sm mb-1">Ghi chú</label>
+                                                    <input type="text" className="form-control form-control-sm" placeholder="unisex, nữ..." value={newSize.size_note} onChange={(e) => setNewSize({ ...newSize, size_note: e.target.value })} />
+                                                </div>
+                                                <div className="col-md-2">
+                                                    <label className="form-label form-label-sm mb-1">Tồn kho</label>
+                                                    <input type="number" className="form-control form-control-sm" value={newSize.stock_quantity} onChange={(e) => setNewSize({ ...newSize, stock_quantity: e.target.value })} />
+                                                </div>
+                                                <div className="col-md-3">
+                                                    <label className="form-label form-label-sm mb-1">Chênh lệch giá</label>
+                                                    <input type="number" className="form-control form-control-sm" value={newSize.price_adjustment} onChange={(e) => setNewSize({ ...newSize, price_adjustment: e.target.value })} />
+                                                </div>
+                                                <div className="col-md-2">
+                                                    <button className="btn btn-primary btn-sm w-100" onClick={() => handleAddSize(v._id)}>Thêm</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+                            ))}
+
+                            {/* Form thêm màu mới */}
                             <div className="border rounded p-3 bg-light">
-                                <h6 className="mb-3">Thêm biến thể mới</h6>
-                                <div className="row g-2">
+                                <h6 className="mb-3">Thêm màu mới</h6>
+                                <div className="row g-2 mb-3">
                                     <div className="col-md-4">
-                                        <input type="text" className="form-control form-control-sm" placeholder="Màu (VD: Đỏ phối Be)" value={newVariant.color} onChange={(e) => setNewVariant({ ...newVariant, color: e.target.value })} />
+                                        <label className="form-label form-label-sm mb-1">Tên màu *</label>
+                                        <input type="text" className="form-control form-control-sm" placeholder="VD: Đỏ phối Be" value={newColor.color} onChange={(e) => setNewColor({ ...newColor, color: e.target.value })} />
                                     </div>
                                     <div className="col-md-2">
-                                        <input type="color" className="form-control form-control-sm form-control-color" title="Mã màu" value={newVariant.color_hex || '#ffffff'} onChange={(e) => setNewVariant({ ...newVariant, color_hex: e.target.value })} />
+                                        <label className="form-label form-label-sm mb-1">Mã màu</label>
+                                        <input type="color" className="form-control form-control-sm form-control-color w-100" value={newColor.color_hex} onChange={(e) => setNewColor({ ...newColor, color_hex: e.target.value })} />
                                     </div>
-                                    <div className="col-md-2">
-                                        <input type="text" className="form-control form-control-sm" placeholder="Size (S/M/L/XL)" value={newVariant.size} onChange={(e) => setNewVariant({ ...newVariant, size: e.target.value })} />
-                                    </div>
-                                    <div className="col-md-4">
-                                        <input type="text" className="form-control form-control-sm" placeholder="Ghi chú (unisex, babytee nữ...)" value={newVariant.size_note} onChange={(e) => setNewVariant({ ...newVariant, size_note: e.target.value })} />
-                                    </div>
-                                    <div className="col-md-3">
-                                        <input type="number" className="form-control form-control-sm" placeholder="Tồn kho" value={newVariant.stock_quantity} onChange={(e) => setNewVariant({ ...newVariant, stock_quantity: e.target.value })} />
-                                    </div>
-                                    <div className="col-md-3">
-                                        <input type="number" className="form-control form-control-sm" placeholder="Chênh lệch giá" value={newVariant.price_adjustment} onChange={(e) => setNewVariant({ ...newVariant, price_adjustment: e.target.value })} />
-                                    </div>
-                                    <div className="col-md-4">
-                                        <input type="text" className="form-control form-control-sm" placeholder="URL ảnh màu này" value={newVariant.img} onChange={(e) => setNewVariant({ ...newVariant, img: e.target.value })} />
-                                    </div>
-                                    <div className="col-md-2">
-                                        <button className="btn btn-primary btn-sm w-100" onClick={handleAddVariant}>+ Thêm</button>
+                                    <div className="col-md-6">
+                                        <label className="form-label form-label-sm mb-1">URL ảnh màu này</label>
+                                        <input type="text" className="form-control form-control-sm" placeholder="https://..." value={newColor.img} onChange={(e) => setNewColor({ ...newColor, img: e.target.value })} />
                                     </div>
                                 </div>
+
+                                <div className="mb-2">
+                                    <div className="d-flex justify-content-between align-items-center mb-2">
+                                        <small className="text-muted fw-semibold">Sizes của màu này</small>
+                                        <button className="btn btn-outline-secondary btn-sm" onClick={addNewColorSizeRow}>+ Thêm dòng size</button>
+                                    </div>
+                                    {newColorSizes.map((s, idx) => (
+                                        <div key={idx} className="row g-2 mb-2 align-items-center">
+                                            <div className="col-md-2">
+                                                <input type="text" className="form-control form-control-sm" placeholder="Size" value={s.size} onChange={(e) => updateNewColorSize(idx, 'size', e.target.value)} />
+                                            </div>
+                                            <div className="col-md-3">
+                                                <input type="text" className="form-control form-control-sm" placeholder="Ghi chú" value={s.size_note} onChange={(e) => updateNewColorSize(idx, 'size_note', e.target.value)} />
+                                            </div>
+                                            <div className="col-md-2">
+                                                <input type="number" className="form-control form-control-sm" placeholder="Tồn kho" value={s.stock_quantity} onChange={(e) => updateNewColorSize(idx, 'stock_quantity', e.target.value)} />
+                                            </div>
+                                            <div className="col-md-3">
+                                                <input type="number" className="form-control form-control-sm" placeholder="Chênh lệch giá" value={s.price_adjustment} onChange={(e) => updateNewColorSize(idx, 'price_adjustment', e.target.value)} />
+                                            </div>
+                                            <div className="col-md-2">
+                                                {newColorSizes.length > 1 && (
+                                                    <button className="btn btn-outline-danger btn-sm w-100" onClick={() => removeNewColorSizeRow(idx)}>×</button>
+                                                )}
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+
+                                <button className="btn btn-primary btn-sm" onClick={handleAddColor}>+ Thêm màu</button>
                             </div>
                         </div>
                     )}

@@ -14,7 +14,6 @@ const ADMIN_ONLY = ['admin'];
 router.get('/api/auth/me', verifyRole(ALL_STAFF), ControllerAdmin.GetDataAuth);
 
 // Categories
-router.get('/api/categories', verifyRole(ALL_STAFF), ControllerCategory.GetCategories);
 router.post('/api/addcategory', verifyRole(ADMIN_MANAGER), ControllerCategory.AddCategory);
 router.post('/api/editcategory', verifyRole(ADMIN_MANAGER), ControllerCategory.EditCategory);
 router.post('/api/deletecategory', verifyRole(ADMIN_ONLY), ControllerCategory.DeleteCategory);
@@ -32,6 +31,7 @@ router.post('/api/editorder', verifyRole(ALL_STAFF), ControllerAdmin.EditOrder);
 
 // Users / Customers
 router.get('/api/datauser', verifyRole(ADMIN_MANAGER), ControllerAdmin.GetUser);
+router.post('/api/createuser', verifyRole(ADMIN_MANAGER), ControllerAdmin.CreateUser);
 router.post('/api/updaterole', verifyRole(ADMIN_ONLY), ControllerAdmin.UpdateUserRole);
 router.post('/api/edituser', verifyRole(ADMIN_ONLY), ControllerAdmin.EditUser);
 router.post('/api/deleteuser', verifyRole(ADMIN_ONLY), ControllerAdmin.DeleteUser);
@@ -62,9 +62,10 @@ router.post('/api/editrole', verifyRole(ADMIN_ONLY), ControllerRole.EditRole);
 router.post('/api/deleterole', verifyRole(ADMIN_ONLY), ControllerRole.DeleteRole);
 
 // Variants
-router.get('/api/variants/:product_id', verifyRole(ALL_STAFF), ControllerVariant.GetVariants);
 router.post('/api/addvariant', verifyRole(ADMIN_MANAGER), ControllerVariant.AddVariant);
 router.post('/api/editvariant', verifyRole(ADMIN_MANAGER), ControllerVariant.EditVariant);
 router.post('/api/deletevariant', verifyRole(ADMIN_ONLY), ControllerVariant.DeleteVariant);
+router.post('/api/addvariantsize', verifyRole(ADMIN_MANAGER), ControllerVariant.AddVariantSize);
+router.post('/api/deletevariantsize', verifyRole(ADMIN_MANAGER), ControllerVariant.DeleteVariantSize);
 
 module.exports = router;

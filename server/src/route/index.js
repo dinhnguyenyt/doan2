@@ -3,6 +3,8 @@ const ProductsRoutes = require('./ProductsRoutes');
 const Payments = require('./PaymentsRoutes');
 const AdminRoutes = require('./AdminRoutes');
 const WebRoutes = require('./WebRoutes');
+const ControllerCategory = require('../controller/ControllerCategory/ControllerCategory');
+const ControllerVariant = require('../controller/ControllerVariant/ControllerVariant');
 
 function route(app) {
     // User
@@ -34,8 +36,8 @@ function route(app) {
     app.get('/api/search', ProductsRoutes);
     app.post('/api/clearcart', ProductsRoutes);
 
-    // Admin - Categories
-    app.get('/api/categories', AdminRoutes);
+    // Categories - GET là public, write operations mới cần auth
+    app.get('/api/categories', ControllerCategory.GetCategories);
     app.post('/api/addcategory', AdminRoutes);
     app.post('/api/editcategory', AdminRoutes);
     app.post('/api/deletecategory', AdminRoutes);
@@ -55,16 +57,19 @@ function route(app) {
     app.get('/api/auth/me', AdminRoutes);
     app.post('/api/checkproduct', AdminRoutes);
     app.post('/api/editorder', AdminRoutes);
+    app.post('/api/createuser', AdminRoutes);
     app.post('/api/updaterole', AdminRoutes);
     app.post('/api/edituser', AdminRoutes);
     app.post('/api/deleteuser', AdminRoutes);
     app.post('/api/deletecomment', AdminRoutes);
 
-    // Admin - Variants
-    app.get('/api/variants/:product_id', AdminRoutes);
+    // Variants - GET là public, write operations mới cần auth
+    app.get('/api/variants/:product_id', ControllerVariant.GetVariants);
     app.post('/api/addvariant', AdminRoutes);
     app.post('/api/editvariant', AdminRoutes);
     app.post('/api/deletevariant', AdminRoutes);
+    app.post('/api/addvariantsize', AdminRoutes);
+    app.post('/api/deletevariantsize', AdminRoutes);
 
     // Admin - Roles & Permissions
     app.get('/api/my-permissions', AdminRoutes);

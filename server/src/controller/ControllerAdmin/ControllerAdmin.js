@@ -3,6 +3,7 @@ const ModelProducts = require('../../model/ModelProducts');
 const { jwtDecode } = require('jwt-decode');
 const ModelUser = require('../../model/ModelUser');
 const sendMail = require('../ControllerEmail/SendEmail');
+const bcrypt = require('bcrypt');
 
 require('dotenv').config();
 
@@ -73,6 +74,37 @@ class ControllerAdmin {
                  return res.status(400).json({ message: 'Email đã tồn tại' });
             }
             return res.status(500).json({ message: 'Server error' });
+        }
+    }
+
+    async CreateUser(req, res) {
+        const { fullname, email, password, role, phone } = req.body;
+        const decoded = jwtDecode(req.cookies.Token);
+        try {
+            if (!fullname || !email || !password) {
+                return res.status(400).json({ message: 'Vui lòng nhập đầy đủ họ tên, email và mật khẩu' });
+            }
+            const existing = await ModelUser.findOne({ email });
+            if (existing) {
+                return res.status(400).json({ message: 'Email đã tồn tại' });
+            }
+            const hash = await bcrypt.hash(password, 10);
+            const userRole = role || 'staff';
+            const newUser = new ModelUser({
+                fullname,
+                email,
+                password: hash,
+                role: userRole,
+                isAdmin: userRole === 'admin',
+                phone: phone || 0,
+                created_by: decoded.email,
+                created_at: new Date(),
+            });
+            await newUser.save();
+            return res.status(201).json({ message: 'Tạo tài khoản thành công' });
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json({ message: 'Lỗi server' });
         }
     }
 

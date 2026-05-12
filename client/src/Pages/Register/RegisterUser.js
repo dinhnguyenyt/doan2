@@ -10,44 +10,45 @@ import { useState } from 'react';
 
 const cx = classNames.bind(styles);
 
+const eyeBtn = {
+    position: 'absolute', right: 10, top: '50%',
+    transform: 'translateY(-50%)',
+    border: 'none', background: 'none',
+    cursor: 'pointer', color: '#888', fontSize: 16,
+};
+
 function RegisterUser() {
-    const [fullname, setFullname] = useState(''); // Tạo state để lưu fullname
-    const [email, setEmail] = useState(''); // Tạo state để lưu email
-    const [phone, setPhone] = useState(''); // Tạo state để lưu phone
-    const [password, setPassword] = useState(''); // Tạo state để lưu password
-    const [confirmPassword, setConfirmPassword] = useState(''); // Tạo state để lưu confirmPassword
+    const [fullname, setFullname] = useState('');
+    const [email, setEmail] = useState('');
+    const [phone, setPhone] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirm, setShowConfirm] = useState(false);
 
     const handleRegister = async () => {
-        // Hàm xử lý đăng ký
         try {
-            // Thực hiện đăng ký
-            var pattern = /[A-Z]/; // Kiểm tra xem chuỗi có chứa ký tự viết hoa hay không
+            var pattern = /[A-Z]/;
             const checkEmail = pattern.test(email);
 
             if (fullname === '' || email === '' || password === '' || confirmPassword === '') {
-                // Kiểm tra xem fullname, email, password, confirmPassword
-                toast.error('Vui Lòng Xem Lại Thông Tin !!!'); // Hàm toast.error hiển thị thông báo lỗi
+                toast.error('Vui Lòng Xem Lại Thông Tin !!!');
             } else if (checkEmail === true) {
-                // Kiểm tra xem email
-                toast.error('Email Không Được Viết Hoa !!!'); // Hàm toast.error hiển thị thông báo lỗi
+                toast.error('Email Không Được Viết Hoa !!!');
             } else if (password !== confirmPassword) {
-                // Kiểm tra xem password, confirmPassword
-                toast.error('Mật Khẩu Không Trùng Khớp !!!'); // Hàm toast.error hiển thị thông báo lỗi
+                toast.error('Mật Khẩu Không Trùng Khớp !!!');
             } else {
-                // Nếu đăng ký thành công
                 const res = await request.post('/api/register', {
-                    // Thực hiện đăng ký
                     fullname,
                     email,
                     password,
                     confirmPassword,
                     phone,
-                }); // Gửi yêu cầu đăng ký đến server
-                toast.success(res.data.message); // Hiển thị thông báo thành công
+                });
+                toast.success(res.data.message);
             }
         } catch (error) {
-            // Nếu đăng ký thất bại
-            toast.error(error.response.data.message); // Hiển thị thông báo lỗi
+            toast.error(error.response.data.message);
         }
     };
 
@@ -78,21 +79,32 @@ function RegisterUser() {
 
                         <div className={cx('form-input')}>
                             <label>Password</label>
-
-                            <input
-                                placeholder="Enter Password"
-                                type="password"
-                                onChange={(e) => setPassword(e.target.value)}
-                            />
+                            <div style={{ position: 'relative' }}>
+                                <input
+                                    placeholder="Enter Password"
+                                    type={showPassword ? 'text' : 'password'}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    style={{ width: '100%', paddingRight: 40 }}
+                                />
+                                <button type="button" tabIndex={-1} style={eyeBtn} onClick={() => setShowPassword(!showPassword)}>
+                                    {showPassword ? '🙈' : '👁️'}
+                                </button>
+                            </div>
                         </div>
 
                         <div className={cx('form-input')}>
                             <label>Confirm Password</label>
-                            <input
-                                type="password"
-                                placeholder="Confirm Password"
-                                onChange={(e) => setConfirmPassword(e.target.value)}
-                            />
+                            <div style={{ position: 'relative' }}>
+                                <input
+                                    type={showConfirm ? 'text' : 'password'}
+                                    placeholder="Confirm Password"
+                                    onChange={(e) => setConfirmPassword(e.target.value)}
+                                    style={{ width: '100%', paddingRight: 40 }}
+                                />
+                                <button type="button" tabIndex={-1} style={eyeBtn} onClick={() => setShowConfirm(!showConfirm)}>
+                                    {showConfirm ? '🙈' : '👁️'}
+                                </button>
+                            </div>
                         </div>
                     </div>
                     <div className={cx('login-footer')}>

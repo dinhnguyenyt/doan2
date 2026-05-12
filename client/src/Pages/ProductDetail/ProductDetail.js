@@ -84,7 +84,11 @@ function ProductDetail() {
     }, [dataProducts?._id]);
 
     const handleAddProduct = () => {
-        if (uniqueSizes.length > 0 && !selectedSize) {
+        if (variants.length > 0 && !selectedColor) {
+            alert('Vui lòng chọn màu sắc trước khi thêm vào giỏ hàng');
+            return;
+        }
+        if (availableSizes.length > 0 && !selectedSize) {
             alert('Vui lòng chọn kích thước trước khi thêm vào giỏ hàng');
             return;
         }
@@ -129,24 +133,27 @@ function ProductDetail() {
         }
     };
 
-    const uniqueColors = [...new Set(variants.map((v) => v.color).filter(Boolean))];
+    // Mỗi variant doc = 1 màu, có mảng sizes bên trong
+    const selectedColorVariant = variants.find((v) => v.color === selectedColor);
 
-    // Size độc lập: lấy từ tất cả variants, ưu tiên variant khớp màu nếu đã chọn
-    const uniqueSizes = [...new Map(
-        variants.filter((v) => v.size).map((v) => [v.size, {
-            size: v.size,
-            size_note: v.size_note,
-            price_adjustment: v.price_adjustment || 0,
-            stock: variants.filter((sv) => sv.size === v.size).reduce((s, sv) => s + (sv.stock_quantity || 0), 0),
-        }])
-    ).values()];
+    // Sizes hiển thị: theo màu đang chọn, hoặc tất cả nếu chưa chọn màu
+    const availableSizes = selectedColorVariant
+        ? (selectedColorVariant.sizes || []).filter((s) => s.size)
+        : variants.flatMap((v) => (v.sizes || []).filter((s) => s.size));
 
-    const selectedVariant = variants.find((v) => v.color === selectedColor && v.size === selectedSize)
-        || variants.find((v) => v.size === selectedSize);
+    const selectedSizeObj = availableSizes.find((s) => s.size === selectedSize);
 
-    const handleSelectSize = (size, priceAdj) => {
-        setSelectedSize(size);
-        setDisplayPrice((dataProducts?.priceNew || 0) + (priceAdj || 0));
+    const handleSelectColor = (color) => {
+        const cv = variants.find((v) => v.color === color);
+        setSelectedColor(color);
+        setSelectedSize('');
+        setDisplayPrice(null);
+        if (cv?.img) setMainImage(cv.img);
+    };
+
+    const handleSelectSize = (sizeObj) => {
+        setSelectedSize(sizeObj.size);
+        setDisplayPrice((dataProducts?.priceNew || 0) + (sizeObj.price_adjustment || 0));
     };
 
     const currentPrice = displayPrice !== null ? displayPrice : dataProducts?.priceNew;
@@ -268,80 +275,78 @@ function ProductDetail() {
                             </div>
 
                             {/* Chọn màu */}
-                            {uniqueColors.length > 0 && (
+                            {variants.length > 0 && (
                                 <div style={{ margin: '10px 0' }}>
                                     <span style={{ color: '#767676', fontSize: '14px', minWidth: '90px', display: 'inline-block' }}>Màu sắc:</span>
                                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '6px' }}>
-                                        {uniqueColors.map((color) => (
+                                        {variants.filter((v) => v.color).map((v) => (
                                             <button
-                                                key={color}
-                                                onClick={() => { setSelectedColor(color); setSelectedSize(''); }}
+                                                key={v._id}
+                                                onClick={() => handleSelectColor(v.color)}
                                                 style={{
+                                                    display: 'flex', alignItems: 'center', gap: '6px',
                                                     padding: '6px 12px', fontSize: '13px', cursor: 'pointer',
-                                                    border: selectedColor === color ? '2px solid #ee4d2d' : '1px solid #ddd',
+                                                    border: selectedColor === v.color ? '2px solid #ee4d2d' : '1px solid #ddd',
                                                     borderRadius: '4px', background: '#fff',
-                                                    color: selectedColor === color ? '#ee4d2d' : '#333',
+                                                    color: selectedColor === v.color ? '#ee4d2d' : '#333',
                                                 }}
                                             >
-                                                {color}
+                                                {v.color_hex && (
+                                                    <span style={{ width: 14, height: 14, borderRadius: '50%', background: v.color_hex, border: '1px solid #ccc', display: 'inline-block', flexShrink: 0 }} />
+                                                )}
+                                                {v.color}
                                             </button>
                                         ))}
                                     </div>
                                 </div>
                             )}
 
-                            {/* Chọn size */}
-                            {uniqueSizes.length > 0 && (
+                            {/* Chọn size — chỉ hiện sau khi chọn màu (hoặc hiện tất cả nếu chưa chọn) */}
+                            {availableSizes.length > 0 && (
                                 <div style={{ margin: '10px 0' }}>
                                     <span style={{ color: '#767676', fontSize: '14px', minWidth: '90px', display: 'inline-block' }}>
-                                        Kích thước:
+                                        Kích thước: {selectedColor && <small style={{ color: '#ee4d2d' }}>({selectedColor})</small>}
                                     </span>
                                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '6px' }}>
-                                        {uniqueSizes.map(({ size, size_note, price_adjustment, stock }) => (
-                                            <button
-                                                key={size}
-                                                onClick={() => handleSelectSize(size, price_adjustment)}
-                                                disabled={stock === 0}
-                                                title={price_adjustment > 0 ? `+${price_adjustment.toLocaleString()} VNĐ` : ''}
-                                                style={{
-                                                    padding: '6px 16px', fontSize: '13px',
-                                                    cursor: stock > 0 ? 'pointer' : 'not-allowed',
-                                                    border: selectedSize === size ? '2px solid #ee4d2d' : '1px solid #ddd',
-                                                    borderRadius: '4px',
-                                                    background: stock === 0 ? '#f5f5f5' : selectedSize === size ? '#fff5f5' : '#fff',
-                                                    color: stock === 0 ? '#bbb' : selectedSize === size ? '#ee4d2d' : '#333',
-                                                    fontWeight: selectedSize === size ? 600 : 400,
-                                                    position: 'relative',
-                                                }}
-                                            >
-                                                {size}
-                                                {price_adjustment > 0 && (
-                                                    <span style={{ fontSize: '10px', color: '#26aa99', display: 'block', lineHeight: 1 }}>
-                                                        +{(price_adjustment / 1000).toFixed(0)}k
-                                                    </span>
-                                                )}
-                                                {size_note && (
-                                                    <span style={{ fontSize: '10px', color: '#999', display: 'block', lineHeight: 1 }}>
-                                                        {size_note}
-                                                    </span>
-                                                )}
-                                            </button>
-                                        ))}
+                                        {availableSizes.map((s) => {
+                                            const outOfStock = s.stock_quantity === 0;
+                                            return (
+                                                <button
+                                                    key={s._id}
+                                                    onClick={() => !outOfStock && handleSelectSize(s)}
+                                                    disabled={outOfStock}
+                                                    style={{
+                                                        padding: '6px 16px', fontSize: '13px',
+                                                        cursor: outOfStock ? 'not-allowed' : 'pointer',
+                                                        border: selectedSize === s.size ? '2px solid #ee4d2d' : '1px solid #ddd',
+                                                        borderRadius: '4px',
+                                                        background: outOfStock ? '#f5f5f5' : selectedSize === s.size ? '#fff5f5' : '#fff',
+                                                        color: outOfStock ? '#bbb' : selectedSize === s.size ? '#ee4d2d' : '#333',
+                                                        fontWeight: selectedSize === s.size ? 600 : 400,
+                                                    }}
+                                                >
+                                                    {s.size}
+                                                    {s.price_adjustment > 0 && (
+                                                        <span style={{ fontSize: '10px', color: '#26aa99', display: 'block', lineHeight: 1 }}>
+                                                            +{(s.price_adjustment / 1000).toFixed(0)}k
+                                                        </span>
+                                                    )}
+                                                    {s.size_note && (
+                                                        <span style={{ fontSize: '10px', color: '#999', display: 'block', lineHeight: 1 }}>
+                                                            {s.size_note}
+                                                        </span>
+                                                    )}
+                                                </button>
+                                            );
+                                        })}
                                     </div>
-                                    {selectedSize && (
+                                    {selectedSizeObj && (
                                         <div style={{ fontSize: '12px', color: '#767676', marginTop: '4px' }}>
-                                            Đã chọn: <strong style={{ color: '#ee4d2d' }}>{selectedSize}</strong>
-                                            {' · '}Còn lại: <strong>{uniqueSizes.find(s => s.size === selectedSize)?.stock || 0}</strong> sản phẩm
+                                            Đã chọn: <strong style={{ color: '#ee4d2d' }}>{selectedSizeObj.size}</strong>
+                                            {' · '}Còn lại: <strong>{selectedSizeObj.stock_quantity}</strong> sản phẩm
                                         </div>
                                     )}
                                 </div>
-                            )}
-
-                            {/* Tồn kho variant */}
-                            {selectedVariant && (
-                                <p style={{ fontSize: '13px', color: '#767676', margin: '4px 0' }}>
-                                    Còn lại: <strong>{selectedVariant.stock_quantity}</strong> sản phẩm
-                                </p>
                             )}
 
                             {/* Chính sách */}
