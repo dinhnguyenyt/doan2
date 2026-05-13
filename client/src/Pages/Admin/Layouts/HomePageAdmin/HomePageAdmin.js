@@ -14,6 +14,7 @@ import { useEffect, useState } from 'react';
 import request from '../../../../config/Connect';
 import Blogger from './Blog/Blogger';
 import RolePermission from './RolePermission/RolePermission';
+import History from './History/History';
 
 const cx = classNames.bind(styles);
 
@@ -124,6 +125,14 @@ function HomePage({ activeList }) {
             {activeList === 'role' ? (
                 <div>
                     <RolePermission />
+                </div>
+            ) : (
+                <></>
+            )}
+
+            {activeList === 'history' ? (
+                <div>
+                    <History />
                 </div>
             ) : (
                 <></>

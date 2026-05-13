@@ -2,7 +2,7 @@ const ModelRole = require('../../model/ModelRole');
 const { jwtDecode } = require('jwt-decode');
 const createAuditLog = require('../../utils/auditLog');
 
-const ALL_MENUS = ['dash', 'order', 'product', 'category', 'coupon', 'customer', 'blog', 'comment', 'role'];
+const ALL_MENUS = ['dash', 'order', 'product', 'category', 'coupon', 'customer', 'blog', 'comment', 'role', 'history'];
 
 const ALL_ACTIONS = [
     'order:edit', 'order:delete',
@@ -67,6 +67,14 @@ const ControllerRole = {
         if (count === 0) {
             await ModelRole.insertMany(INITIAL_ROLES);
             console.log('Roles seeded successfully');
+        } else {
+            // Đồng bộ menus/actions cho system roles khi có thay đổi
+            for (const role of INITIAL_ROLES.filter((r) => r.is_system)) {
+                await ModelRole.updateOne(
+                    { name: role.name, is_system: true },
+                    { $set: { menus: role.menus, actions: role.actions } },
+                );
+            }
         }
     },
 
