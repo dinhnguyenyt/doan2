@@ -274,11 +274,11 @@ class ControllerUser {
             const token = req.cookies.Token;
             if (!token) return res.status(401).json({ message: 'Unauthorized' });
             const decoded = jwtDecode(token);
-            const { fullname, phone, company, country, address_line1, address_line2, city, zip } = req.body;
+            const { fullname, phone, company, country, address_line1, ward, district, city, zip } = req.body;
 
             const address = await ModelAddress.findOneAndUpdate(
                 { email: decoded.email },
-                { fullname, phone, company, country, address_line1, address_line2, city, zip, modified_at: new Date() },
+                { fullname, phone, company, country, address_line1, ward, district, city, zip, modified_at: new Date() },
                 { upsert: true, new: true }
             );
             return res.status(200).json({ message: 'Đã lưu địa chỉ thành công', address });

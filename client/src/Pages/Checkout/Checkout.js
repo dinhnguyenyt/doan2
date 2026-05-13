@@ -11,7 +11,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loading from '../../Layouts/Loading/Loading';
 import { useNavigate } from 'react-router-dom';
-import VietnamCitySelect from '../../components/VietnamCitySelect/VietnamCitySelect';
+import CascadingAddressSelect from '../../components/CascadingAddressSelect/CascadingAddressSelect';
 
 const cx = classNames.bind(styles);
 
@@ -115,8 +115,9 @@ function Checkout() {
     const [email, setEmail] = useState('');
     const [country, setCountry] = useState('');
     const [addressLine1, setAddressLine1] = useState('');
-    const [addressLine2, setAddressLine2] = useState('');
     const [city, setCity] = useState('');
+    const [district, setDistrict] = useState('');
+    const [ward, setWard] = useState('');
     const [zip, setZip] = useState('');
 
     const navigate = useNavigate();
@@ -179,7 +180,7 @@ function Checkout() {
         // Đã có địa chỉ mặc định và đang dùng nó → bỏ qua validate form
         if (savedAddress && !useNewAddress) return true;
         // Chưa có địa chỉ hoặc đang dùng địa chỉ khác → validate form billing
-        const missing = [firstName, lastName, companyName, phoneNumber, email, country, addressLine1, addressLine2, city, zip].some(v => v === '');
+        const missing = [firstName, lastName, companyName, phoneNumber, email, country, addressLine1, city].some(v => v === '');
         if (missing) {
             toast.error('Vui lòng điền đầy đủ thông tin địa chỉ giao hàng');
             return false;
@@ -264,8 +265,11 @@ function Checkout() {
                                 <div style={{ fontSize: 13, color: '#444', lineHeight: 1.7 }}>
                                     <div><strong>{savedAddress.fullname}</strong> · {savedAddress.phone}</div>
                                     {savedAddress.company && <div>{savedAddress.company}</div>}
-                                    <div>{savedAddress.address_line1}{savedAddress.address_line2 ? `, ${savedAddress.address_line2}` : ''}</div>
-                                    <div>{savedAddress.city}{savedAddress.country ? `, ${savedAddress.country}` : ''} {savedAddress.zip}</div>
+                                    <div>{savedAddress.address_line1}</div>
+                                    <div>
+                                        {[savedAddress.ward, savedAddress.district, savedAddress.city].filter(Boolean).join(', ')}
+                                        {savedAddress.country ? `, ${savedAddress.country}` : ''} {savedAddress.zip}
+                                    </div>
                                 </div>
                                 <div style={{ marginTop: 10 }}>
                                     <label style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer', fontSize: 13, color: '#555' }}>
@@ -345,25 +349,19 @@ function Checkout() {
                                 <input
                                     type="text"
                                     className="form-control"
-                                    placeholder="Address line 01"
+                                    placeholder="Số nhà, tên đường"
                                     onChange={(e) => setAddressLine1(e.target.value)}
                                 />
                             </div>
 
-                            <div className="input-group mb-3">
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    placeholder="Address line 02"
-                                    onChange={(e) => setAddressLine2(e.target.value)}
-                                />
-                            </div>
-
                             <div className="mb-3">
-                                <VietnamCitySelect
-                                    value={city}
-                                    onChange={(e) => setCity(e.target.value)}
-                                    placeholder="Chọn tỉnh / thành phố"
+                                <CascadingAddressSelect
+                                    province={city}
+                                    district={district}
+                                    ward={ward}
+                                    onProvinceChange={(v) => { setCity(v); setDistrict(''); setWard(''); }}
+                                    onDistrictChange={(v) => { setDistrict(v); setWard(''); }}
+                                    onWardChange={setWard}
                                 />
                             </div>
 
@@ -371,7 +369,7 @@ function Checkout() {
                                 <input
                                     type="text"
                                     className="form-control"
-                                    placeholder="PostCode/ZIP"
+                                    placeholder="Mã bưu chính (ZIP)"
                                     onChange={(e) => setZip(e.target.value)}
                                 />
                             </div>

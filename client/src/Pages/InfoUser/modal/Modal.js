@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import request from '../../../config/Connect';
 import { toast, ToastContainer } from 'react-toastify';
-import VietnamCitySelect from '../../../components/VietnamCitySelect/VietnamCitySelect';
+import CascadingAddressSelect from '../../../components/CascadingAddressSelect/CascadingAddressSelect';
 
 export function ChangePassword({ show, setShow }) {
     const handleClose = () => setShow(false);
@@ -56,12 +56,22 @@ export function ChangePassword({ show, setShow }) {
 
 export function AddressModal({ show, setShow, onSaved }) {
     const handleClose = () => setShow(false);
-    const [form, setForm] = useState({ fullname:'', phone:'', company:'', country:'', address_line1:'', address_line2:'', city:'', zip:'' });
+    const [form, setForm] = useState({ fullname:'', phone:'', company:'', country:'', address_line1:'', ward:'', district:'', city:'', zip:'' });
 
     useEffect(() => {
         if (show) {
             request.get('/api/address').then((res) => {
-                if (res.data) setForm({ fullname: res.data.fullname || '', phone: res.data.phone || '', company: res.data.company || '', country: res.data.country || '', address_line1: res.data.address_line1 || '', address_line2: res.data.address_line2 || '', city: res.data.city || '', zip: res.data.zip || '' });
+                if (res.data) setForm({
+                    fullname:      res.data.fullname      || '',
+                    phone:         res.data.phone         || '',
+                    company:       res.data.company       || '',
+                    country:       res.data.country       || '',
+                    address_line1: res.data.address_line1 || '',
+                    ward:          res.data.ward          || '',
+                    district:      res.data.district      || '',
+                    city:          res.data.city          || '',
+                    zip:           res.data.zip           || '',
+                });
             }).catch(() => {});
         }
     }, [show]);
@@ -94,13 +104,14 @@ export function AddressModal({ show, setShow, onSaved }) {
                 {row('Công ty', 'company', 'Tên công ty (nếu có)')}
                 {row('Quốc gia', 'country', 'Việt Nam')}
                 {row('Địa chỉ 1', 'address_line1', 'Số nhà, tên đường')}
-                {row('Địa chỉ 2', 'address_line2', 'Phường / Xã (nếu có)')}
-                <div className="input-group mb-2">
-                    <span className="input-group-text" style={{ minWidth: 130, fontSize: 13 }}>Tỉnh / Thành phố</span>
-                    <VietnamCitySelect
-                        value={form.city}
-                        onChange={f('city')}
-                        className="form-select"
+                <div className="mb-2">
+                    <CascadingAddressSelect
+                        province={form.city}
+                        district={form.district}
+                        ward={form.ward}
+                        onProvinceChange={(v) => setForm((p) => ({ ...p, city: v, district: '', ward: '' }))}
+                        onDistrictChange={(v) => setForm((p) => ({ ...p, district: v, ward: '' }))}
+                        onWardChange={(v) => setForm((p) => ({ ...p, ward: v }))}
                     />
                 </div>
                 {row('Mã bưu chính', 'zip', '700000')}
