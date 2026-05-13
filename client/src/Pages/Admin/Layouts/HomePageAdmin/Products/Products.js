@@ -116,7 +116,7 @@ function Products({
                                     <td>
                                         <img style={{ width: '120px' }} src={item.img} alt="." />
                                     </td>
-                                    <td>$ {item.priceNew ? item.priceNew.toLocaleString() : 0}</td>
+                                    <td>{item.priceNew ? item.priceNew.toLocaleString() : 0} VNĐ</td>
                                     <td>{formatDateString(item.created_at)}</td>
                                     <td>{item.created_by || '-'}</td>
                                     <td>{formatDateString(item.modified_at)}</td>

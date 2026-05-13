@@ -47,11 +47,14 @@ class ControllerProducts {
 
                     // Tính giá theo variant nếu có chọn size/color
                     if (item.size || item.color) {
-                        const filter = { product_id: dataProducts._id };
-                        if (item.size)  filter.size  = item.size;
-                        if (item.color) filter.color = item.color;
-                        const variant = await ModelProductVariant.findOne(filter);
-                        if (variant) price = dataProducts.priceNew + (variant.price_adjustment || 0);
+                        // color là field top-level, size nằm trong mảng sizes[]
+                        const variantFilter = { product_id: dataProducts._id };
+                        if (item.color) variantFilter.color = item.color;
+                        const variant = await ModelProductVariant.findOne(variantFilter);
+                        if (variant && item.size) {
+                            const sizeObj = variant.sizes?.find((s) => s.size === item.size);
+                            if (sizeObj) price = dataProducts.priceNew + (sizeObj.price_adjustment || 0);
+                        }
                     }
 
                     products.push({
@@ -71,7 +74,7 @@ class ControllerProducts {
             // Luôn thay thế toàn bộ giỏ hàng (không cộng dồn)
             await ModelCart.findOneAndUpdate(
                 { email: decoded.email },
-                { email: decoded.email, products, sumPrice: total, couponCode: '' },
+                { email: decoded.email, products, sumPrice: total, couponCode: '', shippingCouponCode: '' },
                 { upsert: true, new: true }
             );
 

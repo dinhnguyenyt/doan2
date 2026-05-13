@@ -87,8 +87,9 @@ function route(app) {
     app.get('/api/blog/:id', AdminRoutes);
     app.get('/api/customer/:id', AdminRoutes);
 
-    // Coupon check
+    // Coupon - public endpoints
     const ControllerCoupon = require('../controller/ControllerCoupon/ControllerCoupon');
+    app.get('/api/available-coupons', ControllerCoupon.GetAvailableCoupons);
     app.post('/api/check-coupon', ControllerCoupon.CheckCoupon);
 
     // Audit Logs

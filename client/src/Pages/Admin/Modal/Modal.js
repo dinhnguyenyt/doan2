@@ -644,7 +644,7 @@ export function ModalEditOrder({ show, setShow, id }) {
                         <div className="mb-3 p-3 bg-light border rounded">
                             <div className="mb-1"><strong>Mã đơn:</strong> <span className="text-muted" style={{ fontSize: '0.85em' }}>{orderData._id}</span></div>
                             <div className="mb-1"><strong>Email:</strong> {orderData.email}</div>
-                            <div className="mb-1"><strong>Tổng tiền:</strong> ${orderData.sumPrice?.toLocaleString() || 0}</div>
+                            <div className="mb-1"><strong>Tổng tiền:</strong> {orderData.sumPrice?.toLocaleString() || 0} VNĐ</div>
                             <div className="mb-1">
                                 <strong>Phương thức TT:</strong>{' '}
                                 {orderData.statusPayment

@@ -142,7 +142,14 @@ const ENTITY_CONFIGS = {
     ],
     coupon: [
         { key: 'code', label: 'Mã giảm giá' },
-        { key: 'discount_percent', label: 'Phần trăm giảm', format: fmt.percent },
+        {
+            key: 'type',
+            label: 'Loại coupon',
+            format: (v) => v === 'shipping'
+                ? <span style={{ background: '#e6f4ea', color: '#198754', border: '1px solid #198754', borderRadius: 4, padding: '2px 8px', fontSize: 12, fontWeight: 600 }}>Giảm phí vận chuyển</span>
+                : <span style={{ background: '#e7f0ff', color: '#0d6efd', border: '1px solid #0d6efd', borderRadius: 4, padding: '2px 8px', fontSize: 12, fontWeight: 600 }}>Giảm giá sản phẩm</span>,
+        },
+        { key: 'discount_percent', label: 'Mức giảm', format: fmt.percent },
         { key: 'expiry_date', label: 'Ngày hết hạn', format: fmt.date },
         {
             key: 'usage_limit',

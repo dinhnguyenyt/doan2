@@ -234,7 +234,7 @@ function Customers() {
                                 </li>
                                 <li className="list-group-item d-flex justify-content-between align-items-center">
                                     <span className="text-muted">Surplus (Số dư):</span>
-                                    <strong className="text-success">${userDetail.surplus?.toLocaleString() || 0}</strong>
+                                    <strong className="text-success">{userDetail.surplus?.toLocaleString() || 0} VNĐ</strong>
                                 </li>
                             </ul>
 

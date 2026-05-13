@@ -13,28 +13,43 @@ class ControllerPayments {
         const token = req.cookies;
         const decoded = jwtDecode(token.Token);
         const email = decoded.email;
-        const couponCode = req.body.couponCode;
+        const productCouponCode = req.body.productCouponCode || '';
+        const shippingCouponCode = req.body.shippingCouponCode || '';
+        const shippingFee = Number(req.body.shippingFee) || 0;
 
         ModelCart.findOne({ email: email }).then(async (dataCart) => {
             if (dataCart) {
-                let finalPrice = dataCart.sumPrice;
-                let appliedCoupon = '';
+                let productTotal = dataCart.sumPrice;
+                let discountedShipping = shippingFee;
 
-                if (couponCode) {
-                    const coupon = await ModelCoupon.findOne({ code: couponCode.toUpperCase() });
+                if (productCouponCode) {
+                    const coupon = await ModelCoupon.findOne({ code: productCouponCode.toUpperCase(), type: 'product' });
                     if (coupon && coupon.usage_limit > 0) {
                         const expiryEnd = new Date(coupon.expiry_date);
                         expiryEnd.setHours(23, 59, 59, 999);
                         if (new Date() <= expiryEnd) {
-                            finalPrice = finalPrice * (1 - coupon.discount_percent / 100);
-                            appliedCoupon = coupon.code;
+                            productTotal = productTotal * (1 - coupon.discount_percent / 100);
                         }
                     }
                 }
 
-                // Lưu lại mã coupon vào cart để checkData sử dụng
-                dataCart.couponCode = appliedCoupon;
-                dataCart.sumPrice = finalPrice; // cập nhật giá luôn trong cart tạm thời
+                if (shippingCouponCode) {
+                    const coupon = await ModelCoupon.findOne({ code: shippingCouponCode.toUpperCase(), type: 'shipping' });
+                    if (coupon && coupon.usage_limit > 0) {
+                        const expiryEnd = new Date(coupon.expiry_date);
+                        expiryEnd.setHours(23, 59, 59, 999);
+                        if (new Date() <= expiryEnd) {
+                            discountedShipping = shippingFee * (1 - coupon.discount_percent / 100);
+                        }
+                    }
+                }
+
+                const finalPrice = productTotal + discountedShipping;
+
+                // Lưu lại 2 mã vào cart để checkData sử dụng
+                dataCart.couponCode = productCouponCode.toUpperCase();
+                dataCart.shippingCouponCode = shippingCouponCode.toUpperCase();
+                dataCart.sumPrice = finalPrice;
                 await dataCart.save();
 
                 const vnpay = new VNPay({
@@ -96,9 +111,9 @@ class ControllerPayments {
                         }
                     }
 
-                    // Tự động trừ lượt dùng Coupon nếu có mã
-                    if (dataCart.couponCode) {
-                        const coupon = await ModelCoupon.findOne({ code: dataCart.couponCode });
+                    // Tự động trừ lượt dùng cả 2 coupon nếu có
+                    for (const code of [dataCart.couponCode, dataCart.shippingCouponCode].filter(Boolean)) {
+                        const coupon = await ModelCoupon.findOne({ code });
                         if (coupon && coupon.usage_limit > 0) {
                             coupon.usage_limit -= 1;
                             await coupon.save();
@@ -155,20 +170,39 @@ class ControllerPayments {
                 return res.status(404).json({ message: 'Giỏ hàng không tồn tại' });
             }
 
-            let finalPrice = dataCart.sumPrice;
-            const couponCode = req.body.couponCode;
-            if (couponCode) {
-                const coupon = await ModelCoupon.findOne({ code: couponCode.toUpperCase() });
+            let productTotal = dataCart.sumPrice;
+            const productCouponCode = req.body.productCouponCode || '';
+            const shippingCouponCode = req.body.shippingCouponCode || '';
+            const shippingFee = Number(req.body.shippingFee) || 0;
+            let discountedShipping = shippingFee;
+
+            if (productCouponCode) {
+                const coupon = await ModelCoupon.findOne({ code: productCouponCode.toUpperCase(), type: 'product' });
                 if (coupon && coupon.usage_limit > 0) {
                     const expiryEnd = new Date(coupon.expiry_date);
                     expiryEnd.setHours(23, 59, 59, 999);
                     if (new Date() <= expiryEnd) {
-                        finalPrice = finalPrice * (1 - coupon.discount_percent / 100);
+                        productTotal = productTotal * (1 - coupon.discount_percent / 100);
                         coupon.usage_limit -= 1;
                         await coupon.save();
                     }
                 }
             }
+
+            if (shippingCouponCode) {
+                const coupon = await ModelCoupon.findOne({ code: shippingCouponCode.toUpperCase(), type: 'shipping' });
+                if (coupon && coupon.usage_limit > 0) {
+                    const expiryEnd = new Date(coupon.expiry_date);
+                    expiryEnd.setHours(23, 59, 59, 999);
+                    if (new Date() <= expiryEnd) {
+                        discountedShipping = shippingFee * (1 - coupon.discount_percent / 100);
+                        coupon.usage_limit -= 1;
+                        await coupon.save();
+                    }
+                }
+            }
+
+            const finalPrice = productTotal + discountedShipping;
 
             const newOrder = new ModelOrder({
                 email: decoded.email,

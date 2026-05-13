@@ -61,13 +61,13 @@ function SuccessfulPaymentPage() {
                                             <tr key={item._id}>
                                                 <td>{item.nameProduct}</td>
                                                 <td>x {item.quantity}</td>
-                                                <td>${item.price?.toLocaleString()}</td>
+                                                <td>{item.price?.toLocaleString()} VNĐ</td>
                                             </tr>
                                         ))}
                                         <tr>
                                             <td><strong>Total</strong></td>
                                             <td></td>
-                                            <td><strong>${latestOrder.sumPrice?.toLocaleString()}</strong></td>
+                                            <td><strong>{latestOrder.sumPrice?.toLocaleString()} VNĐ</strong></td>
                                         </tr>
                                         <tr>
                                             <td>Payment</td>

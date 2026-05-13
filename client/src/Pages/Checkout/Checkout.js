@@ -14,13 +14,92 @@ import { useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
+function CouponPicker({ title, coupons, selected, onSelect, accentColor }) {
+    const [open, setOpen] = useState(false);
+
+    return (
+        <div style={{ marginBottom: 10 }}>
+            <button
+                type="button"
+                onClick={() => setOpen((v) => !v)}
+                style={{
+                    width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+                    background: selected ? `${accentColor}12` : '#f8f9fa',
+                    border: `1px solid ${selected ? accentColor : '#dee2e6'}`,
+                    borderRadius: 8, padding: '10px 14px', cursor: 'pointer',
+                    color: selected ? accentColor : '#555', fontWeight: 600, fontSize: 13,
+                }}
+            >
+                <span>
+                    {selected
+                        ? `✓ ${selected.code} — Giảm ${selected.discount_percent}%`
+                        : title}
+                </span>
+                <span style={{ fontSize: 11, fontWeight: 400, color: '#888' }}>
+                    {coupons.length > 0 ? `${coupons.length} mã khả dụng` : 'Không có mã'} {open ? '▲' : '▼'}
+                </span>
+            </button>
+
+            {open && (
+                <div style={{ border: `1px solid ${accentColor}`, borderTop: 'none', borderRadius: '0 0 8px 8px', background: '#fff', maxHeight: 240, overflowY: 'auto' }}>
+                    {coupons.length === 0 ? (
+                        <div style={{ padding: '14px', color: '#aaa', fontSize: 13, textAlign: 'center' }}>
+                            Hiện không có mã nào khả dụng
+                        </div>
+                    ) : (
+                        <>
+                            {selected && (
+                                <div
+                                    onClick={() => { onSelect(null); setOpen(false); }}
+                                    style={{ padding: '10px 14px', fontSize: 12, color: '#dc3545', cursor: 'pointer', borderBottom: '1px solid #f0f0f0' }}
+                                >
+                                    ✕ Bỏ chọn mã
+                                </div>
+                            )}
+                            {coupons.map((c) => {
+                                const isSelected = selected?._id === c._id;
+                                return (
+                                    <div
+                                        key={c._id}
+                                        onClick={() => { onSelect(c); setOpen(false); }}
+                                        style={{
+                                            display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+                                            padding: '12px 14px', cursor: 'pointer',
+                                            background: isSelected ? `${accentColor}10` : '#fff',
+                                            borderLeft: isSelected ? `3px solid ${accentColor}` : '3px solid transparent',
+                                            borderBottom: '1px solid #f5f5f5',
+                                        }}
+                                    >
+                                        <div>
+                                            <span style={{ fontWeight: 700, color: accentColor, fontSize: 14, marginRight: 8 }}>{c.code}</span>
+                                            <span style={{ fontSize: 12, background: `${accentColor}18`, color: accentColor, borderRadius: 4, padding: '1px 6px', fontWeight: 600 }}>
+                                                -{c.discount_percent}%
+                                            </span>
+                                        </div>
+                                        <div style={{ fontSize: 11, color: '#888' }}>
+                                            HSD: {new Date(c.expiry_date).toLocaleDateString('vi-VN')}
+                                            {isSelected && <span style={{ color: accentColor, fontWeight: 700, marginLeft: 8 }}>✓</span>}
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </>
+                    )}
+                </div>
+            )}
+        </div>
+    );
+}
+
 function Checkout() {
     const [dataCart, setDataCart] = useState({});
     const [checkBox, setCheckBox] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
-    const [couponCode, setCouponCode] = useState('');
-    const [discountPercent, setDiscountPercent] = useState(0);
+    const [availableCoupons, setAvailableCoupons] = useState([]);
+    const [selectedProductCoupon, setSelectedProductCoupon] = useState(null);
+    const [selectedShippingCoupon, setSelectedShippingCoupon] = useState(null);
+    const [shippingFee, setShippingFee] = useState(0); // sẽ cập nhật khi triển khai vận chuyển
 
     // Địa chỉ đã lưu
     const [savedAddress, setSavedAddress] = useState(null);
@@ -57,7 +136,6 @@ function Checkout() {
     useEffect(() => {
         if (token) {
             request.get('/api/getcart').then((res) => {
-                // Chỉ hiển thị khi cart có sản phẩm thực sự
                 const cart = res.data?.[0];
                 if (cart && cart.products && cart.products.length > 0) {
                     setDataCart(cart);
@@ -67,19 +145,16 @@ function Checkout() {
             }).catch(() => setDataCart(null));
             request.get('/api/address').then((res) => setSavedAddress(res.data)).catch(() => {});
         }
+        request.get('/api/available-coupons').then((res) => setAvailableCoupons(res.data || [])).catch(() => {});
     }, [token]);
 
-    const handleApplyCoupon = async () => {
-        if (!couponCode) return toast.error('Vui lòng nhập mã giảm giá');
-        try {
-            const res = await request.post('/api/check-coupon', { code: couponCode });
-            setDiscountPercent(res.data.discount_percent);
-            toast.success(res.data.message);
-        } catch (error) {
-            setDiscountPercent(0);
-            toast.error(error.response?.data?.message || 'Lỗi áp dụng mã');
-        }
-    };
+    const productCoupons = availableCoupons.filter((c) => (c.type || 'product') === 'product');
+    const shippingCoupons = availableCoupons.filter((c) => c.type === 'shipping');
+
+    const productDiscount = selectedProductCoupon ? (dataCart?.sumPrice || 0) * selectedProductCoupon.discount_percent / 100 : 0;
+    const shippingDiscount = selectedShippingCoupon ? shippingFee * selectedShippingCoupon.discount_percent / 100 : 0;
+    const finalShipping = shippingFee - shippingDiscount;
+    const finalTotal = (dataCart?.sumPrice || 0) - productDiscount + finalShipping;
 
     const validateBeforePayment = () => {
         if (!checkBox) {
@@ -106,7 +181,9 @@ function Checkout() {
                 setIsLoading(true);
                 const res = await request.post('/api/paymentmomo', {
                     dataAddress,
-                    couponCode: discountPercent > 0 ? couponCode : ''
+                    productCouponCode: selectedProductCoupon?.code || '',
+                    shippingCouponCode: selectedShippingCoupon?.code || '',
+                    shippingFee,
                 });
                 if (res) {
                     setIsLoading(false);
@@ -130,7 +207,9 @@ function Checkout() {
                 setIsLoading(true);
                 await request.post('/api/payment', {
                     dataAddress,
-                    couponCode: discountPercent > 0 ? couponCode : ''
+                    productCouponCode: selectedProductCoupon?.code || '',
+                    shippingCouponCode: selectedShippingCoupon?.code || '',
+                    shippingFee,
                 });
                 await request.post('/api/clearcart');
                 setIsLoading(false);
@@ -325,35 +404,62 @@ function Checkout() {
 
                                     <tbody>
                                         <tr>
-                                            <td>Subtotal</td>
+                                            <td>Tạm tính</td>
                                             <td></td>
                                             <td>{dataCart?.sumPrice?.toLocaleString()} VNĐ</td>
                                         </tr>
-                                        {discountPercent > 0 && (
-                                            <tr>
-                                                <td>Discount ({discountPercent}%)</td>
+                                        {selectedProductCoupon && (
+                                            <tr style={{ color: '#198754' }}>
+                                                <td>Giảm giá sản phẩm ({selectedProductCoupon.discount_percent}%)</td>
                                                 <td></td>
-                                                <td>- {(dataCart?.sumPrice * discountPercent / 100).toLocaleString()} VNĐ</td>
+                                                <td>- {productDiscount.toLocaleString()} VNĐ</td>
                                             </tr>
                                         )}
                                         <tr>
-                                            <td>Total</td>
+                                            <td>Phí vận chuyển</td>
                                             <td></td>
-                                            <td>{(dataCart?.sumPrice * (1 - discountPercent / 100)).toLocaleString()} VNĐ</td>
+                                            <td>
+                                                {shippingFee === 0 ? (
+                                                    <span style={{ color: '#198754' }}>Miễn phí</span>
+                                                ) : selectedShippingCoupon ? (
+                                                    <>
+                                                        <span style={{ textDecoration: 'line-through', color: '#aaa', marginRight: 6 }}>
+                                                            {shippingFee.toLocaleString()} VNĐ
+                                                        </span>
+                                                        <span style={{ color: '#198754' }}>
+                                                            {finalShipping === 0 ? 'Miễn phí' : `${finalShipping.toLocaleString()} VNĐ`}
+                                                        </span>
+                                                    </>
+                                                ) : (
+                                                    `${shippingFee.toLocaleString()} VNĐ`
+                                                )}
+                                            </td>
+                                        </tr>
+                                        <tr style={{ fontWeight: 700 }}>
+                                            <td>Tổng cộng</td>
+                                            <td></td>
+                                            <td>{finalTotal.toLocaleString()} VNĐ</td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                             
-                            <div className="input-group mb-3 px-3">
-                                <input 
-                                    type="text" 
-                                    className="form-control" 
-                                    placeholder="Gift card or discount code" 
-                                    value={couponCode} 
-                                    onChange={(e) => setCouponCode(e.target.value)} 
+                            {/* Chọn mã giảm giá */}
+                            <div className="px-3 mb-3">
+                                <CouponPicker
+                                    title="Mã giảm giá sản phẩm"
+                                    coupons={productCoupons}
+                                    selected={selectedProductCoupon}
+                                    onSelect={setSelectedProductCoupon}
+                                    accentColor="#0d6efd"
                                 />
-                                <button className="btn btn-outline-secondary" onClick={handleApplyCoupon} type="button">Apply</button>
+                                <CouponPicker
+                                    title="Mã giảm phí vận chuyển"
+                                    coupons={shippingCoupons}
+                                    selected={selectedShippingCoupon}
+                                    onSelect={setSelectedShippingCoupon}
+                                    accentColor="#198754"
+                                />
                             </div>
 
                             <div className={cx('form-pay')}>

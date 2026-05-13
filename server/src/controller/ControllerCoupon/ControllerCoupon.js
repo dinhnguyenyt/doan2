@@ -13,13 +13,14 @@ class ControllerCoupon {
     }
 
     async AddCoupon(req, res) {
-        const { code, discount_percent, expiry_date, usage_limit } = req.body;
+        const { code, type, discount_percent, expiry_date, usage_limit } = req.body;
         if (!code) return res.status(400).json({ message: 'Mã không được để trống' });
 
         const decoded = jwtDecode(req.cookies.Token);
         try {
             const newCoupon = new ModelCoupon({
                 code: code.toUpperCase(),
+                type: type || 'product',
                 discount_percent,
                 expiry_date,
                 usage_limit,
@@ -41,7 +42,7 @@ class ControllerCoupon {
     }
 
     async EditCoupon(req, res) {
-        const { id, code, discount_percent, expiry_date, usage_limit } = req.body;
+        const { id, code, type, discount_percent, expiry_date, usage_limit } = req.body;
         if (!id || !code) return res.status(400).json({ message: 'ID và Mã không được để trống' });
 
         const decoded = jwtDecode(req.cookies.Token);
@@ -51,6 +52,7 @@ class ControllerCoupon {
 
             const updatedCoupon = await ModelCoupon.findByIdAndUpdate(id, {
                 code: code.toUpperCase(),
+                type: type || oldCoupon.type,
                 discount_percent,
                 expiry_date,
                 usage_limit,
@@ -91,6 +93,21 @@ class ControllerCoupon {
         }
     }
 
+    async GetAvailableCoupons(req, res) {
+        try {
+            // So sánh từ đầu ngày hôm nay để coupon hết hạn hôm nay vẫn hiển thị
+            const todayStart = new Date();
+            todayStart.setHours(0, 0, 0, 0);
+            const coupons = await ModelCoupon.find({
+                usage_limit: { $gt: 0 },
+                expiry_date: { $gte: todayStart },
+            }).select('code type discount_percent expiry_date').lean();
+            return res.status(200).json(coupons);
+        } catch (error) {
+            return res.status(500).json({ message: 'Internal Server Error' });
+        }
+    }
+
     async CheckCoupon(req, res) {
         const { code } = req.body;
         try {
@@ -106,7 +123,7 @@ class ControllerCoupon {
                 return res.status(400).json({ message: 'Mã đã hết lượt sử dụng' });
             }
 
-            return res.status(200).json({ message: 'Áp dụng mã thành công', discount_percent: coupon.discount_percent });
+            return res.status(200).json({ message: 'Áp dụng mã thành công', discount_percent: coupon.discount_percent, type: coupon.type });
         } catch (error) {
             console.error(error);
             return res.status(500).json({ message: 'Internal Server Error' });

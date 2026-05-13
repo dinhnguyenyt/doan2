@@ -1,5 +1,5 @@
 import { useMemo, useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './Cart.module.scss';
 
@@ -24,6 +24,7 @@ function CartUser() {
     const [quantity, setQuantity] = useState({});
     const token = document.cookie;
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     useEffect(() => {
         const parsedCart = JSON.parse(localStorage.getItem('products') || '[]');
@@ -70,9 +71,9 @@ function CartUser() {
                 size:     item.selectedSize  || '',
                 color:    item.selectedColor || '',
             }));
-            const res = await request.post('/api/cart', dataToSend);
+            await request.post('/api/cart', dataToSend);
             dispatch(removeProduct([]));
-            toast.success(res.data.message);
+            navigate('/checkout');
         } catch (error) {
             toast.error(error.response?.data?.message || 'Lỗi xử lý giỏ hàng');
         }
@@ -149,7 +150,7 @@ function CartUser() {
                     </div>
                     <div className={cx('btn-cart')}>
                         <Link to="/category"><button>Tiếp tục mua sắm</button></Link>
-                        <Link to="/checkout"><button onClick={handlePostCart}>Tiến hành thanh toán</button></Link>
+                        <button onClick={handlePostCart}>Tiến hành thanh toán</button>
                     </div>
                 </div>
             </main>

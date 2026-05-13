@@ -138,7 +138,7 @@ function OrderProducts() {
                             <div className="row mb-3">
                                 <div className="col-md-6">
                                     <p className="mb-1 text-muted">Tổng Tiền</p>
-                                    <p className="fw-bold text-success">${orderDetail.sum_price?.toLocaleString() || 0}</p>
+                                    <p className="fw-bold text-success">{orderDetail.sum_price?.toLocaleString() || 0} VNĐ</p>
                                 </div>
                                 <div className="col-md-6">
                                     <p className="mb-1 text-muted">Phương Thức Thanh Toán</p>

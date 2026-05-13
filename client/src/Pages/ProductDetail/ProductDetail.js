@@ -265,15 +265,6 @@ function ProductDetail() {
                                 )}
                             </div>
 
-                            {/* Vận chuyển */}
-                            <div style={{ display: 'flex', gap: '8px', alignItems: 'center', margin: '8px 0', fontSize: '18px' }}>
-                                <span style={{ color: '#767676', minWidth: '90px' }}>Vận chuyển:</span>
-                                {dataProducts?.free_shipping
-                                    ? <span style={{ color: '#26aa99' }}>Miễn phí vận chuyển</span>
-                                    : <span style={{ color: '#555' }}>{dataProducts?.shipping_note || 'Xem thêm tùy chọn vận chuyển'}</span>
-                                }
-                            </div>
-
                             {/* Chọn màu */}
                             {variants.length > 0 && (
                                 <div style={{ margin: '10px 0' }}>
@@ -350,7 +341,7 @@ function ProductDetail() {
                             )}
 
                             {/* Chính sách */}
-                            <div style={{ margin: '12px 0', fontSize: '18px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                            <div style={{ margin: '12px 0', fontSize: '14px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
                                 {dataProducts?.return_days > 0 && (
                                     <span>🔄 Trả hàng miễn phí trong <strong>{dataProducts.return_days} ngày</strong></span>
                                 )}

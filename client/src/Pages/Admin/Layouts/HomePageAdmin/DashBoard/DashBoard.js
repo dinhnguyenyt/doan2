@@ -58,7 +58,7 @@ function Dashboard() {
             <div className={cx('kpi-container')}>
                 <div className={cx('kpi-card', 'bg-purple')}>
                     <h3>Total Revenue</h3>
-                    <p className={cx('kpi-value')}>$ {totalRevenue.toLocaleString()}</p>
+                    <p className={cx('kpi-value')}>{totalRevenue.toLocaleString()} VNĐ</p>
                 </div>
                 <div className={cx('kpi-card', 'bg-blue')}>
                     <h3>Total Orders</h3>
