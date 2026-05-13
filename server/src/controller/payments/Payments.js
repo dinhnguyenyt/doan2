@@ -83,9 +83,13 @@ class ControllerPayments {
                 if (dataCart) {
                     const newOrder = new ModelOrder({
                         email: decoded.email,
-                        sumPrice: dataCart.sumPrice, // Giá này đã được giảm bên PaymentsMomo
+                        sumPrice: dataCart.sumPrice,
                         statusPayment: true,
                         statusOrder: false,
+                        payment_method: 'vnpay',
+                        vnp_txn_ref:        req.query.vnp_TxnRef        || '',
+                        vnp_transaction_no: req.query.vnp_TransactionNo || '',
+                        vnp_pay_date:       req.query.vnp_PayDate       || '',
                     });
                     const savedOrder = await newOrder.save();
 
@@ -209,6 +213,7 @@ class ControllerPayments {
                 sumPrice: finalPrice,
                 statusPayment: false,
                 statusOrder: false,
+                payment_method: 'cod',
             });
             const savedOrder = await newOrder.save();
 

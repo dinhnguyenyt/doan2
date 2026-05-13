@@ -2,7 +2,7 @@ const ModelRole = require('../../model/ModelRole');
 const { jwtDecode } = require('jwt-decode');
 const createAuditLog = require('../../utils/auditLog');
 
-const ALL_MENUS = ['dash', 'order', 'product', 'category', 'coupon', 'customer', 'blog', 'comment', 'role', 'history', 'shipping'];
+const ALL_MENUS = ['dash', 'order', 'product', 'category', 'coupon', 'customer', 'blog', 'comment', 'role', 'history', 'shipping', 'returns'];
 
 const ALL_ACTIONS = [
     'order:edit', 'order:delete',

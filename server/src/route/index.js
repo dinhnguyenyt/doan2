@@ -87,6 +87,18 @@ function route(app) {
     app.get('/api/blog/:id', AdminRoutes);
     app.get('/api/customer/:id', AdminRoutes);
 
+    // Return requests - user facing
+    const ControllerReturn = require('../controller/ControllerReturn/ControllerReturn');
+    app.post('/api/return-request',      ControllerReturn.CreateRequest);
+    app.get('/api/return-request/my',    ControllerReturn.GetMyRequests);
+    // Admin return routes
+    app.get('/api/admin/return-requests',               AdminRoutes);
+    app.get('/api/admin/return-requests/:id',            AdminRoutes);
+    app.post('/api/admin/return-requests/:id/status',    AdminRoutes);
+    app.post('/api/admin/return-requests/:id/approve',   AdminRoutes);
+    app.post('/api/admin/return-requests/:id/reject',    AdminRoutes);
+    app.post('/api/admin/return-requests/:id/refund',    AdminRoutes);
+
     // Shipping - public fee calculator, admin config via AdminRoutes
     const ControllerShipping = require('../controller/ControllerShipping/ControllerShipping');
     app.get('/api/shipping-fee', ControllerShipping.CalculateFee);

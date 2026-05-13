@@ -16,6 +16,7 @@ import Blogger from './Blog/Blogger';
 import RolePermission from './RolePermission/RolePermission';
 import History from './History/History';
 import Shipping from './Shipping/Shipping';
+import Returns from './Returns/Returns';
 
 const cx = classNames.bind(styles);
 
@@ -142,6 +143,14 @@ function HomePage({ activeList }) {
             {activeList === 'shipping' ? (
                 <div>
                     <Shipping />
+                </div>
+            ) : (
+                <></>
+            )}
+
+            {activeList === 'returns' ? (
+                <div>
+                    <Returns />
                 </div>
             ) : (
                 <></>

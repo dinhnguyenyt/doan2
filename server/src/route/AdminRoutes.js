@@ -19,6 +19,15 @@ router.post('/api/addcategory', verifyRole(ADMIN_MANAGER), ControllerCategory.Ad
 router.post('/api/editcategory', verifyRole(ADMIN_MANAGER), ControllerCategory.EditCategory);
 router.post('/api/deletecategory', verifyRole(ADMIN_ONLY), ControllerCategory.DeleteCategory);
 
+// Return requests
+const ControllerReturn = require('../controller/ControllerReturn/ControllerReturn');
+router.get('/api/admin/return-requests',            verifyRole(ALL_STAFF),     ControllerReturn.GetAllRequests);
+router.get('/api/admin/return-requests/:id',        verifyRole(ALL_STAFF),     ControllerReturn.GetRequestById);
+router.post('/api/admin/return-requests/:id/status', verifyRole(ALL_STAFF),    ControllerReturn.UpdateStatus);
+router.post('/api/admin/return-requests/:id/approve', verifyRole(ADMIN_MANAGER), ControllerReturn.ApproveReturn);
+router.post('/api/admin/return-requests/:id/reject',  verifyRole(ADMIN_MANAGER), ControllerReturn.RejectReturn);
+router.post('/api/admin/return-requests/:id/refund',  verifyRole(ADMIN_ONLY),    ControllerReturn.ProcessRefund);
+
 // Shipping config
 const ControllerShipping = require('../controller/ControllerShipping/ControllerShipping');
 router.get('/api/shipping-config', verifyRole(ADMIN_MANAGER), ControllerShipping.GetConfig);
