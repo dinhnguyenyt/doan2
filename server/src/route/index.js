@@ -87,6 +87,12 @@ function route(app) {
     app.get('/api/blog/:id', AdminRoutes);
     app.get('/api/customer/:id', AdminRoutes);
 
+    // Shipping - public fee calculator, admin config via AdminRoutes
+    const ControllerShipping = require('../controller/ControllerShipping/ControllerShipping');
+    app.get('/api/shipping-fee', ControllerShipping.CalculateFee);
+    app.get('/api/shipping-config', AdminRoutes);
+    app.post('/api/shipping-config', AdminRoutes);
+
     // Coupon - public endpoints
     const ControllerCoupon = require('../controller/ControllerCoupon/ControllerCoupon');
     app.get('/api/available-coupons', ControllerCoupon.GetAvailableCoupons);

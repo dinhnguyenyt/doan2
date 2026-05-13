@@ -1,4 +1,4 @@
-import { faBlog, faCartPlus, faFile, faHome, faUser, faComment, faTag, faShield, faClockRotateLeft } from '@fortawesome/free-solid-svg-icons';
+import { faBlog, faCartPlus, faFile, faHome, faUser, faComment, faTag, faShield, faClockRotateLeft, faTruck } from '@fortawesome/free-solid-svg-icons';
 
 export const ALL_MENUS = [
     { key: 'dash',     label: 'Dashboard',    icon: faHome },
@@ -11,6 +11,7 @@ export const ALL_MENUS = [
     { key: 'comment',  label: 'Bình luận',    icon: faComment },
     { key: 'role',     label: 'Phân quyền',   icon: faShield },
     { key: 'history',  label: 'Lịch sử',      icon: faClockRotateLeft },
+    { key: 'shipping', label: 'Vận chuyển',   icon: faTruck },
 ];
 
 export const ALL_ACTIONS = [

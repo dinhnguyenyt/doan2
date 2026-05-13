@@ -15,6 +15,7 @@ import request from '../../../../config/Connect';
 import Blogger from './Blog/Blogger';
 import RolePermission from './RolePermission/RolePermission';
 import History from './History/History';
+import Shipping from './Shipping/Shipping';
 
 const cx = classNames.bind(styles);
 
@@ -133,6 +134,14 @@ function HomePage({ activeList }) {
             {activeList === 'history' ? (
                 <div>
                     <History />
+                </div>
+            ) : (
+                <></>
+            )}
+
+            {activeList === 'shipping' ? (
+                <div>
+                    <Shipping />
                 </div>
             ) : (
                 <></>

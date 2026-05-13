@@ -19,6 +19,11 @@ router.post('/api/addcategory', verifyRole(ADMIN_MANAGER), ControllerCategory.Ad
 router.post('/api/editcategory', verifyRole(ADMIN_MANAGER), ControllerCategory.EditCategory);
 router.post('/api/deletecategory', verifyRole(ADMIN_ONLY), ControllerCategory.DeleteCategory);
 
+// Shipping config
+const ControllerShipping = require('../controller/ControllerShipping/ControllerShipping');
+router.get('/api/shipping-config', verifyRole(ADMIN_MANAGER), ControllerShipping.GetConfig);
+router.post('/api/shipping-config', verifyRole(ADMIN_MANAGER), ControllerShipping.UpdateConfig);
+
 // Coupons
 const ControllerCoupon = require('../controller/ControllerCoupon/ControllerCoupon');
 router.get('/api/coupons', verifyRole(ADMIN_MANAGER), ControllerCoupon.GetCoupons);

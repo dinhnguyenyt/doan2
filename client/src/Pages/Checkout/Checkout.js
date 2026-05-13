@@ -11,6 +11,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loading from '../../Layouts/Loading/Loading';
 import { useNavigate } from 'react-router-dom';
+import VietnamCitySelect from '../../components/VietnamCitySelect/VietnamCitySelect';
 
 const cx = classNames.bind(styles);
 
@@ -99,7 +100,8 @@ function Checkout() {
     const [availableCoupons, setAvailableCoupons] = useState([]);
     const [selectedProductCoupon, setSelectedProductCoupon] = useState(null);
     const [selectedShippingCoupon, setSelectedShippingCoupon] = useState(null);
-    const [shippingFee, setShippingFee] = useState(0); // sẽ cập nhật khi triển khai vận chuyển
+    const [shippingFee, setShippingFee] = useState(0);
+    const [shippingLabel, setShippingLabel] = useState('');
 
     // Địa chỉ đã lưu
     const [savedAddress, setSavedAddress] = useState(null);
@@ -147,6 +149,19 @@ function Checkout() {
         }
         request.get('/api/available-coupons').then((res) => setAvailableCoupons(res.data || [])).catch(() => {});
     }, [token]);
+
+    // Thành phố đang dùng để tính phí vận chuyển
+    const activeCity = (useNewAddress || !savedAddress) ? city : (savedAddress?.city || '');
+
+    useEffect(() => {
+        if (!activeCity || !dataCart?.sumPrice) return;
+        request.get(`/api/shipping-fee?city=${encodeURIComponent(activeCity)}&sumPrice=${dataCart.sumPrice}`)
+            .then((res) => {
+                setShippingFee(res.data.fee || 0);
+                setShippingLabel(res.data.label || '');
+            })
+            .catch(() => {});
+    }, [activeCity, dataCart?.sumPrice]);
 
     const productCoupons = availableCoupons.filter((c) => (c.type || 'product') === 'product');
     const shippingCoupons = availableCoupons.filter((c) => c.type === 'shipping');
@@ -344,12 +359,11 @@ function Checkout() {
                                 />
                             </div>
 
-                            <div className="input-group mb-3">
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    placeholder="Town/City"
+                            <div className="mb-3">
+                                <VietnamCitySelect
+                                    value={city}
                                     onChange={(e) => setCity(e.target.value)}
+                                    placeholder="Chọn tỉnh / thành phố"
                                 />
                             </div>
 
@@ -416,10 +430,17 @@ function Checkout() {
                                             </tr>
                                         )}
                                         <tr>
-                                            <td>Phí vận chuyển</td>
+                                            <td>
+                                                Phí vận chuyển
+                                                {shippingLabel && (
+                                                    <span style={{ fontSize: 11, color: '#888', marginLeft: 4 }}>({shippingLabel})</span>
+                                                )}
+                                            </td>
                                             <td></td>
                                             <td>
-                                                {shippingFee === 0 ? (
+                                                {!activeCity ? (
+                                                    <span style={{ color: '#aaa', fontSize: 12 }}>Nhập địa chỉ để tính</span>
+                                                ) : shippingFee === 0 ? (
                                                     <span style={{ color: '#198754' }}>Miễn phí</span>
                                                 ) : selectedShippingCoupon ? (
                                                     <>

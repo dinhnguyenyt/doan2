@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import request from '../../../config/Connect';
 import { toast, ToastContainer } from 'react-toastify';
+import VietnamCitySelect from '../../../components/VietnamCitySelect/VietnamCitySelect';
 
 export function ChangePassword({ show, setShow }) {
     const handleClose = () => setShow(false);
@@ -94,7 +95,14 @@ export function AddressModal({ show, setShow, onSaved }) {
                 {row('Quốc gia', 'country', 'Việt Nam')}
                 {row('Địa chỉ 1', 'address_line1', 'Số nhà, tên đường')}
                 {row('Địa chỉ 2', 'address_line2', 'Phường / Xã (nếu có)')}
-                {row('Thành phố', 'city', 'Hà Nội / TP.HCM...')}
+                <div className="input-group mb-2">
+                    <span className="input-group-text" style={{ minWidth: 130, fontSize: 13 }}>Tỉnh / Thành phố</span>
+                    <VietnamCitySelect
+                        value={form.city}
+                        onChange={f('city')}
+                        className="form-select"
+                    />
+                </div>
                 {row('Mã bưu chính', 'zip', '700000')}
             </Modal.Body>
             <Modal.Footer>
