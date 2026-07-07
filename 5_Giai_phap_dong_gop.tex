@@ -1,0 +1,389 @@
+\documentclass[../DoAn.tex]{subfiles}
+\begin{document}
+
+Bốn chương trước đã trình bày đầy đủ quá trình từ phân tích yêu cầu, lựa chọn
+công nghệ đến thiết kế, hiện thực và kiểm thử hệ thống ALIBARBIE. Chương này
+tổng hợp ba đóng góp kỹ thuật đặc thù mà đồ án đánh giá là có giá trị thực tiễn
+cao nhất, không chỉ trong phạm vi dự án này mà còn có thể áp dụng cho các hệ
+thống thương mại điện tử tương tự. Mỗi đóng góp được trình bày theo cấu trúc
+ba phần: (i) dẫn dắt bài toán, (ii) giải pháp thiết kế và hiện thực, và (iii)
+kết quả đạt được.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Quy trình hoàn trả hàng với vòng đời trạng thái rõ ràng}
+\label{section:5.1}
+
+\subsection{Bài toán}
+\label{subsection:5.1.1}
+
+Hoàn trả hàng là nghiệp vụ đặc thù của thương mại điện tử, nhưng phần lớn
+các nền tảng SaaS và mã nguồn mở hiện tại xử lý tính năng này theo hướng đơn
+giản hóa: khách hàng gửi yêu cầu, nhân viên xem xét và ra quyết định chấp
+nhận hoặc từ chối. Mô hình hai trạng thái này bỏ qua thực tế vận hành phức
+tạp hơn nhiều: khi nhận yêu cầu, nhân viên cần liên hệ khách hàng để xác minh
+thông tin; tiếp theo cần theo dõi việc khách hàng gửi hàng về; sau khi nhận
+được hàng vật lý, quản lý mới có cơ sở để kiểm tra và ra quyết định; cuối
+cùng, việc hoàn tiền cần được tách biệt khỏi quyết định chấp nhận để đảm bảo
+tính kiểm soát tài chính.
+
+Nếu không mô hình hóa rõ ràng các bước này, hệ thống dễ dẫn đến các vấn đề
+nghiêm trọng trong vận hành: nhân viên khác nhau không biết yêu cầu đang ở
+giai đoạn nào; không có ai chịu trách nhiệm rõ ràng ở từng bước; không thể
+thống kê được bao nhiêu yêu cầu đang chờ nhận hàng hay đang chờ xử lý hoàn
+tiền. Ngoài ra, nếu nghiệp vụ chỉ do quản lý xử
+lý toàn bộ mà không tách phân quyền theo từng bước, hệ thống không đảm bảo
+kiểm soát nội bộ.
+
+Bài toán đặt ra là thiết kế một mô hình trạng thái cho quy trình hoàn trả hàng
+đáp ứng đồng thời ba yêu cầu: phản ánh đúng vòng đời thực tế của một yêu cầu
+hoàn trả từ lúc phát sinh đến khi kết thúc; phân định rõ vai trò và quyền hạn
+của từng tác nhân tại từng bước; và đảm bảo không có chuyển đổi trạng thái bất
+hợp lệ có thể xảy ra do lỗi thao tác hoặc lỗi kỹ thuật.
+
+\subsection{Giải pháp}
+
+\subsubsection*{Mô hình máy trạng thái hữu hạn}
+Giải pháp thiết kế quy trình hoàn trả hàng dưới dạng \textbf{máy trạng thái
+hữu hạn} (Finite State Machine --- FSM) với bảy trạng thái và các chuyển đổi
+hợp lệ được kiểm soát chặt chẽ. Bảng \ref{tab:return-states} mô tả ý nghĩa
+và tác nhân chịu trách nhiệm tại từng trạng thái.
+
+\begin{table}[H]
+\centering
+\caption{Bảng trạng thái vòng đời yêu cầu hoàn trả hàng}
+\label{tab:return-states}
+\begin{tabular}{|p{4cm}|p{4cm}|p{5cm}|}
+\hline
+\textbf{Trạng thái} & \textbf{Tác nhân chịu trách nhiệm} & \textbf{Điều kiện chuyển sang trạng thái tiếp theo} \\
+\hline
+\texttt{PENDING\_REVIEW} & Hệ thống tạo tự động & Nhân viên xem xét và bắt đầu liên hệ \\
+\hline
+\texttt{CONTACTING} & Nhân viên & Xác nhận thông tin xong, hướng dẫn khách gửi hàng \\
+\hline
+\texttt{WAITING\_ITEM} & Nhân viên & Nhân viên nhận được hàng trả về \\
+\hline
+\texttt{ITEM\_RECEIVED} & Nhân viên & Quản trị viên kiểm tra hàng và ra quyết định \\
+\hline
+\texttt{APPROVED} & Quản trị viên & Quản trị viên xử lý hoàn tiền \\
+\hline
+\texttt{REJECTED} & Quản trị viên & Trạng thái kết thúc \\
+\hline
+\texttt{REFUNDED} & Quản trị viên & Trạng thái kết thúc \\
+\hline
+\end{tabular}
+\end{table}
+
+Các chuyển đổi hợp lệ được biểu diễn theo đồ thị có hướng như sau:
+
+\[
+\begin{aligned}
+\texttt{PENDING\_REVIEW} 
+&\to \texttt{CONTACTING} \\
+&\to \texttt{WAITING\_ITEM} \\
+&\to \texttt{ITEM\_RECEIVED} \to
+\begin{cases}
+\texttt{APPROVED} \to \texttt{REFUNDED} \\
+\texttt{REJECTED}
+\end{cases}
+\end{aligned}
+\]
+
+Chỉ có các chuyển đổi được liệt kê trên là hợp lệ. Mọi yêu cầu chuyển đổi
+không thuộc tập hợp này đều bị từ chối ở tầng nghiệp vụ.
+
+\subsubsection*{Hiện thực kiểm soát chuyển đổi trong ControllerReturn}
+Phương thức \texttt{UpdateStatus} trong \texttt{ControllerReturn} hiện thực
+hóa logic kiểm soát chuyển đổi trạng thái thông qua hai cơ chế:
+
+\textbf{Cơ chế 1: Bảng chuyển đổi hợp lệ.} Server định nghĩa tĩnh một bảng
+ánh xạ từ trạng thái hiện tại sang tập các trạng thái có thể chuyển sang.
+Khi nhận yêu cầu cập nhật, controller tra cứu trạng thái hiện tại của bản ghi
+từ cơ sở dữ liệu, sau đó kiểm tra trạng thái mới có thuộc tập hợp cho phép
+hay không. Nếu không hợp lệ, controller trả về HTTP 400 với thông báo lỗi cụ
+thể trước khi thực hiện bất kỳ thao tác ghi nào.
+
+\textbf{Cơ chế 2: Kiểm tra quyền theo trạng thái đích.} Không phải mọi tác
+nhân đều có quyền thực hiện mọi bước chuyển đổi. Cụ thể, chỉ nhân viên hoặc
+quản lý \break (\texttt{role = staff | manager}) được phép chuyển sang các trạng thái
+từ \break \texttt{CONTACTING} đến \texttt{ITEM\_RECEIVED}; chỉ quản trị viên hoặc
+quản lý 
+\break (\texttt{role = admin | manager}) được phép chuyển sang \texttt{APPROVED}, \break
+\texttt{REJECTED} hoặc \texttt{REFUNDED}. Middleware \texttt{verifyRole} kiểm
+tra điều kiện này tại tầng route trước khi yêu cầu đến controller.
+
+\subsubsection*{Thiết kế collection return\_request}
+
+Collection \texttt{return\_request} lưu toàn bộ lịch sử chuyển đổi trạng thái
+thông qua trường \texttt{status\_history} --- một mảng tài liệu nhúng, mỗi
+phần tử ghi nhận trạng thái mới, email nhân viên thực hiện, thời điểm và ghi
+chú. Thiết kế này cho phép hiển thị timeline đầy đủ trên giao diện quản lý mà
+không cần truy vấn bổ sung sang collection khác. Trường \texttt{modified\_by}
+lưu email nhân viên xử lý cuối cùng, hỗ trợ tra cứu nhanh trách nhiệm tại
+bước hiện tại. Khi trạng thái chuyển sang \texttt{APPROVED} hoặc
+\texttt{REJECTED}, hệ thống tự động gọi \texttt{Nodemailer} để gửi email thông
+báo kết quả cho khách hàng, bao gồm lý do từ chối trong trường hợp yêu cầu
+không được chấp nhận.
+
+\subsection{Kết quả đạt được}
+\label{subsection:5.1.3}
+
+Giải pháp FSM cho quy trình hoàn trả hàng mang lại ba kết quả cụ thể. Thứ
+nhất, toàn bộ 21 trường hợp kiểm thử liên quan đến hoàn hàng (bao gồm kiểm
+thử vai trò và kiểm thử chuyển đổi trạng thái không hợp lệ) đều cho kết quả
+đúng, xác nhận rằng hệ thống không cho phép bất kỳ chuyển đổi nào nằm ngoài
+tập hợp đã định nghĩa. Thứ hai, giao diện quản lý hiển thị đúng danh sách yêu
+cầu theo từng trạng thái với bộ lọc, cho phép nhân viên tập trung vào đúng
+nhóm yêu cầu thuộc trách nhiệm của mình. Thứ ba, cơ chế ghi \texttt{status\_history}
+cung cấp bằng chứng kiểm toán đầy đủ cho mỗi yêu cầu hoàn trả, đáp ứng nhu
+cầu truy vết trách nhiệm trong vận hành thực tế.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Hệ thống phân quyền theo vai trò kết hợp nhật ký tác động hệ thống}
+\label{section:5.2}
+
+\subsection{Bài toán}
+\label{subsection:5.2.1}
+
+Khi một cửa hàng thời trang trực tuyến mở rộng đội ngũ nhân viên, việc quản lý
+quyền truy cập hệ thống trở thành vấn đề nghiêm trọng. Nếu mọi nhân viên đều
+có cùng quyền hạn, nguy cơ thao tác nhầm dữ liệu quan trọng (xóa sản phẩm,
+thay đổi giá, xử lý đơn hàng không đúng thẩm quyền) là rất cao. Ngược lại,
+nếu chỉ có quản trị viên mới được thao tác tất cả, hệ thống tạo ra nút thắt
+cổ chai và không phân công được công việc theo nhóm.
+
+Vấn đề bổ sung là ngay cả khi đã phân quyền, quản trị viên vẫn cần có khả
+năng truy vết: ai đã thực hiện hành động gì, trên đối tượng nào, vào thời
+điểm nào. Không có cơ chế này, khi xảy ra sự cố (đơn hàng bị thay đổi trạng
+thái sai, sản phẩm bị xóa nhầm), quản trị viên không có căn cứ để điều tra.
+Các nền tảng SaaS hiện tại như Haravan hay Sapo cung cấp phân quyền theo vai
+trò ở mức cơ bản nhưng thiếu hoàn toàn tính năng nhật ký tác động hệ thống,
+như đã xác định ở mục \ref{section:2.1}.
+
+Bài toán đặt ra là xây dựng một hệ thống phân quyền đáp ứng đồng thời ba tiêu
+chí: (i) kiểm soát truy cập tại tầng API, không chỉ ở tầng giao diện, để
+ngăn chặn cả các cuộc tấn công trực tiếp vào API; (ii) cho phép cấu hình
+quyền linh hoạt theo vai trò mà không cần thay đổi mã nguồn khi thêm nhân
+viên mới hoặc thay đổi phân công; và (iii) ghi nhận toàn bộ hành động có tác
+động đến dữ liệu vào nhật ký tác động hệ thống có thể tra cứu theo nhiều chiều.
+
+\subsection{Giải pháp}
+\label{subsection:5.2.2}
+
+\subsubsection*{Mô hình RBAC hai tầng}
+
+Giải pháp hiện thực mô hình \textbf{RBAC} (Role-Based Access Control) theo hai
+tầng kiểm soát phân biệt.
+
+\textbf{Tầng 1 --- Kiểm soát truy cập API (Middleware).} Mọi route trong nhóm
+\texttt{/api/admin} đều đi qua chuỗi middleware hai bước:
+\[
+  \texttt{verifyToken} \;\longrightarrow\; \texttt{verifyRole}
+\]
+\texttt{verifyToken} giải mã JWT từ cookie và xác thực chữ ký; nếu token hết
+hạn hoặc không hợp lệ, trả về HTTP 401 ngay lập tức. \texttt{verifyRole} tra
+cứu vai trò của người dùng từ collection \texttt{role} trong MongoDB và so
+sánh với danh sách \texttt{allowedActions} của route tương ứng; nếu không đủ
+quyền, trả về HTTP 403. Kiểm soát này diễn ra hoàn toàn ở tầng server, độc
+lập với giao diện, nên không thể bị vượt qua bằng cách tắt JavaScript hay
+thao tác DOM trực tiếp trên trình duyệt.
+
+\textbf{Tầng 2 --- Kiểm soát hiển thị giao diện (PermissionContext).} Phía
+client, \texttt{PermissionContext} (mục \ref{subsection:4.1.2}) giữ danh sách
+quyền hành động và danh sách menu được phép của người dùng đang đăng nhập.
+Các component \texttt{SlideBar} và \texttt{HomePageAdmin} đọc context này để
+chỉ render các mục menu mà người dùng có quyền, tránh hiển thị nhầm tính năng
+không thuộc phạm vi vai trò. Tầng này là lớp trải nghiệm người dùng, bổ sung
+cho tầng server nhưng không thay thế được tầng đó.
+
+\subsubsection*{Cấu hình quyền động qua collection role}
+
+Quyền của mỗi vai trò được lưu trong collection \texttt{role} với hai trường
+chính: \texttt{permissions} (mảng mã hành động, ví dụ \texttt{EDIT\_PRODUCT}, \break
+\texttt{UPDATE\_ORDER\_STATUS}) và \texttt{allowedMenus} (mảng tên route menu
+được phép). Khi quản trị viên cần thay đổi quyền của một vai trò, thao tác
+được thực hiện hoàn toàn qua giao diện quản lý (hình \ref{fig:screen-admin-role}),
+không cần can thiệp vào mã nguồn. \break \texttt{verifyRole} luôn tra cứu quyền từ
+cơ sở dữ liệu tại thời điểm xử lý request, đảm bảo thay đổi quyền có hiệu
+lực ngay lập tức với request tiếp theo mà không cần khởi động lại server.
+
+\subsubsection*{Nhật ký kiểm toán với tham chiếu đa hình}
+
+Nhật ký kiểm toán được lưu trong collection \texttt{audit\_log} với thiết kế
+\textbf{tham chiếu đa hình} (polymorphic reference): mỗi bản ghi chứa các
+trường \break \texttt{target\_type} (loại đối tượng bị tác động, ví dụ
+\texttt{"Product"}, \texttt{"Order"}, \break \texttt{"ReturnRequest"}) và
+\texttt{target\_id} (ObjectId của đối tượng). Thiết kế này cho phép một
+collection duy nhất ghi nhận hành động trên bất kỳ loại đối tượng nào trong
+hệ thống, không cần tạo collection nhật ký riêng cho mỗi loại đối tượng.
+
+Mỗi bản ghi nhật ký bao gồm: \texttt{actor\_email} (người thực hiện), \break
+\texttt{action\_code} (mã hành động chuẩn hóa), \texttt{target\_type} và
+\texttt{target\_id} (đối tượng bị tác động), \texttt{description} (mô tả
+ngôn ngữ tự nhiên), và \texttt{created\_at} (thời điểm). Collection được
+lập chỉ mục tổng hợp trên \texttt{(actor\_email, created\_at)},
+\texttt{(target\_type, target\_id, created\_at)} và \break \texttt{action\_code}
+để hỗ trợ các truy vấn nhật ký theo nhiều chiều: theo nhân viên, theo đối
+tượng cụ thể, hoặc theo loại hành động.
+
+Hàm tiện ích \texttt{auditLog(actor, action, targetType, \break targetId, description)}
+được gọi từ controller sau mỗi thao tác có tác động đến dữ liệu, đảm bảo
+không bỏ sót bất kỳ hành động nào cần ghi nhận.
+
+\subsection{Kết quả đạt được}
+\label{subsection:5.2.3}
+
+Hệ thống phân quyền kết hợp nhật ký kiểm toán mang lại kết quả trên cả hai
+phương diện bảo mật và vận hành. Về bảo mật, trường hợp kiểm thử TC-19
+(mục \ref{section:4.4}) xác nhận nhân viên có vai trò \texttt{staff} không
+thể phê duyệt yêu cầu hoàn hàng dù gọi thẳng API, hệ thống trả về HTTP 403
+đúng như thiết kế. Về vận hành, quản trị viên có thể thay đổi toàn bộ cấu
+hình quyền của một vai trò qua giao diện web trong vòng dưới một phút, không
+cần can thiệp kỹ thuật. Nhật ký kiểm toán ghi nhận đầy đủ các hành động trên
+sản phẩm, đơn hàng và yêu cầu hoàn trả, cho phép tra cứu lịch sử thao tác
+theo nhân viên hoặc theo đối tượng bất kỳ thông qua trang lịch sử kiểm toán
+trong giao diện quản trị.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Cấu hình phí vận chuyển linh hoạt}
+\label{section:5.3}
+
+\subsection{Bài toán}
+\label{subsection:5.3.1}
+
+Phí vận chuyển là một trong những yếu tố ảnh hưởng trực tiếp đến quyết định
+mua hàng và biên lợi nhuận của cửa hàng. Đối với doanh nghiệp bán lẻ thời
+trang có hợp tác với nhiều đơn vị vận chuyển khác nhau ở các khu vực địa lý
+khác nhau, phí vận chuyển thực tế đến từng địa bàn là không đồng nhất: giao
+hàng nội thành và ngoại thành có chi phí khác nhau; giao đến các huyện vùng
+sâu có thể cao hơn đáng kể so với trung tâm thành phố; một số xã/phường cụ
+thể có thể được miễn phí vận chuyển theo chính sách khuyến mãi tạm thời.
+
+Các nền tảng thương mại điện tử hiện tại, bao gồm cả Haravan và \break WooCommerce,
+thường chỉ hỗ trợ cấu hình phí vận chuyển ở cấp tỉnh/thành phố hoặc cấp
+quận/huyện. Không có nền tảng nào trong nhóm khảo sát (bảng
+\ref{tab:comparison}) hỗ trợ cấu hình đến cấp xã/phường. Điều này buộc doanh
+nghiệp phải áp dụng mức phí trung bình hoặc cao nhất cho toàn quận/huyện, dẫn
+đến mất cạnh tranh ở các địa bàn có chi phí thực tế thấp hơn, hoặc thua lỗ ở
+những địa bàn chi phí cao hơn mức trung bình được cấu hình.
+
+Bài toán cụ thể là thiết kế một cơ chế cho phép quản trị viên cấu hình mức
+phí vận chuyển độc lập cho từng cấp địa bàn (tỉnh/thành $\to$ quận/huyện $\to$
+xã/phường), và hệ thống tự động tính phí chính xác ngay tại trang thanh toán
+dựa trên địa chỉ khách hàng nhập vào, không cần can thiệp thủ công.
+
+\subsection{Giải pháp}
+\label{subsection:5.3.2}
+
+\subsubsection*{Thiết kế lưu trữ phân cấp địa lý trong MongoDB}
+
+Thay vì sử dụng bảng phẳng với một hàng cho mỗi địa bàn (dẫn đến hàng nghìn
+hàng khi cấu hình đến cấp xã/phường), giải pháp tận dụng khả năng lưu tài
+liệu lồng nhau của MongoDB để biểu diễn cấu trúc phân cấp địa lý một cách
+tự nhiên.
+
+Collection \texttt{shipping\_config} lưu mỗi tài liệu tương ứng với một
+tỉnh/thành phố. Bên trong mỗi tài liệu, trường \texttt{districts} là mảng
+các tài liệu lồng nhau --- mỗi phần tử đại diện cho một quận/huyện và chứa
+trường \texttt{fee} (phí mặc định cho quận đó) cùng trường \texttt{wards}
+là mảng lồng tiếp theo, mỗi phần tử đại diện cho một xã/phường với
+\texttt{fee} riêng. Cấu trúc này cho phép truy vấn theo chuỗi:
+\begin{enumerate}
+  \item Tìm tài liệu tỉnh/thành theo tên $\to$ trả về toàn bộ cấu hình quận/huyện.
+  \item Trong tài liệu đó, lọc phần tử \texttt{districts} có tên khớp quận/huyện
+        $\to$ trả về phí quận và danh sách xã/phường.
+  \item Trong mảng \texttt{wards} của quận đó, tìm xã/phường theo tên $\to$
+        trả về phí xã/phường nếu được cấu hình riêng.
+\end{enumerate}
+
+\textbf{Quy tắc ưu tiên:} Nếu xã/phường được cấu hình phí riêng, ưu tiên sử
+dụng phí đó. Nếu không, sử dụng phí của quận/huyện. Nếu quận/huyện cũng chưa
+được cấu hình, sử dụng phí mặc định toàn hệ thống (\texttt{DEFAULT\_SHIPPING\_FEE}).
+Quy tắc ưu tiên này cho phép quản trị viên chỉ cần cấu hình những địa bàn có
+phí khác biệt, không cần nhập đầy đủ tất cả xã/phường.
+
+\subsubsection*{Tính phí động tại tầng API}
+
+Tại tầng server, hàm \texttt{calculateShippingFee(province, \break district, ward)}
+trong \texttt{ControllerShipping} thực hiện truy vấn MongoDB theo logic ưu
+tiên nêu trên và trả về mức phí áp dụng. Hàm này được gọi ở hai điểm:
+(i)~khi client gửi yêu cầu tính phí real-time tại trang thanh toán (endpoint
+\texttt{GET /api/shipping-fee}) và (ii)~trong luồng tạo đơn hàng (endpoint
+\texttt{POST /api/payment}) để ghi nhận phí vận chuyển vào bản ghi đơn hàng,
+đảm bảo phí được tính tại thời điểm đặt hàng phản ánh đúng cấu hình hiện tại.
+
+\subsubsection*{Component CascadingAddressSelect phía client}
+
+Phía giao diện, component \texttt{CascadingAddressSelect} hiện thực bộ chọn
+địa chỉ phân cấp dạng tầng (cascading). Dữ liệu danh sách tỉnh/thành phố,
+quận/huyện và xã/phường của Việt Nam được tải từ một API địa lý công khai
+(\texttt{provinces.open-api.vn}) và lưu vào \texttt{sessionStorage} để tránh
+tải lại không cần thiết khi người dùng điều hướng giữa các trang. Khi người
+dùng chọn xong địa chỉ cấp xã/phường, component tự động gọi endpoint tính
+phí vận chuyển và cập nhật tổng tiền hiển thị trong tóm tắt giỏ hàng mà không
+cần người dùng nhấn thêm bất kỳ nút nào.
+
+\subsection{Kết quả đạt được}
+\label{subsection:5.3.3}
+
+Giải pháp cấu hình phí vận chuyển phân cấp mang lại hai kết quả chính. Về
+tính năng, hệ thống cho phép quản trị viên thiết lập mức phí độc lập cho từng
+xã/phường tùy ý, tức là độ phân giải cấu hình cao hơn bất kỳ nền tảng nào
+trong nhóm khảo sát. Về trải nghiệm người dùng, phí vận chuyển được cập nhật
+tức thời khi khách hàng hoàn thành chọn địa chỉ, cho phép khách hàng thấy
+ngay tổng chi phí trước khi xác nhận đặt hàng, giảm thiểu nguy cơ hủy đơn
+do bất ngờ về phí vận chuyển ở bước cuối. Kết quả kiểm thử triển khai (mục
+\ref{section:4.5}) xác nhận thời gian phản hồi của endpoint tính phí vận
+chuyển nằm trong ngưỡng dưới 200ms, đảm bảo trải nghiệm cập nhật real-time
+mượt mà cho người dùng cuối.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Tích hợp thanh toán VNPay theo luồng redirect an toàn}
+\label{section:5.4}
+
+\subsection{Bài toán}
+\label{subsection:5.4.1}
+
+Tích hợp cổng thanh toán trực tuyến là yêu cầu bắt buộc của hệ thống thương
+mại điện tử, nhưng cũng là điểm dễ mắc lỗi bảo mật nhất. Hai rủi ro chính
+trong tích hợp VNPay là: (i) giả mạo callback --- kẻ tấn công gọi trực tiếp
+endpoint callback với tham số giả mạo để đánh dấu đơn hàng là đã thanh toán
+mà không thực sự chuyển tiền; và (ii) sửa đổi tham số --- kẻ tấn công thay
+đổi số tiền hoặc mã đơn hàng trong URL được tạo ra trước khi chuyển hướng
+đến cổng VNPay. Nếu không xử lý đúng, cả hai lỗi này đều dẫn đến thiệt hại
+tài chính trực tiếp cho cửa hàng.
+
+\subsection{Giải pháp}
+\label{subsection:5.4.2}
+
+Giải pháp hiện thực luồng VNPay hoàn toàn theo tài liệu kỹ thuật chính thức
+của VNPay với hai cơ chế bảo vệ bổ sung.
+
+\textbf{Ký số URL thanh toán bằng HMAC-SHA512.} Khi tạo URL chuyển hướng đến
+VNPay, server tính chữ ký HMAC-SHA512 trên chuỗi tham số đã được sắp xếp
+theo thứ tự cố định (bao gồm số tiền, mã đơn hàng, thời điểm và mã merchant),
+sử dụng khóa bí mật lưu trong biến môi trường \texttt{VNP\_HASH\_SECRET}.
+Chữ ký được gắn vào URL dưới dạng tham số \texttt{vnp\_SecureHash}. Cổng
+VNPay sẽ từ chối mọi yêu cầu có chữ ký không khớp, ngăn chặn sửa đổi tham
+số.
+
+\textbf{Xác thực chữ ký callback.} Khi VNPay gọi callback URL \break \texttt{GET
+/vnpay-return}, server không tin tưởng bất kỳ tham số nào ngay lập tức. Thay
+vào đó, server tách \texttt{vnp\_SecureHash} ra khỏi danh sách tham số, sắp
+xếp lại các tham số còn lại theo đúng thứ tự, tính lại chữ ký HMAC-SHA512 và
+so sánh với giá trị nhận được. Chỉ khi hai chữ ký khớp, server mới cập nhật \break
+\texttt{statusPayment = true} trong \texttt{ModelOrder}. Cơ chế này loại bỏ
+hoàn toàn khả năng giả mạo callback vì kẻ tấn công không có khóa bí mật để
+tạo chữ ký hợp lệ.
+
+\subsection{Kết quả đạt được}
+\label{subsection:5.4.3}
+
+Luồng thanh toán VNPay sandbox được kiểm thử với tất cả các mã phản hồi do
+VNPay cung cấp trong môi trường thử nghiệm (mục \ref{section:4.5}). Các
+trường hợp kiểm thử TC-12, TC-13 và TC-14 (mục \ref{section:4.4}) xác nhận
+hệ thống xử lý đúng cả ba kịch bản: chuyển hướng thành công, callback thành
+công và callback thất bại. Đặc biệt, cơ chế xác thực chữ ký ngăn chặn việc
+đơn hàng bị đánh dấu thanh toán trong trường hợp callback giả mạo, đảm bảo
+tính toàn vẹn của dữ liệu tài chính.
+
+\end{document}

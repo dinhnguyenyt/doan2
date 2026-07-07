@@ -1,10 +1,11 @@
-import { faBlog, faCartPlus, faFile, faHome, faUser, faComment, faTag, faShield, faClockRotateLeft, faTruck, faRotateLeft } from '@fortawesome/free-solid-svg-icons';
+import { faBlog, faCartPlus, faFile, faHome, faUser, faComment, faTag, faShield, faClockRotateLeft, faTruck, faRotateLeft, faImages } from '@fortawesome/free-solid-svg-icons';
 
 export const ALL_MENUS = [
     { key: 'dash',     label: 'Dashboard',    icon: faHome },
     { key: 'order',    label: 'Đơn hàng',     icon: faFile },
     { key: 'product',  label: 'Sản phẩm',     icon: faCartPlus },
     { key: 'category', label: 'Danh mục',     icon: faTag },
+    { key: 'banner',   label: 'Banner',       icon: faImages },
     { key: 'coupon',   label: 'Mã giảm giá',  icon: faTag },
     { key: 'customer', label: 'Khách hàng',   icon: faUser },
     { key: 'blog',     label: 'Blog',         icon: faBlog },
@@ -24,6 +25,9 @@ export const ALL_ACTIONS = [
     { key: 'category:create',      label: 'Thêm danh mục',                group: 'Danh mục' },
     { key: 'category:edit',        label: 'Sửa danh mục',                 group: 'Danh mục' },
     { key: 'category:delete',      label: 'Xóa danh mục',                 group: 'Danh mục' },
+    { key: 'banner:create',        label: 'Thêm banner',                  group: 'Banner' },
+    { key: 'banner:edit',          label: 'Sửa banner',                   group: 'Banner' },
+    { key: 'banner:delete',        label: 'Xóa banner',                   group: 'Banner' },
     { key: 'coupon:create',        label: 'Thêm mã giảm giá',             group: 'Mã giảm giá' },
     { key: 'coupon:edit',          label: 'Sửa mã giảm giá',              group: 'Mã giảm giá' },
     { key: 'coupon:delete',        label: 'Xóa mã giảm giá',              group: 'Mã giảm giá' },

@@ -136,6 +136,30 @@
     "is_active": true
   },
   {
+    "code": "BANNER_CREATE",
+    "label": "Thêm banner",
+    "target_type": "Banner",
+    "action_type": "CREATE",
+    "description": "Tạo banner mới cho trang chủ",
+    "is_active": true
+  },
+  {
+    "code": "BANNER_UPDATE",
+    "label": "Cập nhật banner",
+    "target_type": "Banner",
+    "action_type": "UPDATE",
+    "description": "Chỉnh sửa thông tin banner",
+    "is_active": true
+  },
+  {
+    "code": "BANNER_DELETE",
+    "label": "Xoá banner",
+    "target_type": "Banner",
+    "action_type": "DELETE",
+    "description": "Xoá banner khỏi hệ thống",
+    "is_active": true
+  },
+  {
     "code": "ORDER_CREATE_COD",
     "label": "Đặt hàng (COD)",
     "target_type": "Order",

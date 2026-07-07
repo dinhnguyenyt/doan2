@@ -26,6 +26,11 @@ const ACTIONS = [
     { code: 'CATEGORY_UPDATE',     label: 'Cập nhật danh mục',             target_type: 'Category', action_type: 'UPDATE', description: 'Chỉnh sửa thông tin danh mục sản phẩm' },
     { code: 'CATEGORY_DELETE',     label: 'Xoá danh mục',                  target_type: 'Category', action_type: 'DELETE', description: 'Xoá danh mục sản phẩm khỏi hệ thống' },
 
+    // ── BANNER ───────────────────────────────────────────────────────────────────
+    { code: 'BANNER_CREATE',       label: 'Thêm banner',                   target_type: 'Banner',   action_type: 'CREATE', description: 'Tạo banner mới cho trang chủ' },
+    { code: 'BANNER_UPDATE',       label: 'Cập nhật banner',               target_type: 'Banner',   action_type: 'UPDATE', description: 'Chỉnh sửa thông tin banner' },
+    { code: 'BANNER_DELETE',       label: 'Xoá banner',                    target_type: 'Banner',   action_type: 'DELETE', description: 'Xoá banner khỏi hệ thống' },
+
     // ── ORDER ─────────────────────────────────────────────────────────────────────
     { code: 'ORDER_CREATE_COD',    label: 'Đặt hàng (COD)',                target_type: 'Order',    action_type: 'CREATE', description: 'Khách hàng đặt hàng thanh toán khi nhận hàng' },
     { code: 'ORDER_CREATE_VNPAY',  label: 'Đặt hàng (VNPay)',              target_type: 'Order',    action_type: 'CREATE', description: 'Khách hàng đặt hàng qua cổng VNPay' },
@@ -54,6 +59,15 @@ async function seedActions() {
     if (count === 0) {
         await ModelAction.insertMany(ACTIONS);
         console.log(`[Seed] ${ACTIONS.length} actions seeded successfully`);
+        return;
+    }
+
+    // DB đã có dữ liệu (từ trước khi thêm action code mới) - chỉ bổ sung code còn thiếu
+    const existingCodes = new Set((await ModelAction.find({}, 'code').lean()).map((a) => a.code));
+    const missing = ACTIONS.filter((a) => !existingCodes.has(a.code));
+    if (missing.length > 0) {
+        await ModelAction.insertMany(missing);
+        console.log(`[Seed] ${missing.length} new action(s) added: ${missing.map((a) => a.code).join(', ')}`);
     }
 }
 

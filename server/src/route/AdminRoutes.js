@@ -3,6 +3,7 @@ const router = express.Router();
 
 const ControllerAdmin = require('../controller/ControllerAdmin/ControllerAdmin');
 const ControllerCategory = require('../controller/ControllerCategory/ControllerCategory');
+const ControllerBanner = require('../controller/ControllerBanner/ControllerBanner');
 const ControllerVariant = require('../controller/ControllerVariant/ControllerVariant');
 const { verifyRole, verifyToken } = require('../controller/jwt/ControllerJWT');
 const ControllerRole = require('../controller/ControllerRole/ControllerRole');
@@ -18,6 +19,12 @@ router.get('/api/auth/me', verifyRole(ALL_STAFF), ControllerAdmin.GetDataAuth);
 router.post('/api/addcategory', verifyRole(ADMIN_MANAGER), ControllerCategory.AddCategory);
 router.post('/api/editcategory', verifyRole(ADMIN_MANAGER), ControllerCategory.EditCategory);
 router.post('/api/deletecategory', verifyRole(ADMIN_ONLY), ControllerCategory.DeleteCategory);
+
+// Banners
+router.get('/api/admin/banners', verifyRole(ADMIN_MANAGER), ControllerBanner.GetAllBanners);
+router.post('/api/addbanner', verifyRole(ADMIN_MANAGER), ControllerBanner.AddBanner);
+router.post('/api/editbanner', verifyRole(ADMIN_MANAGER), ControllerBanner.EditBanner);
+router.post('/api/deletebanner', verifyRole(ADMIN_ONLY), ControllerBanner.DeleteBanner);
 
 // Return requests
 const ControllerReturn = require('../controller/ControllerReturn/ControllerReturn');

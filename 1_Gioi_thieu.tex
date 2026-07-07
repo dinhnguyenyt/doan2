@@ -1,0 +1,123 @@
+\documentclass[../DoAn.tex]{subfiles}
+\begin{document}
+\section{Đặt vấn đề}
+\label{section:1.1}
+
+  Trong những năm gần đây, thương mại điện tử tại Việt Nam có tốc độ tăng trưởng
+  mạnh mẽ và ổn định. Theo báo cáo của Hiệp hội Thương mại điện tử Việt Nam (VECOM),
+  doanh thu thương mại điện tử bán lẻ năm 2023 đạt hơn 20 tỷ USD, trong đó lĩnh vực
+  thời trang và phụ kiện là một trong những ngành hàng có tỷ lệ tăng trưởng cao nhất.
+  Xu hướng này phản ánh sự thay đổi rõ rệt trong hành vi tiêu dùng: người mua hàng
+  ngày càng ưu tiên mua sắm trực tuyến thay vì đến trực tiếp cửa hàng.
+
+  Tuy nhiên, phần lớn doanh nghiệp bán lẻ vừa và nhỏ hiện nay vẫn phụ thuộc hoàn
+  toàn vào các sàn thương mại điện tử trung gian như Shopee, Lazada hay TikTok Shop
+  để tiếp cận khách hàng. Mô hình này tồn tại nhiều bất cập đáng kể. Về mặt chi phí,
+  doanh nghiệp phải chịu phí hoa hồng từ 5\% đến 20\% trên mỗi đơn hàng, cùng với
+  các khoản phí quảng cáo để duy trì độ hiển thị sản phẩm. Về mặt dữ liệu, toàn bộ
+  thông tin khách hàng thuộc quyền kiểm soát của sàn, khiến doanh nghiệp không thể
+  chủ động xây dựng mối quan hệ lâu dài với người mua. Về mặt vận hành, doanh nghiệp
+  bị giới hạn trong các quy trình cứng nhắc của sàn, không thể tùy chỉnh nghiệp vụ
+  đặc thù như cấu hình phí vận chuyển theo từng địa bàn, thiết lập quy trình hoàn trả
+  hàng riêng, hay phân quyền linh hoạt cho từng nhóm nhân viên.
+
+  Bài toán đặt ra là cần xây dựng một nền tảng bán hàng trực tuyến độc lập, giúp
+  doanh nghiệp bán lẻ thời trang vừa và nhỏ chủ động quản lý toàn bộ vòng đời đơn
+  hàng từ lúc khách hàng đặt mua đến khi hoàn tất giao dịch hoặc hoàn trả hàng hóa,
+  đồng thời kiểm soát được dữ liệu khách hàng và tối ưu hóa chi phí vận hành. Nếu
+  được giải quyết, bài toán này mang lại lợi ích trực tiếp cho ba nhóm đối tượng:
+  chủ doanh nghiệp có thể giảm chi phí trung gian và nắm bắt hành vi khách hàng;
+  nhân viên vận hành được hỗ trợ bởi công cụ quản lý rõ ràng theo vai trò; khách
+  hàng được trải nghiệm mua sắm nhất quán và minh bạch hơn. Giải pháp này không
+  chỉ áp dụng cho ngành thời trang mà còn có thể mở rộng sang các lĩnh vực bán lẻ
+  trực tuyến khác có đặc thù nghiệp vụ tương tự.
+
+  \section{Mục tiêu và phạm vi đề tài}
+  \label{section:1.2}
+
+  Hiện tại, các doanh nghiệp bán lẻ trực tuyến có thể lựa chọn giữa hai nhóm giải
+  pháp chính. Nhóm thứ nhất là các nền tảng SaaS thương mại điện tử như Haravan,
+  Sapo hay Shopify, vốn cung cấp sẵn bộ tính năng chuẩn và cho phép triển khai nhanh.
+  Nhóm thứ hai là xây dựng hệ thống riêng theo yêu cầu đặc thù của từng doanh nghiệp.
+  Các nền tảng SaaS có ưu điểm triển khai nhanh và chi phí ban đầu thấp, nhưng tồn
+  tại các hạn chế đáng kể: chi phí thuê bao định kỳ tích lũy theo thời gian, khả năng
+  tùy chỉnh nghiệp vụ bị giới hạn bởi nền tảng, và dữ liệu vẫn được lưu trữ trên
+  hệ thống của bên thứ ba. Đặc biệt, các nền tảng này thường thiếu các tính năng
+  chuyên biệt như quản lý hoàn trả hàng có vòng đời trạng thái rõ ràng, cấu hình
+  phí vận chuyển linh hoạt đến cấp xã/phường, hay hệ thống phân quyền nhân viên
+  theo vai trò kết hợp với nhật ký tác động hệ thống và thống kê.
+
+  Trên cơ sở phân tích các hạn chế trên, đồ án này đặt mục tiêu xây dựng một ứng
+  dụng web thương mại điện tử hoàn chỉnh dành cho cửa hàng thời trang và phụ kiện
+  quy mô vừa và nhỏ. Hệ thống hướng đến việc giải quyết các hạn chế đã xác định
+  thông qua các chức năng chính sau: quản lý sản phẩmvà danh mục; quản lý giỏ hàng, đặt hàng và thanh toán trực tuyến qua
+  cổng VNPay và hình thức thanh toán khi nhận hàng (COD); quản lý vòng đời đơn hàng
+  và quy trình hoàn trả hàng có nhiều trạng thái; cấu hình phí vận chuyển theo
+  quận/huyện và xã/phường; quản lý mã giảm giá, danh sách yêu thích và blog;
+  phân quyền nhân viên theo vai trò kết hợp với nhật ký kiểm toán hành động;
+  hỗ trợ khách hàng qua chatbot theo thời gian thực. Phạm vi của đồ án tập trung
+  vào việc xây dựng hệ thống back-office dành cho quản trị viên và nhân viên,
+  cùng với giao diện mua sắm dành cho khách hàng cuối, không bao gồm ứng dụng di động.
+
+  \section{Định hướng giải pháp}
+  \label{section:1.3}
+
+  Để xây dựng hệ thống với các yêu cầu đã xác định ở phần \ref{section:1.2}, đồ
+  án lựa chọn hướng tiếp cận phát triển ứng dụng web theo kiến trúc client-server,
+  sử dụng bộ công nghệ MERN Stack gồm MongoDB, Express.js, React.js và Node.js.
+  Lý do lựa chọn hướng tiếp cận này xuất phát từ ba yếu tố chính. Thứ nhất, toàn
+  bộ bộ công nghệ đều sử dụng JavaScript, giúp giảm chi phí chuyển đổi ngữ cảnh
+  giữa phát triển giao diện và máy chủ. Thứ hai, React.js cho phép xây dựng giao
+  diện dạng Single Page Application (SPA) với trải nghiệm người dùng mượt mà và
+  khả năng quản lý trạng thái tập trung thông qua Redux. Thứ ba, MongoDB với mô
+  hình tài liệu linh hoạt phù hợp với cấu trúc dữ liệu sản phẩm có nhiều biến thể
+  và cấu hình vận chuyển phân cấp địa lý.
+
+  Giải pháp của đồ án là ứng dụng web, bao gồm hai thành phần chính.
+  Phần giao diện người dùng được phát triển bằng React.js kết hợp Redux, cho phép
+  khách hàng duyệt sản phẩm, quản lý giỏ hàng, đặt hàng và theo dõi lịch sử giao
+  dịch. Phần máy chủ được phát triển bằng Node.js và Express.js, cung cấp RESTful
+  API xác thực bằng JWT, tích hợp cổng thanh toán VNPay, giao tiếp thời gian thực
+  qua Socket.IO và gửi email thông báo qua Gmail OAuth2.
+
+  Đóng góp chính của đồ án là một hệ thống thương mại điện tử hoàn chỉnh với
+  nghiệp vụ thực tế, trong đó nổi bật là ba đóng góp đặc thù: quy trình hoàn trả
+  hàng có vòng đời trạng thái đầy đủ từ khi khách yêu cầu đến khi hoàn tiền; hệ
+  thống phân quyền theo vai trò kết hợp nhật ký kiểm toán hành động giúp truy vết
+  mọi thao tác của nhân viên; và cấu hình phí vận chuyển linh hoạt đến cấp xã/phường.
+  Kết quả đạt được là một ứng dụng web có thể triển khai thực tế, đáp ứng đầy đủ
+  nghiệp vụ vận hành của một cửa hàng thời trang trực tuyến quy mô vừa và nhỏ.
+
+  \section{Bố cục đồ án}
+  \label{section:1.4}
+  Phần còn lại của báo cáo đồ án tốt nghiệp này được tổ chức như sau.
+
+  Chương 2 trình bày quá trình khảo sát hiện trạng và phân tích yêu cầu hệ thống.
+  Từ kết quả khảo sát, chương này xác định các tác nhân và ca sử dụng của hệ thống
+  thông qua biểu đồ ca sử dụng tổng quát và các biểu đồ usecase chi tiết cho
+  từng nhóm chức năng. Tiếp đến, chương đặc tả các nghiệp vụ chính của hệ thống
+  bao gồm quy trình đặt hàng, thanh toán, hoàn trả hàng và phân quyền nhân viên,
+  và kết thúc bằng các yêu cầu phi chức năng về hiệu năng, bảo mật và khả năng
+  mở rộng.
+
+  Trong Chương 3, đồ án trình bày tổng quan về các công nghệ và thư viện được sử
+  dụng trong quá trình xây dựng hệ thống. Chương này phân tích lý do lựa chọn từng
+  thành phần trong bộ công nghệ MERN Stack, đồng thời giới thiệu các thư viện bổ
+  trợ như Redux, Socket.IO, JWT và VNPay SDK, làm cơ sở lý thuyết cho các quyết
+  định thiết kế được trình bày ở các chương sau.
+
+  Chương 4 trình bày toàn bộ quá trình thiết kế và hiện thực hệ thống. Chương này
+  bao gồm thiết kế kiến trúc tổng thể theo mô hình client-server, thiết kế cơ sở
+  dữ liệu với các thực thể và mối quan hệ chính, thiết kế giao diện người dùng cho
+  cả hai vai trò khách hàng và quản trị viên, và các kết quả kiểm thử chức năng
+  đối với các ca sử dụng quan trọng.
+
+  Chương 5 trình bày các giải pháp đóng góp của đồ án. Chương này bao gồm những
+  giải pháp đưa ra giúp giải quyết được các bài toán giúp cải thiện những bài toán
+  thực tiễn có trong đề tài.
+
+  Chương 6 trình bày kết luận của đồ án, tổng hợp các kết quả đạt được so với mục
+  tiêu đề ra ban đầu, đánh giá những hạn chế còn tồn tại và đề xuất hướng phát
+  triển trong tương lai.
+  
+\end{document}

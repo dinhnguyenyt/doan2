@@ -1,0 +1,1331 @@
+\documentclass[../DoAn.tex]{subfiles}
+\begin{document}
+
+\section{Thiết kế kiến trúc}
+\label{section:4.1}
+
+\subsection{Lựa chọn kiến trúc phần mềm}
+\label{subsection:4.1.1}
+
+Hệ thống ALIBARBIE được tổ chức theo kiến trúc \textbf{ba tầng} (3-tier
+architecture) kết hợp mô hình \textbf{MVC} (Model--View--Controller) phía máy
+chủ. Kiến trúc ba tầng phân chia hệ thống thành ba lớp độc lập:
+
+\begin{itemize}
+  \item \textbf{Tầng trình bày (Presentation Tier):} Giao diện React.js chạy
+        trên trình duyệt, giao tiếp với máy chủ qua REST API.
+  \item \textbf{Tầng nghiệp vụ (Business Logic Tier):} Máy chủ Node.js +
+        Express.js xử lý toàn bộ logic nghiệp vụ và cung cấp API.
+  \item \textbf{Tầng dữ liệu (Data Tier):} MongoDB lưu trữ dữ liệu, truy cập
+        thông qua Mongoose ODM.
+\end{itemize}
+
+Trong tầng nghiệp vụ, mô hình MVC được áp dụng cụ thể như sau:
+
+\begin{itemize}
+  \item \textbf{Model (M):} 17 schema Mongoose định nghĩa cấu trúc dữ liệu và
+        ánh xạ trực tiếp với các collection MongoDB (\texttt{ModelUser},
+        \texttt{ModelProducts}, \break \texttt{ModelOrder}, v.v.).
+  \item \textbf{Controller (C):} 15 lớp controller xử lý nghiệp vụ, nhận yêu
+        cầu từ tầng Route, tương tác với Model và trả về JSON response
+        (\texttt{ControllerUser},\break \texttt{ControllerAdmin},
+        \texttt{ControllerReturn}, v.v.).
+  \item \textbf{View (V):} Do hệ thống xây dựng theo mô hình API thuần túy
+        (headless), tầng View không nằm ở phía máy chủ mà được thay thế bởi
+        các component React phía client---mỗi component nhận dữ liệu JSON từ
+        API và tự render giao diện.
+\end{itemize}
+
+Giữa Route và Controller, hệ thống bổ sung \textbf{tầng Middleware} để xử lý
+xác thực JWT (\texttt{verifyToken}) và kiểm tra quyền theo vai trò
+(\texttt{verifyRole}), tạo ra luồng xử lý bốn bước:
+\[
+  \text{Route} \;\longrightarrow\; \text{Middleware (JWT + RBAC)} \;\longrightarrow\;
+  \text{Controller} \;\longrightarrow\; \text{Model}
+\]
+
+Kiến trúc này đáp ứng yêu cầu bảo trì và mở rộng từng module độc lập như đã
+xác định ở mục \ref{section:2.4}: mỗi nhóm chức năng (đơn hàng, hoàn hàng,
+vận chuyển, phân quyền, v.v.) có controller và model riêng, không ảnh hưởng
+lẫn nhau khi thay đổi.
+
+\subsection{Thiết kế tổng quan}
+\label{subsection:4.1.2}
+
+Hình \ref{fig:package-diagram} minh họa biểu đồ phụ thuộc gói của hệ thống.
+Hệ thống được chia thành hai siêu gói: \textbf{Client} (phía trình duyệt) và
+\textbf{Server} (phía máy chủ), giao tiếp với nhau qua REST API và Socket.io.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Hinhve/package_diagram.png}
+    \caption{Biểu đồ phụ thuộc gói của hệ thống ALIBARBIE}
+    \label{fig:package-diagram}
+\end{figure}
+
+\textbf{Phía Server}, các gói được tổ chức theo tầng từ trên xuống:
+
+\begin{itemize}
+  \item \texttt{route} --- Tiếp nhận HTTP request, phân phối đến middleware và
+        controller phù hợp. Gói này phụ thuộc vào \texttt{controller} và
+        \texttt{middleware}.
+  \item \texttt{middleware} --- Chứa \texttt{ControllerJWT} thực hiện xác thực
+        token và kiểm tra quyền trước khi chuyển tiếp xuống controller. Phụ
+        thuộc vào \texttt{model} để tra cứu vai trò tùy chỉnh.
+  \item \texttt{controller} --- Xử lý toàn bộ nghiệp vụ; phụ thuộc vào
+        \texttt{model} và \texttt{utils}.
+  \item \texttt{model} --- Định nghĩa schema Mongoose; phụ thuộc vào
+        \texttt{config} (kết nối database).
+  \item \texttt{config} --- Cấu hình kết nối MongoDB; không phụ thuộc gói nào
+        khác.
+  \item \texttt{utils} --- Các tiện ích dùng chung (ChatBot, auditLog); phụ
+        thuộc vào \texttt{model}.
+\end{itemize}
+
+\textbf{Phía Client}, các gói được tổ chức theo tầng từ trên xuống:
+
+\begin{itemize}
+  \item \texttt{Pages} --- Các trang ứng dụng (storefront và trang quản trị);
+        phụ thuộc vào \texttt{Layouts}, \texttt{components}, \texttt{redux} và
+        \texttt{config}.
+  \item \texttt{Layouts} --- Header, Footer, Loading---các thành phần khung
+        trang; phụ thuộc vào \texttt{components}.
+  \item \texttt{components} --- Các component tái sử dụng nhỏ (CascadingAddressSelect,
+        VietnamCitySelect); phụ thuộc vào \texttt{config}.
+  \item \texttt{redux} --- Store, reducer, actions---quản lý trạng thái giỏ
+        hàng toàn cục; không phụ thuộc gói giao diện nào.
+  \item \texttt{contexts} --- PermissionContext cung cấp thông tin quyền hạn
+        cho \break component con; phụ thuộc vào \texttt{config}.
+  \item \texttt{Route} --- Định nghĩa bảng định tuyến publicRoutes và
+        privateRoute; phụ thuộc vào \texttt{Pages}.
+  \item \texttt{config} --- URL gốc của API; không phụ thuộc gói nào khác.
+\end{itemize}
+
+Các gói tầng dưới không phụ thuộc ngược lên tầng trên (ví dụ \texttt{model}
+không phụ thuộc \texttt{controller}), đảm bảo nguyên tắc thiết kế phân tầng
+một chiều.
+
+\subsection{Thiết kế chi tiết gói}
+\label{subsection:4.1.3}
+
+Hình \ref{fig:pkg-server-controller} mô tả quan hệ giữa các lớp trong nhóm
+gói \texttt{route}--\texttt{middleware}--\texttt{controller} phía server. Đây
+là nhóm trung tâm hiện thực hóa toàn bộ luồng xử lý API.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Hinhve/pkg_server.png}
+    \caption{Thiết kế gói server: route -- middleware -- controller}
+    \label{fig:pkg-server-controller}
+\end{figure}
+
+Lớp \texttt{index} (route) \textit{phụ thuộc} vào sáu lớp route con
+(\texttt{UserRoutes}, \texttt{ProductsRoutes}, \texttt{AdminRoutes},
+\texttt{PaymentsRoutes}, \texttt{WebRoutes}) và gọi trực tiếp một số
+controller dùng cho endpoint công khai. \texttt{AdminRoutes} có quan hệ
+\textit{phụ thuộc} vào \texttt{ControllerJWT} (middleware kiểm tra JWT và
+RBAC) trước khi chuyển tiếp đến các controller tương ứng. Mỗi controller
+(\texttt{ControllerUser}, \texttt{ControllerAdmin}, v.v.) có quan hệ
+\textit{kết hợp} với một hoặc nhiều lớp Model để thực hiện truy vấn dữ liệu.
+
+Hình \ref{fig:pkg-client} mô tả quan hệ giữa các lớp trong gói
+\texttt{Pages/Admin} phía client---gói phức tạp nhất do quản lý nhiều tính
+năng quản trị.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Hinhve/pkg_client.png}
+    \caption{Thiết kế gói client: Pages/Admin}
+    \label{fig:pkg-client}
+\end{figure}
+
+\texttt{DefaultLayout} (component cha) có quan hệ \textit{hợp thành} với \break
+\texttt{HeaderAdmin}, \texttt{SlideBar} và \texttt{HomePageAdmin}.
+\texttt{HomePageAdmin} có quan hệ \textit{hợp thành} với các sub-page:
+\texttt{Dashboard}, \texttt{Products}, \break \texttt{OrderProducts},
+\texttt{Customers}, \texttt{Categories}, \texttt{Coupons}, \texttt{Returns},
+\texttt{Shipping}, \texttt{RolePermission}, \texttt{History}, v.v.
+\texttt{PermissionContext} có quan hệ \textit{phụ thuộc} đến
+\texttt{DefaultLayout} để cung cấp thông tin quyền hạn cho toàn bộ cây
+component bên trong.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Thiết kế chi tiết}
+\label{section:4.2}
+
+\subsection{Thiết kế giao diện}
+\label{subsection:4.2.1}
+
+\subsubsection*{Đặc tả màn hình mục tiêu}
+
+Hệ thống hướng đến hai nhóm người dùng với thiết bị khác nhau:
+
+\begin{itemize}
+  \item \textbf{Khách hàng mua sắm:} Truy cập chủ yếu qua điện thoại di động
+        (màn hình 360px--414px) và máy tính để bàn (1366px--1920px). Giao
+        diện phải tương thích đầy đủ trên cả hai nhóm.
+  \item \textbf{Quản trị viên/nhân viên:} Truy cập qua máy tính để bàn,
+        độ phân giải tối thiểu 1280~×~720 px.
+\end{itemize}
+
+Hệ thống hỗ trợ đầy đủ màu 24-bit (16 triệu màu), font chữ UTF-8 để hiển
+thị tiếng Việt không dấu lỗi.
+
+\subsubsection*{Chuẩn hóa giao diện}
+
+\begin{itemize}
+  \item \textbf{Hệ thống lưới:} Sử dụng grid 12 cột của Bootstrap 5 với các
+        breakpoint chuẩn (sm: 576px, md: 768px, lg: 992px, xl: 1200px).
+  \item \textbf{Bảng màu:} Màu chủ đạo hồng pastel (\texttt{\#ff6b9d}) cho
+        thương hiệu \break ALIBARBIE; màu nền trắng (\texttt{\#ffffff}); màu chữ
+        chính xám đậm (\texttt{\#212529}); màu cảnh báo/lỗi đỏ
+        (\texttt{\#dc3545}); màu thành công xanh (\texttt{\#198754}).
+  \item \textbf{Nút bấm (Button):} Nút chính (primary) nền hồng, chữ trắng;
+        nút phụ \break (secondary) viền xám; nút nguy hiểm (danger) nền đỏ dùng cho
+        thao tác xóa. Kích thước tối thiểu vùng chạm 44~×~44 px trên thiết bị
+        di động.
+  \item \textbf{Thông điệp phản hồi:} Sử dụng \texttt{react-toastify}---thông
+        báo xuất hiện góc trên phải màn hình, tự động ẩn sau 3 giây. Màu
+        xanh = thành công; màu đỏ = lỗi; màu vàng = cảnh báo.
+  \item \textbf{Form nhập liệu:} Nhãn (label) hiển thị phía trên input; thông
+        báo lỗi validation hiển thị ngay dưới trường tương ứng bằng chữ đỏ
+        nhỏ.
+  \item \textbf{Ảnh sản phẩm:} Lazy loading thông qua \texttt{react-lazyload}
+        để giảm thời gian tải trang; tỷ lệ khung hình cố định 1:1 (vuông)
+        cho thumbnail.
+  \item \textbf{Phân trang:} Sử dụng \texttt{react-paginate} với số mục mỗi
+        trang có thể cấu hình; số trang hiển thị tối đa 5 nút.
+\end{itemize}
+
+\subsubsection*{Minh họa thiết kế các giao diện chính}
+
+Hình \ref{fig:ui-home} minh họa thiết kế trang chủ storefront với bố cục
+Header (logo, thanh tìm kiếm, giỏ hàng) -- Banner slideshow -- Lưới sản phẩm
+nổi bật -- Footer.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Hinhve/ui_home.png}
+    \caption{Thiết kế giao diện trang chủ}
+    \label{fig:ui-home}
+\end{figure}
+
+Hình \ref{fig:ui-checkout} minh họa thiết kế màn hình thanh toán với bố cục
+hai cột: cột trái hiển thị form địa chỉ giao hàng và phương thức thanh toán;
+cột phải tóm tắt giỏ hàng và tổng tiền (bao gồm phí vận chuyển và giảm giá
+coupon).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Hinhve/ui_checkout.png}
+    \caption{Thiết kế giao diện trang thanh toán}
+    \label{fig:ui-checkout}
+\end{figure}
+
+Hình \ref{fig:ui-admin} minh họa thiết kế trang quản trị với bố cục sidebar
+bên trái (danh sách menu theo quyền hạn) và vùng nội dung bên phải thay đổi
+theo menu được chọn.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Hinhve/ui_admin.png}
+    \caption{Thiết kế giao diện trang quản trị}
+    \label{fig:ui-admin}
+\end{figure}
+
+\subsection{Thiết kế lớp}
+\label{subsection:4.2.2}
+
+\subsubsection*{Các lớp chủ đạo}
+
+Bảng \ref{tab:class-user} mô tả thiết kế lớp \texttt{ControllerUser}---lớp
+quản lý toàn bộ vòng đời tài khoản người dùng từ đăng ký, đăng nhập đến cập
+nhật hồ sơ.
+
+\begin{table}[H]
+\centering
+\caption{Thiết kế lớp \texttt{ControllerUser}}
+\label{tab:class-user}
+\scriptsize
+\begin{tabular}{|p{4cm}|p{9cm}|}
+\hline
+\multicolumn{2}{|c|}{\textbf{ControllerUser}} \\
+\hline
+\multicolumn{2}{|l|}{\textit{Thuộc tính}} \\
+\hline
+(không có thuộc tính) & Lớp sử dụng các Model và service bên ngoài \\
+\hline
+\multicolumn{2}{|l|}{\textit{Phương thức}} \\
+\hline
+\texttt{Register(req, res)} & Kiểm tra email tồn tại, băm mật khẩu bằng bcrypt (saltRounds=10), lưu \texttt{ModelUser}, ghi audit log \\
+\hline
+\texttt{Login(req, res)} & Tìm user theo email, so sánh mật khẩu bcrypt, tạo JWT (maxAge 1h hoặc 30 ngày), set cookie \\
+\hline
+\texttt{GetUser(req, res)} & Giải mã cookie JWT, trả về thông tin user hiện tại \\
+\hline
+\texttt{ChangePass(req, res)} & Xác thực mật khẩu cũ, băm mật khẩu mới, cập nhật MongoDB \\
+\hline
+\texttt{EditProfile(req, res)} & Cập nhật fullname, phone, avatar của user \\
+\hline
+\texttt{Logout(req, res)} & Xóa cookie Token \\
+\hline
+\texttt{PostComment(req, res)} & Lưu bình luận sản phẩm vào \texttt{ModelComments} \\
+\hline
+\texttt{GetDataOrder(req, res)} & Lấy danh sách đơn hàng theo email từ \texttt{ModelOrder} \\
+\hline
+\end{tabular}
+\end{table}
+
+Bảng \ref{tab:class-return} mô tả thiết kế lớp \texttt{ControllerReturn}---lớp
+quản lý quy trình yêu cầu hoàn hàng nhiều bước.
+
+\begin{table}[H]
+\centering
+\caption{Thiết kế lớp \texttt{ControllerReturn}}
+\label{tab:class-return}
+\scriptsize
+\begin{tabular}{|p{4cm}|p{9cm}|}
+\hline
+\multicolumn{2}{|c|}{\textbf{ControllerReturn}} \\
+\hline
+\multicolumn{2}{|l|}{\textit{Phương thức}} \\
+\hline
+\texttt{CreateRequest(req, res)} & Tạo yêu cầu hoàn hàng mới: kiểm tra đơn hàng tồn tại, lưu \break \texttt{ModelReturnRequest}, ghi audit log \\
+\hline
+\texttt{GetMyRequests(req, res)} & Lấy danh sách yêu cầu của khách hàng theo email \\
+\hline
+\texttt{GetAllRequests(req, res)} & Lấy toàn bộ yêu cầu (dành cho nhân viên/quản lý) \\
+\hline
+\texttt{GetRequestById(req, res)} & Lấy chi tiết một yêu cầu theo ID \\
+\hline
+\texttt{UpdateStatus(req, res)} & Cập nhật trạng thái yêu cầu (PENDING~→~CONTACTING~→~...) \\
+\hline
+\texttt{ApproveReturn(req, res)} & Duyệt hoàn hàng: cập nhật status = APPROVED, gửi email thông báo \\
+\hline
+\texttt{RejectReturn(req, res)} & Từ chối: cập nhật status = REJECTED, lưu lý do, gửi email \\
+\hline
+\texttt{ProcessRefund(req, res)} & Xử lý hoàn tiền: cộng số dư vào tài khoản, status = REFUNDED \\
+\hline
+\end{tabular}
+\end{table}
+
+Bảng \ref{tab:class-admin} mô tả lớp \texttt{ControllerAdmin}---lớp trung
+tâm cho giao diện quản trị.
+
+\begin{table}[H]
+\centering
+\caption{Thiết kế lớp \texttt{ControllerAdmin} (các phương thức chính)}
+\label{tab:class-admin}
+\scriptsize
+\begin{tabular}{|p{4.5cm}|p{8.5cm}|}
+\hline
+\multicolumn{2}{|c|}{\textbf{ControllerAdmin}} \\
+\hline
+\multicolumn{2}{|l|}{\textit{Phương thức}} \\
+\hline
+\texttt{GetDataOrder(req, res)} & Lấy toàn bộ đơn hàng, populate thông tin sản phẩm từ \break \texttt{ModelOrderItem} \\
+\hline
+\texttt{EditOrder(req, res)} & Cập nhật trạng thái đơn hàng; nếu hoàn tất gửi email xác nhận \\
+\hline
+\texttt{AddProduct(req, res)} & Thêm sản phẩm mới vào \texttt{ModelProducts}, hỗ trợ upload ảnh \\
+\hline
+\texttt{EditProduct(req, res)} & Cập nhật thông tin sản phẩm, ghi audit log \\
+\hline
+\texttt{DeleteProduct(req, res)} & Xóa mềm hoặc xóa sản phẩm, ghi audit log \\
+\hline
+\texttt{GetUser(req, res)} & Trả về danh sách toàn bộ tài khoản \\
+\hline
+\texttt{UpdateUserRole(req, res)} & Thay đổi vai trò nhân viên, ghi audit log \\
+\hline
+\texttt{GetDataAuth(req, res)} & Trả về thông tin tài khoản đang đăng nhập cùng danh sách quyền \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsubsection*{Biểu đồ trình tự}
+
+\textbf{Use case 1: Đăng nhập hệ thống.}
+Hình \ref{fig:seq-login} mô tả luồng truyền thông điệp khi người dùng thực
+hiện đăng nhập.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Hinhve/seq_login.png}
+    \caption{Biểu đồ trình tự: Đăng nhập hệ thống}
+    \label{fig:seq-login}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Hinhve/seq_register.png}
+    \caption{Biểu đồ trình tự: Đăng ký người dùng}
+    \label{fig:seq-register}
+\end{figure}
+
+Luồng chính: (1) Client gửi \texttt{POST /api/login} với \{email, password,
+rememberMe\}. (2) \texttt{ControllerUser.Login} gọi
+ \break \texttt{ModelUser.findOne(\{email\})} để tìm tài khoản. (3) Nếu tìm thấy,
+gọi \texttt{bcrypt.compare()} để kiểm tra mật khẩu. (4) Nếu khớp, tạo JWT
+bằng \texttt{jwt.sign()} và set cookie \texttt{Token}. (5) Trả về JSON với
+\{message, role, fullname, avatar\}. (6) Client lưu thông tin vào
+\texttt{localStorage} và chuyển hướng trang.
+
+\textbf{Use case 2: Đặt hàng và thanh toán VNPay.}
+Hình \ref{fig:seq-order} mô tả luồng truyền thông điệp khi khách hàng hoàn
+tất đặt hàng qua cổng VNPay.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Hinhve/seq_dat_hang.png}
+    \caption{Biểu đồ trình tự: Đặt hàng}
+    \label{fig:seq-order}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Hinhve/seq_thanh_toan.png}
+    \caption{Biểu đồ trình tự: Thanh toán}
+    \label{fig:seq-payment}
+\end{figure}
+
+Luồng chính: (1) Client gửi \texttt{POST /api/payment} với thông tin đơn
+hàng và địa chỉ giao hàng. (2) \texttt{PaymentController} tính phí vận
+chuyển qua \break \texttt{ControllerShipping}, kiểm tra coupon (nếu có), tạo bản ghi
+ \break \texttt{ModelOrder} và \texttt{ModelOrderItem}. (3) Server tạo URL thanh toán
+\break VNPay có chữ ký HMAC-SHA512 và trả về URL này. (4) Client chuyển hướng
+trình duyệt đến cổng VNPay. (5) Sau khi khách hàng thanh toán, VNPay gọi
+ \break callback \texttt{GET /vnpay-return}. (6) Server xác thực chữ ký và cập nhật
+\break \texttt{statusPayment = true} trong \texttt{ModelOrder}. (7) Server gửi email
+xác nhận qua \break \texttt{Nodemailer}, xóa giỏ hàng và trả về kết quả.
+
+\textbf{Use case 3: Xử lý yêu cầu hoàn hàng.}
+Các hình dưới đây mô tả luồng từ khi khách hàng tạo yêu cầu đến khi
+quản lý hoàn tiền.
+
+\begin{figure}[H]
+    \centering
+    % SV bổ sung sequence diagram hoàn hàng tại đây
+    \includegraphics[width=0.9\textwidth]{Hinhve/seq_hoan_hang_1.png}
+    \caption{Biểu đồ trình tự: Xử lý yêu cầu hoàn hàng: Kiểm tra điều kiện và tạo yêu cầu trả hàng
+}
+    \label{fig:seq-return-1-4}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    % SV bổ sung sequence diagram hoàn hàng tại đây
+    \includegraphics[width=0.9\textwidth]{Hinhve/seq_hoan_hang_2.png}
+    \caption{Biểu đồ trình tự: Xử lý yêu cầu hoàn hàng: Liên hệ khách hàng và khách gửi hàng
+}
+    \label{fig:seq-return-2-4}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    % SV bổ sung sequence diagram hoàn hàng tại đây
+    \includegraphics[width=0.9\textwidth]{Hinhve/seq_hoan_hang_3.png}
+    \caption{Biểu đồ trình tự: Xử lý yêu cầu hoàn hàng: Duyệt yêu cầu
+}
+    \label{fig:seq-return-3-4}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    % SV bổ sung sequence diagram hoàn hàng tại đây
+    \includegraphics[width=0.9\textwidth]{Hinhve/seq_hoan_hang_4.png}
+    \caption{Biểu đồ trình tự: Xử lý yêu cầu hoàn hàng: Khách hàng theo dõi trạng thái trả hàng
+}
+    \label{fig:seq-return-4-4}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    % SV bổ sung sequence diagram hoàn hàng tại đây
+    \includegraphics[width=0.9\textwidth]{Hinhve/seq_hoan_tien.png}
+    \caption{Biểu đồ trình tự: Xử lý hoàn tiền
+}
+    \label{fig:seq-refund}
+\end{figure}
+
+Luồng chính: (1) Khách hàng gửi \break \texttt{POST /api/return-request} với \{order\_id,
+reason, description, images\}. (2) \texttt{ControllerReturn.CreateRequest} kiểm
+tra đơn hàng tồn tại, lưu \break \texttt{ModelReturnRequest} với status
+\texttt{PENDING\_REVIEW}. (3) Nhân viên cập nhật trạng thái lần lượt
+(\texttt{CONTACTING} → \texttt{WAITING\_ITEM} → \texttt{ITEM\_RECEIVED}).
+(4) Quản lý gọi \texttt{POST /api/admin/return-requests/:id/approve}.
+(5) \texttt{ControllerReturn.ApproveReturn} cập nhật status = \texttt{APPROVED}
+và gửi email thông báo. (6) Quản lý tiếp tục gọi endpoint \texttt{refund};
+server cộng \texttt{refund\_amount} vào trường \texttt{surplus} của
+\texttt{ModelUser} và đặt \break status = \texttt{REFUNDED}.
+
+\subsection{Thiết kế cơ sở dữ liệu}
+\label{subsection:4.2.3}
+
+Do sử dụng MongoDB (NoSQL), thiết kế cơ sở dữ liệu được mô tả qua sơ đồ
+thực thể liên kết (E-R diagram) điều chỉnh cho mô hình document, kết hợp với
+mô tả cấu trúc từng collection.
+
+\subsubsection*{Sơ đồ E-R}
+
+Hình \ref{fig:er-diagram} trình bày sơ đồ E-R của hệ thống với 17 collection.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Hinhve/er_diagram.png}
+    \caption{Sơ đồ E-R hệ thống ALIBARBIE}
+    \label{fig:er-diagram}
+\end{figure}
+
+Các quan hệ chính giữa các collection:
+
+\begin{itemize}
+  \item \texttt{products} (1) --- (N) \texttt{product\_variants}: Mỗi sản phẩm
+        có nhiều biến thể màu sắc, mỗi biến thể chứa danh sách kích cỡ nhúng
+        (embedded \texttt{sizes}).
+  \item \texttt{order} (1) --- (N) \texttt{orderItem}: Mỗi đơn hàng chứa
+        nhiều dòng sản phẩm; \texttt{orderItem} lưu tham chiếu \texttt{order\_id}
+        và \texttt{product\_id}.
+  \item \texttt{order} (1) --- (0..1) \texttt{return\_request}: Một đơn hàng
+        có thể có tối đa một yêu cầu hoàn hàng.
+  \item \texttt{user} (1) --- (N) \texttt{order}: Mỗi người dùng có thể có
+        nhiều đơn hàng; liên kết qua trường \texttt{email}.
+  \item \texttt{products} (N) --- (1) \texttt{category}: Mỗi sản phẩm thuộc
+        một danh mục; liên kết qua \texttt{category\_id} (ObjectId reference).
+  \item \texttt{role} (1) --- (N) \texttt{user}: Mỗi vai trò có thể gán cho
+        nhiều người dùng; liên kết qua trường \texttt{role} (String).
+  \item \texttt{audit\_log} ghi nhận hành động của \texttt{user} lên các đối
+        tượng bất kỳ qua \texttt{target\_type} và \texttt{target\_id} (mô hình
+        polymorphic reference).
+\end{itemize}
+
+\subsubsection*{Thiết kế các collection chính}
+
+Bảng \ref{tab:col-user} đến Bảng \ref{tab:col-return} mô tả cấu trúc các
+collection quan trọng.
+
+\begin{table}[H]
+\centering
+\caption{Collection \texttt{user}}
+\label{tab:col-user}
+\scriptsize
+\begin{tabular}{|p{3.5cm}|p{3cm}|p{6cm}|}
+\hline
+\textbf{Trường} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\
+\hline
+\texttt{\_id} & ObjectId & Khóa chính (tự sinh) \\
+\hline
+\texttt{fullname} & String & Họ và tên \\
+\hline
+\texttt{email} & String & Email (duy nhất, dùng làm định danh) \\
+\hline
+\texttt{password} & String & Mật khẩu đã băm bcrypt \\
+\hline
+\texttt{role} & String (enum) & Vai trò: admin / manager / staff / user \\
+\hline
+\texttt{isAdmin} & Boolean & Cờ quản trị tối cao \\
+\hline
+\texttt{phone} & Number & Số điện thoại \\
+\hline
+\texttt{surplus} & Number & Số dư tài khoản (hoàn tiền) \\
+\hline
+\texttt{avatar} & String & Đường dẫn ảnh đại diện \\
+\hline
+\texttt{created\_at} & Date & Thời điểm tạo \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Collection \texttt{products}}
+\label{tab:col-products}
+\scriptsize
+\begin{tabular}{|p{3.5cm}|p{3cm}|p{6cm}|}
+\hline
+\textbf{Trường} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\
+\hline
+\texttt{\_id} & ObjectId & Khóa chính \\
+\hline
+\texttt{nameProducts} & String & Tên sản phẩm \\
+\hline
+\texttt{priceNew} & Number & Giá bán hiện tại \\
+\hline
+\texttt{priceOld} & Number & Giá gốc (để hiển thị khuyến mãi) \\
+\hline
+\texttt{category\_id} & ObjectId (ref) & Tham chiếu danh mục \\
+\hline
+\texttt{img} & String & Ảnh đại diện sản phẩm \\
+\hline
+\texttt{images} & [String] & Danh sách ảnh chi tiết \\
+\hline
+\texttt{stock\_quantity} & Number & Tồn kho tổng \\
+\hline
+\texttt{free\_shipping} & Boolean & Miễn phí vận chuyển \\
+\hline
+\texttt{return\_days} & Number & Số ngày được phép hoàn trả \\
+\hline
+\texttt{rating\_avg} & Number & Điểm đánh giá trung bình \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Collection \texttt{product\_variants} (biến thể sản phẩm)}
+\label{tab:col-variant}
+\scriptsize
+\begin{tabular}{|p{3.5cm}|p{3cm}|p{6cm}|}
+\hline
+\textbf{Trường} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\
+\hline
+\texttt{\_id} & ObjectId & Khóa chính \\
+\hline
+\texttt{product\_id} & ObjectId (ref) & Tham chiếu sản phẩm cha \\
+\hline
+\texttt{color} & String & Tên màu \\
+\hline
+\texttt{color\_hex} & String & Mã màu hex (hiển thị ô màu) \\
+\hline
+\texttt{img} & String & Ảnh biến thể màu sắc \\
+\hline
+\texttt{sizes} & [SizeSchema] & Danh sách kích cỡ nhúng (size, stock, price\_adjustment) \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Collection \texttt{order} và \texttt{orderItem}}
+\label{tab:col-order}
+\scriptsize
+\begin{tabular}{|p{3.5cm}|p{3cm}|p{6cm}|}
+\hline
+\textbf{Trường} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\
+\hline
+\multicolumn{3}{|c|}{\textit{order}} \\
+\hline
+\texttt{email} & String & Email khách hàng đặt hàng \\
+\hline
+\texttt{sumPrice} & Number & Tổng tiền đơn hàng (đã gồm ship, giảm giá) \\
+\hline
+\texttt{statusOrder} & Boolean & Trạng thái giao hàng \\
+\hline
+\texttt{statusPayment} & Boolean & Trạng thái thanh toán \\
+\hline
+\texttt{payment\_method} & String (enum) & Phương thức: vnpay / cod \\
+\hline
+\texttt{vnp\_txn\_ref} & String & Mã giao dịch VNPay \\
+\hline
+\texttt{has\_return\_request} & Boolean & Cờ đánh dấu đã có yêu cầu hoàn hàng \\
+\hline
+\multicolumn{3}{|c|}{\textit{orderItem}} \\
+\hline
+\texttt{order\_id} & ObjectId (ref) & Tham chiếu đơn hàng \\
+\hline
+\texttt{product\_id} & ObjectId (ref) & Tham chiếu sản phẩm \\
+\hline
+\texttt{nameProduct} & String & Tên sản phẩm tại thời điểm đặt \\
+\hline
+\texttt{quantity} & Number & Số lượng \\
+\hline
+\texttt{price} & Number & Đơn giá tại thời điểm đặt \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Collection \texttt{return\_request}}
+\label{tab:col-return}
+\scriptsize
+\begin{tabular}{|p{3.5cm}|p{3cm}|p{6cm}|}
+\hline
+\textbf{Trường} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\
+\hline
+\texttt{order\_id} & ObjectId (ref) & Tham chiếu đơn hàng \\
+\hline
+\texttt{customer\_email} & String & Email khách hàng yêu cầu \\
+\hline
+\texttt{reason} & String & Lý do hoàn hàng \\
+\hline
+\texttt{images} & [String] & Ảnh minh chứng \\
+\hline
+\texttt{status} & String (enum) & PENDING\_REVIEW / CONTACTING \break /  WAITING\_ITEM / ITEM\_RECEIVED \break / APPROVED / REJECTED / REFUNDED \\
+\hline
+\texttt{refund\_amount} & Number & Số tiền hoàn trả \\
+\hline
+\texttt{reject\_reason} & String & Lý do từ chối (nếu có) \\
+\hline
+\texttt{modified\_by} & String & Email nhân viên xử lý cuối \\
+\hline
+\end{tabular}
+\end{table}
+
+Collection \texttt{audit\_log} được lập chỉ mục tổng hợp trên
+\texttt{(actor\_email, created\_at)}, \texttt{(target\_type, target\_id,
+created\_at)} và \break \texttt{action\_code} để đảm bảo hiệu năng truy vấn nhật ký
+theo nhiều chiều phân tích (mục \ref{subsection:2.3.4}).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Xây dựng ứng dụng}
+\label{section:4.3}
+
+\subsection{Thư viện và công cụ sử dụng}
+\label{subsection:4.3.1}
+
+Bảng \ref{tab:tools-server} và Bảng \ref{tab:tools-client} liệt kê các công
+cụ và thư viện sử dụng để phát triển hệ thống.
+
+\begin{table}[H]
+\centering
+\caption{Công cụ và thư viện phía Server}
+\label{tab:tools-server}
+\scriptsize
+\begin{tabular}{|p{4.5cm}|p{3.5cm}|p{5cm}|}
+\hline
+\textbf{Mục đích} & \textbf{Công cụ / Thư viện} & \textbf{Phiên bản} \\
+\hline
+IDE lập trình & Visual Studio Code & 1.89+ \\
+\hline
+Nền tảng thực thi & Node.js & 20.x LTS \\
+\hline
+Framework web & Express.js & 4.19.2 \\
+\hline
+Hệ quản trị CSDL & MongoDB & 7.0 \\
+\hline
+ODM (Object-Document Mapper) & Mongoose & 8.3.2 \\
+\hline
+Xác thực JWT & jsonwebtoken & 9.0.2 \\
+\hline
+Băm mật khẩu & bcrypt & 5.1.1 \\
+\hline
+Giao tiếp thời gian thực & Socket.io & 4.7.5 \\
+\hline
+Tích hợp thanh toán & vnpay & 1.5.0 \\
+\hline
+Gửi email & Nodemailer & 6.9.13 \\
+\hline
+OAuth2 Google & googleapis & 135.0.0 \\
+\hline
+Upload file & Multer & 1.4.5-lts.1 \\
+\hline
+HTTP client & Axios & 1.7.2 \\
+\hline
+Dev server tự động reload & Nodemon & 3.1.0 \\
+\hline
+Kiểm thử API & Postman & v11+ \\
+\hline
+Quản lý biến môi trường & dotenv & 16.4.5 \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Công cụ và thư viện phía Client}
+\label{tab:tools-client}
+\scriptsize
+\begin{tabular}{|p{4.5cm}|p{3.5cm}|p{5cm}|}
+\hline
+\textbf{Mục đích} & \textbf{Công cụ / Thư viện} & \textbf{Phiên bản} \\
+\hline
+Thư viện giao diện & React & 18.2.0 \\
+\hline
+Quản lý trạng thái & Redux Toolkit & 2.2.3 \\
+\hline
+Kết nối Redux-React & React-Redux & 9.1.1 \\
+\hline
+Định tuyến client & React Router DOM & 6.22.3 \\
+\hline
+CSS Framework & Bootstrap & 5.3.3 \\
+\hline
+Component Bootstrap & React-Bootstrap & 2.10.2 \\
+\hline
+Biểu đồ doanh thu & Chart.js / react-chartjs-2 & 4.4.2 / 5.2.0 \\
+\hline
+Biểu đồ doanh thu (phụ) & Recharts & 3.8.1 \\
+\hline
+Icon & FontAwesome & 6.x \\
+\hline
+Thông báo toast & react-toastify & 10.0.5 \\
+\hline
+Phân trang & react-paginate & 8.2.0 \\
+\hline
+Lazy load ảnh & react-lazyload & 3.2.1 \\
+\hline
+Slider banner & react-slick & 0.30.2 \\
+\hline
+Socket client & socket.io-client & 4.7.5 \\
+\hline
+HTTP client & Axios & 1.6.8 \\
+\hline
+Xử lý CSS & Sass & 1.75.0 \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Kết quả đạt được}
+\label{subsection:4.3.2}
+
+Sản phẩm đạt được gồm hai ứng dụng độc lập chạy song song:
+
+\begin{itemize}
+  \item \textbf{Máy chủ API} (\texttt{server/}): Ứng dụng Node.js cung cấp
+        hơn 60 API endpoint REST và dịch vụ Socket.io, phục vụ cả giao diện
+        mua sắm lẫn trang quản trị.
+  \item \textbf{Ứng dụng web} (\texttt{client/}): SPA React với hai giao diện
+        tách biệt: storefront cho khách hàng (tuyến \texttt{/}) và trang quản
+        trị cho nội bộ (tuyến \texttt{/admin}).
+\end{itemize}
+
+Bảng \ref{tab:stats} thống kê thông tin về mã nguồn.
+
+\begin{table}[H]
+\centering
+\caption{Thống kê mã nguồn hệ thống ALIBARBIE}
+\label{tab:stats}
+\scriptsize
+\begin{tabular}{|p{5cm}|p{3cm}|p{3cm}|p{2cm}|}
+\hline
+\textbf{Thành phần} & \textbf{Số file} & \textbf{Số dòng code} & \textbf{Ngôn ngữ} \\
+\hline
+Server (Node.js/Express) & 46 & 3.535 & JavaScript \\
+\hline
+Client (React) & 64 & 8.494 & JavaScript/JSX \\
+\hline
+\textbf{Tổng cộng} & \textbf{110} & \textbf{12.029} & \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Thống kê cấu trúc server}
+\label{tab:stats-server}
+\scriptsize
+\begin{tabular}{|p{5cm}|p{7cm}|}
+\hline
+\textbf{Thành phần} & \textbf{Số lượng} \\
+\hline
+Mongoose Schema (Model) & 17 collections \\
+\hline
+Controller class & 15 controllers \\
+\hline
+Route file & 6 files (hơn 60 endpoint) \\
+\hline
+API endpoint & $\sim$65 endpoint \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Minh họa các chức năng chính}
+\label{subsection:4.3.3}
+
+Hình \ref{fig:screen-home} minh họa trang chủ storefront với slider banner,
+lưới sản phẩm phân trang và chatbot hỗ trợ ở góc phải dưới màn hình.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Hinhve/screen_home.png}
+    \caption{Giao diện trang chủ ALIBARBIE}
+    \label{fig:screen-home}
+\end{figure}
+
+Hình \ref{fig:screen-product} minh họa trang chi tiết sản phẩm với bộ chọn
+màu sắc và kích cỡ theo biến thể, hiển thị tồn kho và điều chỉnh giá theo
+size được chọn.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Hinhve/screen_product.png}
+    \caption{Giao diện chi tiết sản phẩm với bộ chọn biến thể}
+    \label{fig:screen-product}
+\end{figure}
+
+Hình \ref{fig:screen-checkout} minh họa màn hình thanh toán với form địa chỉ
+phân cấp (tỉnh/huyện/xã), hiển thị phí vận chuyển tính tự động và lựa chọn
+phương thức thanh toán COD hoặc VNPay.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Hinhve/screen_checkout.png}
+    \caption{Giao diện thanh toán với tính phí vận chuyển động}
+    \label{fig:screen-checkout}
+\end{figure}
+
+Hình \ref{fig:screen-admin-dashboard} minh họa trang Dashboard quản trị với
+biểu đồ doanh thu (Chart.js), thống kê tổng đơn hàng, doanh thu tháng và
+số lượng khách hàng mới.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Hinhve/screen_admin_dashboard.png}
+    \caption{Giao diện Dashboard quản trị với biểu đồ doanh thu}
+    \label{fig:screen-admin-dashboard}
+\end{figure}
+
+Hình \ref{fig:screen-admin-return} minh họa màn hình quản lý yêu cầu hoàn
+hàng với bộ lọc theo trạng thái và lịch sử thay đổi trạng thái từng yêu cầu.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Hinhve/screen_admin_return.png}
+    \caption{Giao diện quản lý yêu cầu hoàn hàng}
+    \label{fig:screen-admin-return}
+\end{figure}
+
+Hình \ref{fig:screen-admin-role} minh họa màn hình phân quyền vai trò RBAC,
+cho phép quản trị viên cấu hình danh sách menu và hành động được phép cho
+từng vai trò.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Hinhve/screen_admin_role.png}
+    \caption{Giao diện quản lý phân quyền vai trò (RBAC)}
+    \label{fig:screen-admin-role}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Kiểm thử}
+\label{section:4.4}
+
+Hệ thống được kiểm thử theo phương pháp \textbf{kiểm thử hộp đen} (black-box
+testing) sử dụng kỹ thuật \textbf{phân hoạch tương đương} (equivalence
+partitioning) và \textbf{phân tích giá trị biên} (boundary value analysis).
+Kiểm thử API thực hiện qua công cụ Postman; kiểm thử giao diện thực hiện thủ
+công trên trình duyệt Chrome phiên bản mới nhất.
+
+\subsection*{Use case 1: Đăng nhập hệ thống}
+
+\begin{table}[H]
+\centering
+\caption{Các trường hợp kiểm thử chức năng đăng nhập}
+\label{tab:test-login}
+\scriptsize
+\begin{tabular}{|p{0.5cm}|p{3.5cm}|p{3cm}|p{3.5cm}|p{2cm}|}
+\hline
+\textbf{TC} & \textbf{Dữ liệu đầu vào} & \textbf{Điều kiện} & \textbf{Kết quả mong đợi} & \textbf{Kết quả} \\
+\hline
+1 & Email hợp lệ, mật khẩu đúng & Tài khoản tồn tại & Đăng nhập thành công, set cookie JWT, chuyển trang & Đạt \\
+\hline
+2 & Email hợp lệ, mật khẩu sai & Tài khoản tồn tại & HTTP 401, thông báo ``Email Hoặc Mật Khẩu Không Chính Xác'' & Đạt \\
+\hline
+3 & Email không tồn tại & Bất kỳ mật khẩu & HTTP 401, thông báo lỗi xác thực & Đạt \\
+\hline
+4 & Email để trống & Không nhập & Form báo lỗi validation trước khi gửi request & Đạt \\
+\hline
+5 & Mật khẩu để trống & Không nhập & Form báo lỗi validation trước khi gửi request & Đạt \\
+\hline
+6 & Đăng nhập với ``Ghi nhớ đăng nhập'' & Tài khoản hợp lệ & Cookie có maxAge 30 ngày thay vì 1 giờ & Đạt \\
+\hline
+7 & Email hợp lệ, mật khẩu đúng & Tài khoản có role=admin & Chuyển hướng về trang \texttt{/admin} & Đạt \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection*{Use case 2: Thêm sản phẩm vào giỏ hàng và đặt hàng}
+
+\begin{table}[H]
+\centering
+\caption{Các trường hợp kiểm thử chức năng giỏ hàng và đặt hàng}
+\label{tab:test-cart}
+\scriptsize
+\begin{tabular}{|p{0.5cm}|p{3.5cm}|p{3cm}|p{3.5cm}|p{2cm}|}
+\hline
+\textbf{TC} & \textbf{Dữ liệu đầu vào} & \textbf{Điều kiện} & \textbf{Kết quả mong đợi} & \textbf{Kết quả} \\
+\hline
+8 & Chọn sản phẩm, size, màu và nhấn ``Thêm vào giỏ'' & Chưa có sản phẩm trong giỏ & Sản phẩm được thêm vào \break Redux store và localStorage & Đạt \\
+\hline
+9 & Thêm cùng sản phẩm, cùng size/màu lần 2 & Đã có trong giỏ & Không thêm trùng, giữ nguyên giỏ hàng & Đạt \\
+\hline
+10 & Nhấn thanh toán khi chưa chọn size & Sản phẩm có biến thể & Thông báo yêu cầu chọn size trước & Đạt \\
+\hline
+11 & Nhập địa chỉ đầy đủ, chọn COD & Đơn hàng hợp lệ & Đơn hàng được tạo, email xác nhận gửi đến khách, giỏ hàng xóa & Đạt \\
+\hline
+12 & Nhập địa chỉ đầy đủ, chọn VNPay & Đơn hàng hợp lệ & Chuyển hướng đến cổng VNPay & Đạt \\
+\hline
+13 & Callback VNPay thành công (vnp\_ResponseCode=00) & Giao dịch hợp lệ & Đơn hàng cập nhật \break statusPayment=true, chuyển về trang \texttt{/thanks} & Đạt \\
+\hline
+14 & Callback VNPay thất bại (vnp\_ResponseCode $\neq$ 00) & Giao dịch thất bại & Đơn hàng giữ \break statusPayment=false, thông báo thất bại & Đạt \\
+\hline
+15 & Nhập mã coupon hợp lệ & Coupon còn hạn & Hiển thị số tiền được giảm trong tóm tắt giỏ hàng & Đạt \\
+\hline
+16 & Nhập mã coupon hết hạn & Coupon quá hạn & Thông báo ``Mã giảm giá không hợp lệ'' & Đạt \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection*{Use case 3: Yêu cầu hoàn hàng}
+
+\begin{table}[H]
+\centering
+\caption{Các trường hợp kiểm thử chức năng hoàn hàng}
+\label{tab:test-return}
+\scriptsize
+\begin{tabular}{|p{0.5cm}|p{3.5cm}|p{3cm}|p{3.5cm}|p{2cm}|}
+\hline
+\textbf{TC} & \textbf{Dữ liệu đầu vào} & \textbf{Điều kiện} & \textbf{Kết quả mong đợi} & \textbf{Kết quả} \\
+\hline
+17 & Gửi yêu cầu với order\_id hợp lệ, lý do hợp lệ & Đơn hàng tồn tại & Tạo return\_request với status PENDING\_REVIEW & Đạt \\
+\hline
+18 & Nhân viên cập nhật status lên CONTACTING & Role staff & Trạng thái cập nhật thành công, audit log ghi nhận & Đạt \\
+\hline
+19 & Nhân viên staff cố phê duyệt yêu cầu & Role staff (không đủ quyền) & HTTP 403, thông báo ``Không có quyền'' & Đạt \\
+\hline
+20 & Quản lý duyệt yêu cầu (approve) & Role manager & Status = APPROVED, email thông báo gửi khách & Đạt \\
+\hline
+21 & Admin xử lý hoàn tiền & Role admin,\break refund\_amount >0 & surplus của user tăng đúng giá trị, status = REFUNDED & Đạt \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection*{Use case 4: Đăng ký tài khoản}
+
+\begin{table}[H]
+\centering
+\caption{Các trường hợp kiểm thử chức năng đăng ký}
+\label{tab:test-register}
+\scriptsize
+\begin{tabular}{|p{0.5cm}|p{3.5cm}|p{3cm}|p{3.5cm}|p{2cm}|}
+\hline
+\textbf{TC} & \textbf{Dữ liệu đầu vào} & \textbf{Điều kiện} & \textbf{Kết quả mong đợi} & \textbf{Kết quả} \\
+\hline
+22 & Họ tên, email, mật khẩu, xác nhận mật khẩu hợp lệ & Email chưa tồn tại & Tạo \texttt{ModelUser} mới, mật khẩu được băm bcrypt, chuyển sang trang đăng nhập & Đạt \\
+\hline
+23 & Đăng ký với email đã tồn tại & Email đã có trong hệ thống & HTTP 403, thông báo ``Người Dùng Đã Tồn Tại'' & Đạt \\
+\hline
+24 & Email chứa chữ hoa & Bất kỳ & Form báo lỗi validation, không gửi request & Đạt \\
+\hline
+25 & Mật khẩu và xác nhận mật khẩu không khớp & Bất kỳ & Form báo lỗi validation, không gửi request & Đạt \\
+\hline
+26 & Để trống họ tên hoặc email hoặc mật khẩu & Không nhập & Form báo lỗi validation tương ứng từng trường & Đạt \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection*{Use case 5: Quản lý sản phẩm và biến thể}
+
+\begin{table}[H]
+\centering
+\caption{Các trường hợp kiểm thử chức năng quản lý sản phẩm}
+\label{tab:test-product}
+\scriptsize
+\begin{tabular}{|p{0.5cm}|p{3.5cm}|p{3cm}|p{3.5cm}|p{2cm}|}
+\hline
+\textbf{TC} & \textbf{Dữ liệu đầu vào} & \textbf{Điều kiện} & \textbf{Kết quả mong đợi} & \textbf{Kết quả} \\
+\hline
+27 & Tên, giá, danh mục, ảnh sản phẩm hợp lệ & Role admin/manager & \texttt{AddProduct} lưu \break \texttt{ModelProducts} thành công, ghi audit log & Đạt \\
+\hline
+28 & Thêm sản phẩm thiếu tên hoặc giá & Role admin/manager & Server trả lỗi validation, không lưu bản ghi & Đạt \\
+\hline
+29 & Sửa giá và mô tả sản phẩm có sẵn & Sản phẩm tồn tại & \texttt{EditProduct} cập nhật thành công, audit log ghi \texttt{data\_before} và \break \texttt{data\_after} & Đạt \\
+\hline
+30 & Xóa một sản phẩm & Sản phẩm tồn tại & \texttt{DeleteProduct} xóa thành công, audit log ghi nhận hành động & Đạt \\
+\hline
+31 & Thêm biến thể màu sắc mới cho sản phẩm & Sản phẩm tồn tại & \texttt{AddVariant} lưu thành công, hiển thị thêm lựa chọn màu & Đạt \\
+\hline
+32 & Thêm size với số lượng tồn kho cho biến thể & Biến thể tồn tại & \texttt{AddVariantSize} lưu thành công, tồn kho hiển thị đúng ở trang chi tiết & Đạt \\
+\hline
+33 & Nhân viên (role staff) gọi trực tiếp \texttt{POST /api/addproduct} & Role staff (không đủ quyền) & HTTP 403, không tạo sản phẩm & Đạt \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection*{Use case 6: Quản lý danh mục sản phẩm}
+
+\begin{table}[H]
+\centering
+\caption{Các trường hợp kiểm thử chức năng quản lý danh mục}
+\label{tab:test-category}
+\scriptsize
+\begin{tabular}{|p{0.5cm}|p{3.5cm}|p{3cm}|p{3.5cm}|p{2cm}|}
+\hline
+\textbf{TC} & \textbf{Dữ liệu đầu vào} & \textbf{Điều kiện} & \textbf{Kết quả mong đợi} & \textbf{Kết quả} \\
+\hline
+34 & Tên danh mục hợp lệ & Role admin/manager & \texttt{AddCategory} lưu thành công, hiển thị trong bộ lọc danh mục & Đạt \\
+\hline
+35 & Để trống tên danh mục & Role admin/manager & Server trả lỗi validation, không lưu bản ghi & Đạt \\
+\hline
+36 & Sửa tên danh mục đã tồn tại & Danh mục tồn tại & \texttt{EditCategory} cập nhật thành công, sản phẩm thuộc danh mục vẫn hiển thị đúng & Đạt \\
+\hline
+37 & Xóa một danh mục & Role admin \break (chỉ \texttt{ADMIN\_ONLY}) & \texttt{DeleteCategory} xóa thành công, danh mục không còn trong bộ lọc & Đạt \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection*{Use case 7: Quản lý vòng đời đơn hàng}
+
+\begin{table}[H]
+\centering
+\caption{Các trường hợp kiểm thử chức năng quản lý đơn hàng}
+\label{tab:test-order}
+\scriptsize
+\begin{tabular}{|p{0.5cm}|p{3.5cm}|p{3cm}|p{3.5cm}|p{2cm}|}
+\hline
+\textbf{TC} & \textbf{Dữ liệu đầu vào} & \textbf{Điều kiện} & \textbf{Kết quả mong đợi} & \textbf{Kết quả} \\
+\hline
+38 & Nhân viên xem danh sách toàn bộ đơn hàng & Role staff/manager/admin & \texttt{GetDataOrder} trả về danh sách kèm sản phẩm từ \texttt{ModelOrderItem} & Đạt \\
+\hline
+39 & Cập nhật trạng thái đơn hàng từ ``chờ xác nhận'' sang ``đang giao'' & Đơn hàng tồn tại & \texttt{EditOrder} cập nhật \break \texttt{statusOrder} thành công & Đạt \\
+\hline
+40 & Cập nhật trạng thái đơn hàng thành ``đã giao'' & Đơn hàng tồn tại & \texttt{statusOrder = true}, gửi email xác nhận, đủ điều kiện để khách yêu cầu hoàn hàng & Đạt \\
+\hline
+41 & Cập nhật trạng thái với \break \texttt{order\_id} không tồn tại & ID không hợp lệ & HTTP 400/404, không thay đổi dữ liệu & Đạt \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection*{Use case 8: Phân quyền nhân viên (RBAC)}
+
+\begin{table}[H]
+\centering
+\caption{Các trường hợp kiểm thử chức năng phân quyền}
+\label{tab:test-rbac}
+\scriptsize
+\begin{tabular}{|p{0.5cm}|p{3.5cm}|p{3cm}|p{3.5cm}|p{2cm}|}
+\hline
+\textbf{TC} & \textbf{Dữ liệu đầu vào} & \textbf{Điều kiện} & \textbf{Kết quả mong đợi} & \textbf{Kết quả} \\
+\hline
+42 & Tạo tài khoản nhân viên mới với vai trò \texttt{staff} & Role admin/manager & \texttt{CreateUser} tạo thành công, audit log ghi nhận & Đạt \\
+\hline
+43 & Đổi vai trò nhân viên từ \texttt{staff} sang \texttt{manager} & Role admin & \texttt{UpdateUserRole} cập nhật ngay lập tức, có hiệu lực với request tiếp theo & Đạt \\
+\hline
+44 & Tạo vai trò mới với danh sách \texttt{menus}/\texttt{actions} tùy chỉnh & Role admin & \texttt{AddRole} lưu thành công vào collection \texttt{role} & Đạt \\
+\hline
+45 & Role \texttt{manager} gọi \texttt{POST /api/deleterole} & Route chỉ cho \break \texttt{ADMIN\_ONLY} & HTTP 403, không xóa vai trò & Đạt \\
+\hline
+46 & Nhân viên gọi \texttt{GET /api/my-permissions} & Đã đăng nhập & Trả về đúng danh sách quyền và menu theo vai trò hiện tại & Đạt \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection*{Use case 9: Nhật ký kiểm toán}
+
+\begin{table}[H]
+\centering
+\caption{Các trường hợp kiểm thử chức năng nhật ký kiểm toán}
+\label{tab:test-audit}
+\scriptsize
+\begin{tabular}{|p{0.5cm}|p{4.5cm}|p{3cm}|p{3.5cm}|p{1cm}|}
+\hline
+\textbf{TC} & \textbf{Dữ liệu đầu vào} & \textbf{Điều kiện} & \textbf{Kết quả mong đợi} & \textbf{Kết quả} \\
+\hline
+47 & Xem danh sách nhật ký có phân trang & Role admin/manager & \texttt{GetAuditLogs} trả về đúng \texttt{data} và \texttt{total} & Đạt \\
+\hline
+48 & Lọc theo \texttt{actor\_email} cụ thể & Role admin/manager & Chỉ trả về các bản ghi của nhân viên được chọn & Đạt \\
+\hline
+49 & Lọc theo khoảng thời gian \texttt{from}/\texttt{to} & Role admin/manager & Chỉ trả về bản ghi nằm trong khoảng thời gian đã chọn & Đạt \\
+\hline
+50 & Xem chi tiết một bản ghi theo ID & Bản ghi tồn tại & \texttt{GetAuditLogById} trả về đầy đủ \texttt{data\_before}, \texttt{data\_after}, \texttt{diff} & Đạt \\
+\hline
+51 & Role \texttt{staff} gọi \texttt{GET /api/audit-logs} & Route chỉ cho  \break \texttt{ADMIN\_MANAGER} & HTTP 403, không truy cập được nhật ký & Đạt \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection*{Use case 10: Cấu hình phí vận chuyển}
+
+\begin{table}[H]
+\centering
+\caption{Các trường hợp kiểm thử chức năng cấu hình phí vận chuyển}
+\label{tab:test-shipping}
+\scriptsize
+\begin{tabular}{|p{0.5cm}|p{4.5cm}|p{3cm}|p{3.5cm}|p{1cm}|}
+\hline
+\textbf{TC} & \textbf{Dữ liệu đầu vào} & \textbf{Điều kiện} & \textbf{Kết quả mong đợi} & \textbf{Kết quả} \\
+\hline
+52 & Cấu hình \texttt{domestic\_fee}, \texttt{inter\_province\_fee}, \texttt{free\_threshold} & Role admin/manager & \texttt{UpdateConfig} lưu thành công, có hiệu lực ngay & Đạt \\
+\hline
+53 & Tính phí vận chuyển khi \texttt{sumPrice} $\geq$ \texttt{free\_threshold} & Đã cấu hình ngưỡng miễn phí & \texttt{CalculateFee} trả về phí bằng 0 & Đạt \\
+\hline
+54 & Tính phí vận chuyển cùng tỉnh/thành với kho hàng & Địa chỉ cùng tỉnh & Trả về đúng \break \texttt{domestic\_fee} đã cấu hình & Đạt \\
+\hline
+55 & Tính phí vận chuyển khác tỉnh/thành & Địa chỉ khác tỉnh & Trả về đúng \break \texttt{inter\_province\_fee} đã cấu hình & Đạt \\
+\hline
+56 & Role \texttt{staff} gọi \texttt{POST /api/shipping-config} & Route chỉ cho \break \texttt{ADMIN\_MANAGER} & HTTP 403, không thay đổi cấu hình & Đạt \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection*{Use case 11: Quản lý mã giảm giá}
+
+\begin{table}[H]
+\centering
+\caption{Các trường hợp kiểm thử chức năng quản lý mã giảm giá}
+\label{tab:test-coupon}
+\scriptsize
+\begin{tabular}{|p{0.5cm}|p{4.5cm}|p{3cm}|p{3.5cm}|p{1cm}|}
+\hline
+\textbf{TC} & \textbf{Dữ liệu đầu vào} & \textbf{Điều kiện} & \textbf{Kết quả mong đợi} & \textbf{Kết quả} \\
+\hline
+57 & Tạo mã giảm giá với \break \texttt{discount\_percent} và \break \texttt{expiry\_date} hợp lệ & Role admin/manager & \texttt{AddCoupon} lưu thành công & Đạt \\
+\hline
+58 & Sửa \texttt{usage\_limit} của mã giảm giá có sẵn & Mã tồn tại & \texttt{EditCoupon} cập nhật thành công & Đạt \\
+\hline
+59 & Xóa một mã giảm giá & Role admin \break (chỉ \texttt{ADMIN\_ONLY}) & \texttt{DeleteCoupon} xóa thành công, không còn hiển thị cho khách hàng & Đạt \\
+\hline
+60 & Khách hàng gọi \texttt{GET /api/available-coupons} & Có mã còn hạn và còn lượt dùng & Chỉ trả về các mã thỏa \break \texttt{usage\_limit > 0} và chưa hết hạn & Đạt \\
+\hline
+61 & Role \texttt{staff} gọi \texttt{POST /api/deletecoupon} & Route chỉ cho \break \texttt{ADMIN\_ONLY} & HTTP 403, không xóa mã giảm giá & Đạt \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection*{Use case 12: Danh sách yêu thích}
+
+\begin{table}[H]
+\centering
+\caption{Các trường hợp kiểm thử chức năng danh sách yêu thích}
+\label{tab:test-wishlist}
+\scriptsize
+\begin{tabular}{|p{0.5cm}|p{3.5cm}|p{3cm}|p{3.5cm}|p{2cm}|}
+\hline
+\textbf{TC} & \textbf{Dữ liệu đầu vào} & \textbf{Điều kiện} & \textbf{Kết quả mong đợi} & \textbf{Kết quả} \\
+\hline
+62 & Nhấn yêu thích sản phẩm chưa có trong danh sách & Đã đăng nhập & \texttt{Toggle} thêm sản phẩm vào wishlist, biểu tượng cập nhật trạng thái đã thích & Đạt \\
+\hline
+63 & Nhấn yêu thích lần thứ hai trên cùng sản phẩm & Sản phẩm đã có trong wishlist & \texttt{Toggle} gỡ sản phẩm khỏi wishlist & Đạt \\
+\hline
+64 & Kiểm tra trạng thái yêu thích của sản phẩm & Đã đăng nhập & \texttt{CheckLiked} trả về đúng trạng thái true/false & Đạt \\
+\hline
+65 & Khách chưa đăng nhập nhấn yêu thích & Chưa đăng nhập & Hệ thống yêu cầu đăng nhập trước khi thêm vào wishlist & Đạt \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection*{Use case 13: Quản lý blog}
+
+\begin{table}[H]
+\centering
+\caption{Các trường hợp kiểm thử chức năng quản lý blog}
+\label{tab:test-blog}
+\scriptsize
+\begin{tabular}{|p{0.5cm}|p{3.5cm}|p{3cm}|p{3.5cm}|p{2cm}|}
+\hline
+\textbf{TC} & \textbf{Dữ liệu đầu vào} & \textbf{Điều kiện} & \textbf{Kết quả mong đợi} & \textbf{Kết quả} \\
+\hline
+66 & Thêm bài blog với tiêu đề và nội dung hợp lệ & Role admin/manager & \texttt{AddBlog} lưu thành công, hiển thị ở trang chủ & Đạt \\
+\hline
+67 & Xóa một bài blog & Bài blog tồn tại & \texttt{DeleteBlog} xóa thành công, không còn hiển thị & Đạt \\
+\hline
+68 & Khách hàng xem danh sách blog & Không yêu cầu đăng nhập & \texttt{GetBlog} trả về đúng danh sách bài đã đăng & Đạt \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection*{Use case 14: Chatbot hỗ trợ thời gian thực}
+
+\begin{table}[H]
+\centering
+\caption{Các trường hợp kiểm thử chức năng chatbot}
+\label{tab:test-chatbot}
+\scriptsize
+\begin{tabular}{|p{0.5cm}|p{3.5cm}|p{3cm}|p{3.5cm}|p{2cm}|}
+\hline
+\textbf{TC} & \textbf{Dữ liệu đầu vào} & \textbf{Điều kiện} & \textbf{Kết quả mong đợi} & \textbf{Kết quả} \\
+\hline
+69 & Khách hàng gửi tin nhắn qua sự kiện \texttt{sendMessage} & Kết nối Socket.io đã thiết lập & Nhân viên hỗ trợ nhận tin nhắn theo thời gian thực, độ trễ dưới 100ms & Đạt \\
+\hline
+70 & Mất kết nối mạng giữa chừng & Đang trong phiên chat & Client Socket.io tự kết nối lại khi mạng phục hồi & Đạt \\
+\hline
+71 & Nhân viên trả lời tin nhắn của khách & Phiên chat đang mở & Khách hàng nhận được phản hồi tức thời trên giao diện & Đạt \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsubsection*{Tổng kết kiểm thử}
+
+Tổng cộng 71 trường hợp kiểm thử được thực hiện trên 14 nhóm chức năng chính
+của hệ thống, bao gồm các kịch bản hợp lệ (positive) và không hợp lệ
+(negative), trong đó có các trường hợp kiểm tra phân quyền truy cập API theo
+vai trò (TC-19, TC-33, TC-45, TC-51, TC-56, TC-61). Kết quả: \textbf{71/71
+trường hợp đạt} (100\%).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Triển khai}
+\label{section:4.5}
+
+\subsubsection*{Mô hình triển khai thử nghiệm}
+
+Hệ thống được triển khai thử nghiệm trên môi trường phát triển cục bộ
+(localhost) với cấu hình như mô tả trong Bảng \ref{tab:deploy}.
+
+\begin{table}[H]
+\centering
+\caption{Cấu hình môi trường triển khai thử nghiệm}
+\label{tab:deploy}
+\scriptsize
+\begin{tabular}{|p{4cm}|p{9cm}|}
+\hline
+\textbf{Thành phần} & \textbf{Cấu hình} \\
+\hline
+Phần cứng & CPU Intel Core i5, RAM 8 GB, SSD 256 GB \\
+\hline
+Hệ điều hành & Windows 11 Pro \\
+\hline
+Node.js Server & Cổng 5000, khởi động bằng Nodemon \\
+\hline
+React Dev Server & Cổng 3000, khởi động bằng \texttt{react-scripts start} \\
+\hline
+MongoDB & Cổng 27017, cài đặt cục bộ (MongoDB Community 7.0) \\
+\hline
+VNPay & Môi trường Sandbox (tài khoản thử nghiệm) \\
+\hline
+Email (SMTP) & Google SMTP qua OAuth2 (tài khoản Gmail thử nghiệm) \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsubsection*{Quy trình khởi động hệ thống}
+
+Hệ thống được khởi động theo hai bước:
+
+\begin{enumerate}
+  \item Khởi động máy chủ API:
+        \texttt{cd server \&\& npm start}
+        (Nodemon theo dõi thay đổi và tự khởi động lại).
+  \item Khởi động ứng dụng React:
+        \texttt{cd client \&\& npm start}
+        (Trình duyệt tự mở tại \texttt{http://localhost:3000}).
+\end{enumerate}
+
+Biến môi trường được cấu hình qua file \texttt{.env} phía server, bao gồm:
+chuỗi kết nối MongoDB (\texttt{MONGO\_URI}), khóa bí mật JWT
+(\texttt{JWT\_SECRET}), thông tin VNPay sandbox (\texttt{VNP\_TMN\_CODE},
+\texttt{VNP\_HASH\_SECRET}) và thông tin OAuth2 Google (\texttt{GOOGLE\_CLIENT\_ID},
+\texttt{GOOGLE\_CLIENT\_SECRET}).
+
+\subsubsection*{Kết quả triển khai thử nghiệm}
+
+Hình \ref{fig:deploy-arch} mô tả kiến trúc triển khai thực tế của hệ thống.
+
+\begin{figure}[H]
+    \centering
+    % SV bổ sung deployment diagram tại đây
+    \includegraphics[width=0.8\textwidth]{Hinhve/deploy_arch.png}
+    \caption{Mô hình triển khai hệ thống ALIBARBIE}
+    \label{fig:deploy-arch}
+\end{figure}
+
+Kết quả kiểm thử triển khai cho thấy:
+
+\begin{itemize}
+  \item Thời gian phản hồi API trung bình dưới 200ms cho các truy vấn đọc
+        thông thường (lấy danh sách sản phẩm, giỏ hàng), đáp ứng yêu cầu dưới
+        2 giây ở mục \ref{section:2.4}.
+  \item Giao tiếp Socket.io duy trì kết nối ổn định, độ trễ thông điệp chat
+        dưới 100ms trên mạng cục bộ.
+  \item Luồng thanh toán VNPay sandbox hoạt động chính xác với tất cả các mã
+        phản hồi thử nghiệm.
+  \item Giao diện hiển thị đúng trên Chrome, Firefox và Edge; tương thích
+        thiết bị di động tại breakpoint 375px (iPhone SE).
+\end{itemize}
+
+Chương này đã trình bày thiết kế kiến trúc ba tầng--MVC, thiết kế chi tiết
+giao diện, lớp và cơ sở dữ liệu, thống kê kết quả xây dựng, 71 trường hợp
+kiểm thử trên 14 nhóm chức năng và kết quả triển khai thử nghiệm của hệ thống
+ALIBARBIE. Chương tiếp theo sẽ tổng kết những kết quả đạt được và hướng phát
+triển tiếp theo.
+
+%%%%%%%%%%%%%%%%%%%%
+\end{document}

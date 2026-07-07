@@ -1,0 +1,127 @@
+\documentclass[../DoAn.tex]{subfiles}
+\begin{document}
+
+Năm chương trước đã trình bày toàn bộ quá trình thực hiện đồ án, từ đặt vấn
+đề, khảo sát hiện trạng, lựa chọn công nghệ, thiết kế và hiện thực hệ thống
+\break ALIBARBIE, đến các đóng góp kỹ thuật đặc thù. Chương này tổng kết kết quả đạt
+được so với mục tiêu đề ra ở mục \ref{section:1.2}, đối chiếu hệ thống với hai
+nền tảng thương mại điện tử phổ biến là Haravan và Shopify, nhìn nhận các hạn
+chế còn tồn tại, và đề xuất hướng phát triển trong tương lai.
+
+\section{Kết luận}
+\label{section:6.1}
+
+\subsection*{So sánh với các trang web thương mại điện tử hiện có đại diện tiêu biểu là  Haravan và Shopify}
+
+Haravan đại diện cho nhóm nền tảng SaaS thương mại điện tử trong nước, còn
+Shopify đại diện cho nhóm nền tảng quốc tế có khả năng tùy biến sâu hơn qua hệ
+thống ứng dụng mở rộng (bảng \ref{tab:comparison}). Đối chiếu với hai nền tảng
+này theo ba tiêu chí đã được xác định là hạn chế chung của thị trường ở mục
+\ref{section:2.1}, ALIBARBIE đạt được ba kết quả vượt trội cụ thể. Thứ nhất,
+quy trình hoàn trả hàng của ALIBARBIE được mô hình hóa thành máy trạng thái
+hữu hạn với bảy trạng thái (mục \ref{subsection:5.1.2}), trong khi Haravan và
+Shopify ở cấu hình mặc định chỉ hỗ trợ hai trạng thái chấp nhận hoặc từ chối,
+muốn mở rộng vòng đời chi tiết hơn phải thuê thêm ứng dụng của bên thứ ba qua
+App Store. Thứ hai, ALIBARBIE tích hợp sẵn nhật ký tác động hệ thống với tham chiếu đa
+hình (mục \ref{subsection:5.2.2}), còn hai nền tảng đối chứng không cung cấp
+tính năng này trong gói dịch vụ cơ bản. Thứ ba, ALIBARBIE cho phép cấu hình
+phí vận chuyển đến cấp xã/phường (mục \ref{subsection:5.3.2}), trong khi
+Haravan và Shopify chỉ cấu hình theo vùng hoặc theo biểu giá của đối tác vận
+chuyển tích hợp, không tùy biến đến cấp địa bàn nhỏ nhất.
+
+Tuy vậy, xét trên tổng thể, Haravan và Shopify vẫn vượt trội ALIBARBIE ở các
+mặt mà một đồ án tốt nghiệp không thể đạt được trong phạm vi và thời gian thực
+hiện. Hai nền tảng này có hệ sinh thái ứng dụng mở rộng phong phú, đã được
+kiểm chứng khả năng chịu tải ở quy mô hàng triệu cửa hàng thực tế, hỗ trợ đa
+cổng thanh toán và đa ngôn ngữ, có sẵn ứng dụng di động cho cả người mua và
+người quản lý, và được vận hành bởi đội ngũ kỹ thuật chuyên biệt nên doanh
+nghiệp sử dụng không phải tự duy trì hạ tầng. ALIBARBIE bù lại các hạn chế này
+bằng quyền sở hữu hoàn toàn dữ liệu và mã nguồn, không phát sinh chi phí thuê
+bao định kỳ, và khả năng tùy chỉnh nghiệp vụ không bị giới hạn bởi nền tảng
+của bên thứ ba.
+
+\subsection*{Kết quả đạt được so với mục tiêu}
+
+Đối chiếu với các mục tiêu đề ra ở mục \ref{section:1.2}, đồ án đã hiện thực
+đầy đủ các chức năng dự kiến: quản lý sản phẩm theo biến thể và danh mục;
+giỏ hàng, đặt hàng và thanh toán trực tuyến qua VNPay kết hợp thanh toán khi
+nhận hàng; quản lý vòng đời đơn hàng và quy trình hoàn trả hàng đa trạng
+thái; cấu hình phí vận chuyển theo địa bàn; quản lý mã giảm giá, danh sách
+yêu thích và blog; phân quyền nhân viên theo vai trò kết hợp nhật ký kiểm
+toán; và hỗ trợ khách hàng qua chatbot thời gian thực. Toàn bộ 21 trường hợp
+kiểm thử trọng điểm đạt kết quả đúng (mục \ref{section:4.4}), và kết quả
+triển khai thử nghiệm xác nhận hệ thống đáp ứng các yêu cầu phi chức năng đã
+đặt ra ở mục \ref{section:2.4} về thời gian phản hồi và tính tương thích
+trình duyệt.
+
+Bên cạnh các chức năng đã hoàn thành, đồ án còn tồn tại một số hạn chế. Hệ
+thống mới được triển khai và kiểm thử trên môi trường cục bộ (mục
+\ref{section:4.5}), chưa được vận hành trên hạ tầng cloud thực tế nên chưa
+có cơ sở đánh giá khả năng chịu tải khi nhiều người dùng truy cập đồng thời.
+Phạm vi kiểm thử tập trung vào 21 trường hợp trọng điểm và các trường hợp bổ
+sung trong phụ lục, chưa bao gồm kiểm thử tải và kiểm thử an ninh thâm nhập
+toàn diện. Hệ thống chỉ cung cấp giao diện web đáp ứng, chưa có ứng dụng di
+động riêng cho khách hàng và nhân viên. Hình thức thanh toán trực tuyến hiện
+chỉ giới hạn ở cổng VNPay, chưa hỗ trợ các ví điện tử phổ biến khác. Cuối
+cùng, hệ thống gợi ý sản phẩm cho khách hàng vẫn dựa trên tìm kiếm và lọc thủ
+công theo danh mục, chưa có cơ chế gợi ý cá nhân hóa dựa trên hành vi mua
+hàng.
+
+\subsection*{Đóng góp nổi bật và bài học kinh nghiệm}
+
+Ba đóng góp kỹ thuật đặc thù của đồ án, đã được trình bày chi tiết ở Chương 5,
+là: mô hình máy trạng thái hữu hạn cho quy trình hoàn trả hàng với kiểm soát
+chuyển đổi và phân quyền chặt chẽ theo từng bước; mô hình RBAC hai tầng kết
+hợp nhật ký kiểm toán tham chiếu đa hình, cho phép truy vết mọi hành động của
+nhân viên; và cơ chế cấu hình phí vận chuyển phân cấp đến cấp xã/phường dựa
+trên cấu trúc tài liệu lồng nhau của MongoDB. Bên cạnh đó, cơ chế ký số
+HMAC-SHA512 cho luồng thanh toán VNPay (mục \ref{subsection:5.4.2}) đảm bảo
+tính toàn vẹn của giao dịch tài chính, là một đóng góp bổ trợ quan trọng cho
+độ an toàn của hệ thống.
+
+Quá trình thực hiện đồ án mang lại một số bài học kinh nghiệm. Việc thiết kế
+mô hình trạng thái rõ ràng ngay từ giai đoạn phân tích yêu cầu giúp tránh
+được việc chỉnh sửa lớn về sau khi nghiệp vụ hoàn trả hàng phát sinh thêm
+bước xử lý. Kiểm soát phân quyền chỉ đáng tin cậy khi được thực hiện ở tầng
+server; việc ẩn hiện thành phần giao diện theo vai trò chỉ có giá trị về
+trải nghiệm người dùng và không thể thay thế cho việc kiểm tra quyền tại
+từng API. Mô hình tài liệu lồng nhau của MongoDB phù hợp hơn so với chuẩn
+hóa quan hệ khi dữ liệu có cấu trúc phân cấp cố định và được truy vấn theo
+chuỗi cha-con, như trường hợp cấu hình phí vận chuyển theo tỉnh/thành, quận/
+huyện và xã/phường. Cuối cùng, khi tích hợp cổng thanh toán của bên thứ ba,
+việc tuân thủ chặt chẽ tài liệu kỹ thuật chính thức và chủ động xác thực chữ
+ký ở cả hai chiều gửi và nhận là điều kiện bắt buộc để tránh các lỗ hổng bảo
+mật nghiêm trọng.
+
+\section{Hướng phát triển}
+\label{section:6.2}
+
+Trước khi mở rộng thêm chức năng mới, đồ án xác định một số công việc cần
+thiết để hoàn thiện các chức năng đã xây dựng. Hệ thống cần được triển khai
+lên hạ tầng cloud thay cho môi trường cục bộ hiện tại, kèm theo quy trình
+tích hợp và triển khai liên tục (CI/CD) để giảm thời gian đưa các thay đổi
+vào vận hành. Phạm vi kiểm thử cần được mở rộng sang kiểm thử tải để xác định
+ngưỡng chịu tải đồng thời, và kiểm thử an ninh thâm nhập để phát hiện sớm các
+lỗ hổng trước khi vận hành thực tế. Bộ kiểm thử tự động (unit test và
+integration test) cũng cần được bổ sung cho các module hiện chỉ được kiểm
+thử thủ công, đồng thời hệ thống cần có cơ chế giám sát lỗi tập trung để phát
+hiện và cảnh báo sự cố kịp thời.
+
+Sau khi hoàn thiện các chức năng hiện có, đồ án đề xuất bốn hướng phát triển
+mới. Hướng thứ nhất là xây dựng ứng dụng di động bằng React Native, tái sử
+dụng phần lớn các API đã hiện thực ở phía server, cho phép khách hàng mua
+sắm và nhân viên xử lý đơn hàng, yêu cầu hoàn trả mọi lúc mọi nơi thay vì chỉ
+qua giao diện web đáp ứng. Hướng thứ hai là tích hợp công nghệ trí tuệ nhân
+tạo để gợi ý sản phẩm cá nhân hóa dựa trên lịch sử mua hàng và hành vi duyệt
+web của khách hàng, có thể áp dụng theo hướng lọc dựa trên nội dung sản phẩm
+hoặc lọc cộng tác giữa các khách hàng có hành vi tương tự, nhằm tăng tỷ lệ
+chuyển đổi so với cơ chế tìm kiếm và lọc thủ công hiện tại. Hướng thứ ba là
+mở rộng cổng thanh toán trực tuyến, bổ sung ví điện tử MoMo bên cạnh VNPay
+hiện có, áp dụng lại cơ chế ký số HMAC đã được kiểm chứng ở mục
+\ref{subsection:5.4.2} để đảm bảo an toàn giao dịch trên cổng thanh toán mới.
+Hướng thứ tư là xây dựng phân hệ thống kê và báo cáo cho quản trị viên với
+biểu đồ doanh thu và sản phẩm bán chạy theo thời gian thực, tận dụng dữ liệu
+đơn hàng và nhật ký kiểm toán đã được thu thập sẵn để hỗ trợ ra quyết định
+kinh doanh.
+
+\end{document}

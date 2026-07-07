@@ -4,6 +4,7 @@ const Payments = require('./PaymentsRoutes');
 const AdminRoutes = require('./AdminRoutes');
 const WebRoutes = require('./WebRoutes');
 const ControllerCategory = require('../controller/ControllerCategory/ControllerCategory');
+const ControllerBanner = require('../controller/ControllerBanner/ControllerBanner');
 const ControllerVariant = require('../controller/ControllerVariant/ControllerVariant');
 
 function route(app) {
@@ -41,6 +42,13 @@ function route(app) {
     app.post('/api/addcategory', AdminRoutes);
     app.post('/api/editcategory', AdminRoutes);
     app.post('/api/deletecategory', AdminRoutes);
+
+    // Banners - GET là public, write operations mới cần auth
+    app.get('/api/banners', ControllerBanner.GetBanners);
+    app.get('/api/admin/banners', AdminRoutes);
+    app.post('/api/addbanner', AdminRoutes);
+    app.post('/api/editbanner', AdminRoutes);
+    app.post('/api/deletebanner', AdminRoutes);
 
     // Admin - Coupons
     app.get('/api/coupons', AdminRoutes);

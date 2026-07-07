@@ -1,0 +1,176 @@
+\documentclass[../DoAn.tex]{subfiles}
+\begin{document}
+
+\section*{Phụ lục: Hướng dẫn cài đặt và chạy hệ thống ALIBARBIE}
+\label{appendix:B}
+
+Mã nguồn hệ thống được lưu trữ tại địa chỉ:
+\url{https://github.com/dinhnguyenyt/doan2.git}
+
+\subsection*{ Yêu cầu hệ thống}
+
+\begin{itemize}
+  \item \textbf{Node.js} phiên bản 18.x LTS hoặc cao hơn (kèm \texttt{npm}).
+  \item \textbf{MongoDB} phiên bản 6.0 trở lên (cài đặt cục bộ hoặc dùng MongoDB Atlas).
+  \item \textbf{Git} để clone mã nguồn.
+  \item Trình duyệt hiện đại (Google Chrome, Firefox hoặc Edge) để kiểm tra giao diện.
+  \item (Tùy chọn) \textbf{Postman} để kiểm thử API.
+\end{itemize}
+
+Kiểm tra phiên bản đã cài đặt:
+\begin{verbatim}
+node --version
+npm --version
+mongod --version
+\end{verbatim}
+
+\subsection*{ Tải mã nguồn}
+
+\begin{verbatim}
+git clone https://github.com/dinhnguyenyt/doan2.git
+cd doan2
+\end{verbatim}
+
+Sau khi clone, mã nguồn được tổ chức thành hai thư mục chính:
+
+\begin{verbatim}
+doan2/
+├── server/      Mã nguồn Node.js/Express (API, Socket.IO)
+└── client/      Mã nguồn React (storefront + trang quản trị)
+\end{verbatim}
+
+\subsection*{B.3. Cài đặt thư viện phụ thuộc}
+
+Cài đặt thư viện cho phía server:
+\begin{verbatim}
+cd server
+npm install
+\end{verbatim}
+
+Cài đặt thư viện cho phía client (mở terminal mới, quay lại thư mục gốc):
+\begin{verbatim}
+cd client
+npm install
+\end{verbatim}
+
+\subsection*{B.4. Cấu hình cơ sở dữ liệu MongoDB}
+
+Khởi động MongoDB cục bộ trước khi chạy server:
+
+\begin{verbatim}
+# Windows
+mongod
+
+# macOS / Linux
+sudo mongod
+\end{verbatim}
+
+Nếu MongoDB đã được cài đặt và chạy như một dịch vụ (service) của hệ điều
+hành, bước này có thể bỏ qua. Hệ thống tự động tạo cơ sở dữ liệu khi server
+kết nối lần đầu, không cần tạo trước database hay collection bằng tay.
+
+\subsection*{B.5. Cấu hình biến môi trường}
+
+Tạo file \texttt{.env} trong thư mục \texttt{server/} với nội dung sau:
+
+\begin{verbatim}
+# Kết nối MongoDB
+CONNECT_DB=mongodb://localhost:27017/alibarbie
+
+# Cấu hình JWT
+JWT_SECRET=chuoi_bi_mat_ngau_nhien_thay_doi_o_production
+EXPIRES_IN=3600
+
+# Địa chỉ client để cấu hình CORS
+CORS_CLIENT=http://localhost:3000
+
+# Cấu hình OAuth2 Gmail
+CLIENT_ID=gmail_oauth_client_id
+CLIENT_SECRET=gmail_oauth_client_secret
+REDIRECT_URI=https://developers.google.com/oauthplayground
+REFRESH_TOKEN=gmail_oauth_refresh_token
+\end{verbatim}
+
+Giải thích các biến môi trường:
+
+\begin{itemize}
+  \item \texttt{CONNECT\_DB}: chuỗi kết nối MongoDB. Nếu dùng MongoDB Atlas,
+        thay bằng dạng \url{mongodb+srv://user:pass@cluster.mongodb.net/alibarbie}.
+  \item \texttt{JWT\_SECRET}: khóa bí mật dùng để ký và xác thực JSON Web
+        Token; nên đặt chuỗi ngẫu nhiên đủ dài.
+  \item \texttt{EXPIRES\_IN}: thời gian hết hạn của token, tính bằng giây
+        (ví dụ \texttt{3600} tương đương 1 giờ).
+  \item \texttt{CORS\_CLIENT}: địa chỉ của ứng dụng client được phép gọi
+        API, dùng để cấu hình CORS phía server.
+  \item \texttt{CLIENT\_ID}, \texttt{CLIENT\_SECRET}, \texttt{REDIRECT\_URI},
+        \texttt{REFRESH\_TOKEN}: thông tin OAuth2 lấy từ Google Cloud
+        Console, dùng để gửi email qua Gmail SMTP. Có thể lấy refresh token
+        bằng công cụ OAuth 2.0 Playground của Google.
+\end{itemize}
+
+\textbf{Lưu ý:} nếu chưa cấu hình OAuth2 Gmail, hệ thống vẫn chạy được, chỉ
+chức năng gửi email xác nhận đơn hàng/hoàn trả sẽ báo lỗi khi được gọi.
+
+\subsection*{B.6. Chạy hệ thống ở môi trường phát triển}
+
+Mở hai terminal riêng biệt.
+
+Terminal 1 --- chạy server API (cổng 5000, tự khởi động lại bằng Nodemon
+khi mã nguồn thay đổi):
+\begin{verbatim}
+cd server
+npm start
+\end{verbatim}
+
+Server chạy thành công khi terminal hiển thị dòng thông báo dạng
+\texttt{Example app listening on port 5000} và kết nối MongoDB không báo lỗi.
+
+Terminal 2 --- chạy ứng dụng client React (cổng 3000):
+\begin{verbatim}
+cd client
+npm start
+\end{verbatim}
+
+Trình duyệt sẽ tự động mở tại \url{http://localhost:3000}; nếu không, truy
+cập thủ công địa chỉ này.
+
+\subsection*{B.7. Kiểm tra hệ thống đã chạy đúng}
+
+\begin{itemize}
+  \item Truy cập \url{http://localhost:3000} để xem trang chủ storefront.
+  \item Truy cập \url{http://localhost:3000/admin} để xem trang quản trị
+        (cần đăng nhập với tài khoản có vai trò quản trị viên).
+  \item Gọi thử một API công khai, ví dụ\newline
+        \url{http://localhost:5000/api/products}, để xác nhận server phản
+        hồi đúng dữ liệu JSON.
+\end{itemize}
+
+\subsection*{B.8. Tạo tài khoản quản trị viên đầu tiên}
+
+Hệ thống không tạo sẵn tài khoản quản trị viên. Sau khi đăng ký một tài
+khoản thông thường qua form đăng ký trên giao diện, cập nhật trực tiếp
+trường \texttt{role} của bản ghi tương ứng trong collection \texttt{user}
+(MongoDB) thành \texttt{admin} để cấp quyền quản trị tối cao cho tài khoản
+đó.
+
+\subsection*{B.9. Một số lỗi thường gặp}
+
+\begin{itemize}
+  \item \textbf{Cannot find module}: xóa thư mục \texttt{node\_modules} và
+        file \break \texttt{package-lock.json}, sau đó chạy lại \texttt{npm install}.
+  \item \textbf{MongoDB connection failed}: kiểm tra MongoDB đã được khởi
+        động và chuỗi kết nối trong \texttt{CONNECT\_DB} đúng cổng (mặc định
+        \texttt{27017}).
+  \item \textbf{Port 5000 (hoặc 3000) already in use}: tìm và dừng tiến
+        trình đang chiếm cổng (\texttt{netstat -ano | findstr :5000} trên
+        Windows, hoặc \break \texttt{lsof -ti:5000 | xargs kill -9} trên
+        macOS/Linux), hoặc đổi cổng trong cấu hình.
+  \item \textbf{Lỗi CORS khi client gọi API}: kiểm tra biến \texttt{CORS\_CLIENT}
+        trong \texttt{server/.env} khớp đúng địa chỉ client đang chạy.
+  \item \textbf{Client không kết nối được server}: kiểm tra server đã chạy
+        và địa chỉ API khai báo trong \texttt{client/src/config/Connect.js}
+        trùng với cổng server (\texttt{http://localhost:5000}).
+\end{itemize}
+
+\end{document}
+

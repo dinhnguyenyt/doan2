@@ -1,0 +1,312 @@
+\documentclass[../DoAn.tex]{subfiles}
+\begin{document}
+
+Chương 2 đã xác định mười nhóm chức năng cần xây dựng cùng các yêu cầu phi chức
+năng về hiệu năng, bảo mật và khả năng bảo trì. Chương này trình bày các công nghệ
+và nền tảng lý thuyết được lựa chọn để hiện thực hóa các yêu cầu đó, đồng thời
+phân tích lý do lựa chọn so với các phương án thay thế.
+
+\section{Kiến trúc REST API và mô hình MVC}
+\label{section:3.1}
+
+Hệ thống được xây dựng theo kiến trúc \textit{client--server} với giao tiếp qua
+REST API. Phía máy chủ áp dụng mô hình MVC, tách biệt tầng
+định tuyến (Route), tầng xử lý nghiệp vụ (Controller) và tầng dữ liệu (Model).
+Kiến trúc này đáp ứng yêu cầu phi chức năng về khả năng bảo trì (mục
+\ref{section:2.4}) và tạo nền tảng để các nhóm chức năng ở mục \ref{section:2.2}
+được triển khai độc lập theo từng module.
+
+Bảng \ref{tab:api-style} so sánh các phong cách thiết kế API phổ biến.
+
+\begin{table}[H]
+\centering
+\caption{So sánh các phong cách thiết kế API}
+\label{tab:api-style}
+\begin{tabular}{|p{3cm}|p{3.5cm}|p{3.5cm}|p{2cm}|}
+\hline
+\textbf{Tiêu chí} & \textbf{REST} & \textbf{GraphQL} & \textbf{gRPC} \\
+\hline
+Độ phức tạp triển khai & Thấp & Trung bình & Cao \\
+\hline
+Hỗ trợ trình duyệt & Có sẵn & Cần thư viện & Cần proxy \\
+\hline
+Tích hợp \break VNPay & Tương thích tốt & Phức tạp hơn & Không phù hợp \\
+\hline
+Phù hợp CRUD & Tốt & Tốt & Trung bình \\
+\hline
+\end{tabular}
+\end{table}
+
+REST được chọn vì tương thích trực tiếp với trình duyệt, phù hợp với luồng tích
+hợp thanh toán VNPay (yêu cầu redirect HTTP), và đủ đáp ứng các thao tác CRUD
+của hệ thống bán lẻ mà không cần độ linh hoạt truy vấn của GraphQL.
+
+\section{Nền tảng máy chủ: Node.js và Express.js}
+\label{section:3.2}
+
+\textbf{Node.js}~\cite{nodejs} là môi trường thực thi JavaScript phía máy chủ, sử
+dụng vòng lặp sự kiện đơn luồng không chặn (non-blocking I/O), phù hợp với các
+ứng dụng xử lý nhiều kết nối đồng thời. \textbf{Express.js}~\cite{expressjs} là
+framework tối giản chạy trên Node.js, cung cấp hệ thống định tuyến và middleware
+linh hoạt.
+
+Hai công nghệ này đáp ứng yêu cầu xử lý đồng thời nhiều kết nối socket (chatbot
+thời gian thực, mục \ref{subsection:2.2.1}) và thời gian phản hồi dưới 2 giây
+(mục \ref{section:2.4}).
+
+\begin{table}[H]
+\centering
+\caption{So sánh các nền tảng máy chủ}
+\label{tab:backend}
+\begin{tabular}{|p{3cm}|p{3cm}|p{3cm}|p{3cm}|}
+\hline
+\textbf{Tiêu chí} & \textbf{Node.js + \break Express} & \textbf{Django (Python)} & \textbf{Spring Boot (Java)} \\
+\hline
+Mô hình I/O & Bất đồng bộ & Đồng bộ (mặc định) & Đa luồng \\
+\hline
+Chia sẻ code với client & Có (JavaScript) & Không & Không \\
+\hline
+Tích hợp Socket.io & Gốc & Cần thư viện & Cần cấu hình \\
+\hline
+Thời gian khởi động & Nhanh & Trung bình & Chậm \\
+\hline
+\end{tabular}
+\end{table}
+
+Node.js được chọn vì cho phép dùng JavaScript xuyên suốt cả client và server,
+giảm chi phí chuyển đổi ngữ cảnh; đồng thời tích hợp Socket.io một cách tự nhiên
+để hỗ trợ chatbot thời gian thực.
+
+\section{Cơ sở dữ liệu: MongoDB và Mongoose}
+\label{section:3.3}
+
+MongoDB~\cite{mongodb} là hệ quản trị cơ sở dữ liệu NoSQL hướng tài liệu (document-
+oriented), lưu dữ liệu dưới dạng BSON. Mongoose~\cite{mongoose} là thư viện ODM
+(Object Document Mapper) cung cấp schema validation và middleware cho MongoDB trên
+Node.js.
+
+MongoDB đáp ứng hai yêu cầu đặc thù xác định ở mục \ref{section:2.4}: cấu trúc
+sản phẩm đa biến thể (kích thước, màu sắc) với số lượng thuộc tính không cố định,
+và cấu hình phí vận chuyển.
+
+\begin{table}[H]
+\centering
+\caption{So sánh các hệ quản trị cơ sở dữ liệu}
+\label{tab:db}
+\begin{tabular}{|p{3.5cm}|p{3cm}|p{3cm}|p{3cm}|}
+\hline
+\textbf{Tiêu chí} & \textbf{MongoDB} & \textbf{PostgreSQL} & \textbf{MySQL} \\
+\hline
+Schema linh hoạt & Có & Một phần (JSONB) & Không \\
+\hline
+Tài liệu lồng nhau & Tự nhiên & Cần nhiều join & Cần nhiều join \\
+\hline
+Tích hợp Node.js & Mongoose (ODM) & Sequelize & Sequelize \\
+\hline
+Phù hợp dữ liệu phân cấp & Cao & Trung bình & Thấp \\
+\hline
+\end{tabular}
+\end{table}
+
+MongoDB được chọn vì schema linh hoạt cho phép mỗi sản phẩm lưu danh sách biến
+thể với số lượng tùy ý mà không cần thay đổi cấu trúc bảng, đồng thời cấu hình
+phí vận chuyển theo địa bàn được biểu diễn tự nhiên bằng tài liệu lồng nhau.
+
+\section{Giao diện người dùng: React.js và các thư viện}
+\label{section:3.4}
+
+React~\cite{react} là thư viện JavaScript do Meta phát triển, xây dựng giao diện
+theo mô hình component tái sử dụng với cơ chế Virtual DOM để cập nhật giao diện
+hiệu quả. Đồ án sử dụng thêm:
+
+\begin{itemize}
+  \item \textbf{React Router DOM v6}~\cite{reactrouter}: định tuyến phía client,
+        hỗ trợ SPA \break (Single Page Application) cho cả giao diện mua sắm và trang
+        quản trị.
+  \item \textbf{Redux Toolkit}~\cite{redux}: quản lý trạng thái toàn cục (giỏ
+        hàng, thông tin người dùng đăng nhập) nhất quán giữa các component.
+  \item \textbf{Bootstrap 5 + React-Bootstrap}: đảm bảo giao diện đáp ứng
+        (responsive) theo yêu cầu tương thích đa thiết bị (mục \ref{section:2.4}).
+  \item \textbf{Chart.js / Recharts}: trực quan hóa dữ liệu doanh thu trên trang
+        quản trị.
+\end{itemize}
+
+\begin{table}[H]
+\centering
+\caption{So sánh các framework/thư viện giao diện}
+\label{tab:frontend}
+\begin{tabular}{|p{3.5cm}|p{3cm}|p{3cm}|p{3cm}|}
+\hline
+\textbf{Tiêu chí} & \textbf{React} & \textbf{Vue.js} & \textbf{Angular} \\
+\hline
+Mô hình & Thư viện UI & Framework & Framework đầy đủ \\
+\hline
+Độ linh hoạt & Cao & Cao & Thấp hơn \\
+\hline
+Hệ sinh thái & Rất lớn & Lớn & Lớn \\
+\hline
+Đường cong học tập & Trung bình & Thấp & Cao \\
+\hline
+Quản lý trạng thái & Redux Toolkit & Pinia/Vuex & NgRx/Service \\
+\hline
+\end{tabular}
+\end{table}
+
+React được chọn vì hệ sinh thái phong phú (Redux Toolkit, React Router, thư viện
+biểu đồ) cho phép xây dựng cả storefront lẫn trang quản trị trong cùng một dự
+án, đồng thời mô hình component tái sử dụng phù hợp với giao diện có nhiều phần
+tử lặp lại như danh sách sản phẩm, thẻ đơn hàng.
+
+\section{Xác thực và phân quyền}
+\label{section:3.5}
+
+\subsection{JSON Web Token}
+\label{subsection:3.5.1}
+
+JSON Web Token (JWT)~\cite{rfc7519} là tiêu chuẩn mở (RFC 7519) định nghĩa cách
+truyền thông tin an toàn giữa các bên dưới dạng đối tượng JSON được ký số. Token
+gồm ba phần: Header, Payload và Signature, được ký bằng thuật toán HMAC-SHA256.
+
+JWT đáp ứng yêu cầu xác thực người dùng ở mục \ref{section:2.4}: server không cần
+lưu trạng thái phiên (stateless), mỗi yêu cầu API kèm token để kiểm tra quyền
+trước khi xử lý.
+
+\begin{table}[H]
+\centering
+\caption{So sánh các cơ chế xác thực}
+\label{tab:auth}
+\begin{tabular}{|p{3.5cm}|p{3.2cm}|p{3.2cm}|p{2.8cm}|}
+\hline
+\textbf{Tiêu chí} & \textbf{JWT} & \textbf{Session--Cookie} & \textbf{OAuth2} \\
+\hline
+Lưu trạng thái server & Không (stateless) & Có (session store) & Có thể có hoặc không \\
+\hline
+Phù hợp SPA / REST & Tốt & Cần cấu hình CORS & Phức tạp hơn \\
+\hline
+Kiểm soát hết hạn & Có (exp claim) & Có & Có \\
+\hline
+Triển khai & Đơn giản & Trung bình & Phức tạp \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Mã hóa mật khẩu với bcrypt}
+\label{subsection:3.5.2}
+
+bcrypt~\cite{provos1999} là thuật toán băm mật khẩu được thiết kế có chủ ý chậm,
+kết hợp salt ngẫu nhiên để chống tấn công từ điển và rainbow table. Mật khẩu
+người dùng được băm trước khi lưu vào MongoDB, đáp ứng yêu cầu bảo mật ở mục
+\ref{section:2.4}. So với SHA-256, bcrypt an toàn hơn vì chi phí tính toán có thể
+điều chỉnh theo khả năng phần cứng; so với Argon2, bcrypt có thư viện hỗ trợ
+Node.js tốt hơn \break (\texttt{bcrypt} v5).
+
+\subsection{Phân quyền dựa trên vai trò (RBAC)}
+\label{subsection:3.5.3}
+
+Mô hình RBAC (Role-Based Access Control)~\cite{sandhu1996} gán quyền cho vai trò
+thay vì gán trực tiếp cho người dùng; người dùng được gán một hoặc nhiều vai trò.
+Mô hình này hiện thực hóa yêu cầu phân quyền nhân viên theo vai trò với lịch sử tác động hệ thống (mục \ref{subsection:2.3.4}).
+
+Hệ thống định nghĩa ba vai trò chính (\textit{admin}, \textit{user},
+\textit{staff}) với bộ quyền hành động (Action) tương ứng lưu trong MongoDB.
+Middleware kiểm tra vai trò tại tầng API trước mỗi yêu cầu. So với ACL (Access
+Control List) gán quyền theo từng người dùng, RBAC dễ bảo trì hơn khi số lượng
+nhân viên tăng; so với ABAC (Attribute-Based), RBAC đơn giản hơn và đủ đáp ứng
+yêu cầu của hệ thống bán lẻ quy mô vừa và nhỏ.
+
+\section{Giao tiếp thời gian thực: Socket.io}
+\label{section:3.6}
+
+Socket.io~\cite{socketio} là thư viện cho phép giao tiếp hai chiều theo thời gian
+thực giữa client và server thông qua \break WebSocket (với fallback về long-polling khi
+WebSocket không khả dụng). Thư viện này hiện thực hóa chức năng hỗ trợ khách hàng
+qua chatbot thời gian thực (mục \ref{subsection:2.2.1}).
+
+\begin{table}[H]
+\centering
+\caption{So sánh các công nghệ giao tiếp thời gian thực}
+\label{tab:realtime}
+\begin{tabular}{|p{3.5cm}|p{3cm}|p{3cm}|p{3cm}|}
+\hline
+\textbf{Tiêu chí} & \textbf{Socket.io} & \textbf{WebSocket thuần} & \textbf{SSE} \\
+\hline
+Hướng giao tiếp & Hai chiều & Hai chiều & Một chiều \\
+\hline
+Tự động reconnect & Có & Không (tự làm) & Có \\
+\hline
+Fallback & Có \break (long-polling) & Không & Không \\
+\hline
+Tích hợp Node.js & Tích hợp sẵn & Thư viện \texttt{ws} & HTTP gốc \\
+\hline
+\end{tabular}
+\end{table}
+
+Socket.io được chọn vì cơ chế tự động kết nối lại và fallback giúp đảm bảo độ
+tin cậy kết nối theo yêu cầu ở mục \ref{section:2.4}, đồng thời socket.io đã được  tích hợp 
+với Node.js không cần cấu hình thêm.
+
+\section{Tích hợp thanh toán: VNPay}
+\label{section:3.7}
+
+VNPay~\cite{vnpay} là cổng thanh toán trực tuyến phổ biến tại Việt Nam, hỗ trợ
+thanh toán qua thẻ nội địa ATM, thẻ quốc tế và ví điện tử. Tích hợp thực hiện
+theo luồng redirect: khi khách hàng chọn thanh toán VNPay, server tạo URL thanh
+toán có chữ ký HMAC-SHA512, chuyển hướng trình duyệt đến cổng VNPay; sau khi
+hoàn tất, VNPay gọi callback URL để xác nhận kết quả. Luồng này khớp với quy
+trình đặt hàng và thanh toán mô tả ở mục \ref{subsection:2.2.7}.
+
+So với các lựa chọn thay thế: MoMo và ZaloPay cũng là cổng thanh toán phổ biến
+tại Việt Nam nhưng yêu cầu xác minh doanh nghiệp phức tạp hơn để sử dụng môi
+trường sandbox; Stripe không hỗ trợ thẻ ATM nội địa Việt Nam. VNPay cung cấp môi
+trường sandbox đầy đủ cho mục đích phát triển và phù hợp với đối tượng người dùng
+trong nước của hệ thống ALIBARBIE.
+
+\section{Thông báo qua email: Nodemailer và Google SMTP}
+\label{section:3.8}
+
+Nodemailer~\cite{nodemailer} là module Node.js để gửi email, được cấu hình sử dụng
+Google SMTP thông qua OAuth2 (googleapis). Chức năng này đáp ứng yêu cầu gửi email
+xác nhận đơn hàng và thông báo kết quả hoàn trả (mục \ref{subsection:2.3.1},
+\ref{subsection:2.3.2}).
+
+So với SendGrid hay Amazon SES, Google SMTP phù hợp hơn cho giai đoạn phát triển
+vì không yêu cầu đăng ký tài khoản dịch vụ trả phí; so với gửi SMTP trực tiếp
+bằng tên và mật khẩu, OAuth2 an toàn hơn vì không lưu mật khẩu trong mã nguồn.
+
+Bảng \ref{tab:tech-summary} tóm tắt sự tương ứng giữa các công nghệ và yêu cầu
+chức năng đã xác định ở Chương 2.
+
+\begin{table}[H]
+\centering
+\caption{Tóm tắt công nghệ và yêu cầu chức năng tương ứng}
+\label{tab:tech-summary}
+\begin{tabular}{|p{4cm}|p{8.5cm}|}
+\hline
+\textbf{Công nghệ} & \textbf{Yêu cầu chức năng được giải quyết} \\
+\hline
+Node.js + Express.js & Nền tảng API phục vụ toàn bộ chức năng; xử lý đồng thời socket \\
+\hline
+MongoDB  \break + Mongoose & Sản phẩm đa biến thể; cấu hình phí vận chuyển phân cấp \\
+\hline
+React + Redux Toolkit & Giao diện mua sắm và quản trị; quản lý trạng thái giỏ hàng \\
+\hline
+JWT + bcrypt & Xác thực người dùng; bảo mật mật khẩu \\
+\hline
+RBAC & Phân quyền nhân viên; nhật ký kiểm toán hành động \\
+\hline
+Socket.io & Chatbot hỗ trợ khách hàng thời gian thực \\
+\hline
+VNPay & Thanh toán trực tuyến trong quy trình đặt hàng \\
+\hline
+Nodemailer + Google SMTP & Email xác nhận đơn hàng; thông báo kết quả hoàn trả \\
+\hline
+\end{tabular}
+\end{table}
+
+Chương này đã trình bày tám nhóm công nghệ được lựa chọn cùng lý do so với các
+phương án thay thế, gắn với các yêu cầu cụ thể đã phân tích ở Chương 2. Chương
+tiếp theo sẽ trình bày thiết kế và hiện thực hóa hệ thống dựa trên nền tảng công
+nghệ này.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}

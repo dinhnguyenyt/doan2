@@ -2,12 +2,13 @@ const ModelRole = require('../../model/ModelRole');
 const { jwtDecode } = require('jwt-decode');
 const createAuditLog = require('../../utils/auditLog');
 
-const ALL_MENUS = ['dash', 'order', 'product', 'category', 'coupon', 'customer', 'blog', 'comment', 'role', 'history', 'shipping', 'returns'];
+const ALL_MENUS = ['dash', 'order', 'product', 'category', 'banner', 'coupon', 'customer', 'blog', 'comment', 'role', 'history', 'shipping', 'returns'];
 
 const ALL_ACTIONS = [
     'order:edit', 'order:delete',
     'product:create', 'product:edit', 'product:delete',
     'category:create', 'category:edit', 'category:delete',
+    'banner:create', 'banner:edit', 'banner:delete',
     'coupon:create', 'coupon:edit', 'coupon:delete',
     'customer:edit', 'customer:delete', 'customer:change_role',
     'blog:create', 'blog:edit', 'blog:delete',
@@ -30,11 +31,12 @@ const INITIAL_ROLES = [
         label: 'Quản lý',
         description: 'Quản lý vận hành: đơn hàng, sản phẩm, danh mục, mã giảm giá',
         server_level: 'manager',
-        menus: ['dash', 'order', 'product', 'category', 'coupon', 'customer', 'blog', 'comment'],
+        menus: ['dash', 'order', 'product', 'category', 'banner', 'coupon', 'customer', 'blog', 'comment'],
         actions: [
             'order:edit',
             'product:create', 'product:edit',
             'category:create', 'category:edit',
+            'banner:create', 'banner:edit',
             'coupon:create', 'coupon:edit',
             'blog:create', 'blog:edit', 'blog:delete',
             'comment:delete',

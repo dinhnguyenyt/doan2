@@ -6,6 +6,7 @@ import Products from './Products/Products';
 import OrderProducts from './OrderProducts/OrderProducts';
 import Customers from './Customers/Customers';
 import Categories from './Categories/Categories';
+import Banners from './Banners/Banners';
 import Coupons from './Coupons/Coupons';
 import Comments from './Comments/Comments';
 import ProfileAdmin from './Profile/ProfileAdmin';
@@ -103,6 +104,14 @@ function HomePage({ activeList }) {
             {activeList === 'category' ? (
                 <div>
                     <Categories />
+                </div>
+            ) : (
+                <></>
+            )}
+
+            {activeList === 'banner' ? (
+                <div>
+                    <Banners />
                 </div>
             ) : (
                 <></>

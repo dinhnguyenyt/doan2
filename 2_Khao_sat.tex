@@ -1,0 +1,421 @@
+  \documentclass[../DoAn.tex]{subfiles}
+  \begin{document}
+
+  Chương 1 đã trình bày vấn đề, mục tiêu và định hướng giải pháp của đồ án. Chương
+  này tiến hành khảo sát hiện trạng các giải pháp thương mại điện tử hiện có, từ đó
+  xác định các chức năng cần xây dựng. Trên cơ sở đó, chương trình bày biểu đồ ca
+  sử dụng tổng quát và các biểu đồ usecase phân rã cho từng nhóm chức năng chính,
+  mô tả các quy trình nghiệp vụ đặc thù, đặc tả chi tiết năm usecase quan trọng
+  nhất, và cuối cùng nêu các yêu cầu phi chức năng của hệ thống.
+
+  \section{Khảo sát hiện trạng}
+  \label{section:2.1}
+
+  Các giải pháp thương mại điện tử hiện nay có thể phân thành ba nhóm chính. Nhóm
+  thứ nhất là các sàn thương mại điện tử trung gian như Shopee, Lazada và TikTok
+  Shop, cho phép doanh nghiệp đăng bán sản phẩm mà không cần đầu tư hạ tầng kỹ
+  thuật. Nhóm thứ hai là các nền tảng SaaS thương mại điện tử trong nước như Haravan
+  và Sapo, cung cấp bộ công cụ quản lý cửa hàng trực tuyến theo mô hình thuê bao.
+  Nhóm thứ ba là các nền tảng mã nguồn mở quốc tế như WooCommerce và Shopify, cho
+  phép tùy biến sâu hơn nhưng yêu cầu năng lực kỹ thuật để triển khai và vận hành.
+
+  Qua phân tích và so sánh ba nhóm giải pháp trên, bảng \ref{tab:comparison} tóm
+  tắt các tiêu chí đánh giá quan trọng.
+
+  \begin{table}[H]
+  \centering
+  \caption{So sánh các giải pháp thương mại điện tử hiện có}
+  \label{tab:comparison}
+  \begin{tabular}{|p{4cm}|p{3cm}|p{3cm}|p{3cm}|}
+  \hline
+  \textbf{Tiêu chí} & \textbf{Sàn TMĐT} & \textbf{Nền tảng SaaS} & \textbf{Mã nguồn mở} \\
+  \hline
+  Chi phí vận hành & Hoa hồng \break 5--20\%/đơn & Thuê bao định kỳ & Chi phí hosting \\
+  \hline
+  Quyền sở hữu dữ liệu & Thuộc sàn & Hạn chế & Hoàn toàn \\
+  \hline
+  Tùy chỉnh nghiệp vụ & Không & Hạn chế & Cao \\
+  \hline
+  Quy trình hoàn trả & Theo quy định sàn & Cơ bản & Phụ thuộc \break plugin \\
+  \hline
+  Phân quyền nhân viên & Không & Hạn chế & Phụ thuộc \break plugin \\
+  \hline
+  Nhật ký kiểm toán & Có & Không & Không \\
+  \hline
+  Phí vận chuyển & Có & Không & Không \\
+  \hline
+  \end{tabular}
+  \end{table}
+
+  Nhóm sàn thương mại điện tử có ưu điểm là lượng người dùng sẵn có lớn và không
+  yêu cầu đầu tư kỹ thuật ban đầu, nhưng doanh nghiệp phải chịu phí hoa hồng cao,
+  không kiểm soát được dữ liệu khách hàng và bị ràng buộc bởi quy trình cứng nhắc
+  của sàn. Nhóm nền tảng SaaS rút ngắn thời gian triển khai và cung cấp giao diện
+  quản trị trực quan, tuy nhiên chi phí thuê bao tích lũy theo thời gian, khả năng
+  tùy chỉnh nghiệp vụ bị giới hạn, và dữ liệu vẫn lưu trên hệ thống bên thứ ba.
+  Nhóm mã nguồn mở cho phép tùy biến sâu nhưng đòi hỏi năng lực kỹ thuật cao để
+  triển khai, bảo trì và mở rộng, đồng thời các tính năng đặc thù như nhật ký kiểm
+  toán thường không có sẵn và cần phát
+  triển bổ sung.
+
+  Từ kết quả khảo sát, có thể thấy cả ba nhóm giải pháp đều chưa đáp ứng được ba
+  yêu cầu nghiệp vụ đặc thù của doanh nghiệp bán lẻ thời trang vừa và nhỏ: quy
+  trình hoàn trả hàng có vòng đời trạng thái rõ ràng, phân quyền nhân viên theo vai
+  trò kết hợp nhật ký kiểm toán hành động. Trên cơ sở đó, đồ án xác định các nhóm chức năng chính cần xây
+  dựng bao gồm: quản lý sản phẩm và danh mục; quản lý giỏ hàng và
+  đặt hàng; thanh toán trực tuyến và khi nhận hàng; quản lý vòng đời đơn hàng;
+  quy trình hoàn trả hàng đa trạng thái; quản lý người dùng và phân quyền theo vai
+  trò; cấu hình phí vận chuyển theo địa bàn; quản lý mã giảm giá; hỗ trợ khách
+  hàng qua chatbot thời gian thực; quản lý nội dung blog; đổi trả; lịch sử tác động hệ thống.
+
+  \section{Tổng quan chức năng}
+  \label{section:2.2}
+
+  \subsection{Biểu đồ usecase tổng quát}
+  \label{subsection:2.2.1}
+
+  Hệ thống có ba tác nhân chính. Tác nhân \textit{Khách hàng} là người
+  dùng cuối tương tác với giao diện mua sắm, có thể là khách chưa đăng ký
+  hoặc tài khoản đã xác thực. Tác nhân \textit{Nhân viên} là người dùng nội bộ với
+  quyền truy cập một phần chức năng quản trị như xử lý đơn hàng và hỗ trợ hoàn trả.
+  Tác nhân \textit{Quản trị viên} kế thừa toàn bộ quyền của nhân viên và có thêm
+  quyền quản lý sản phẩm, người dùng, phân quyền, cấu hình hệ thống , xem nhật ký
+  kiểm toán và lịch sử tác động hệ thống. Biểu đồ usecase tổng quát được thể hiện trong hình
+  \ref{fig:usecase-tong-quat}.
+
+  \begin{figure}[H]
+      \centering
+      \includegraphics[width=0.85\linewidth]{Hinhve/usecase-tong-quat.png}
+      \caption{Biểu đồ usecase tổng quát}
+      \label{fig:usecase-tong-quat}
+  \end{figure}
+
+  \subsection{Biểu đồ usecase phân rã Mua sắm}
+  \label{subsection:2.2.2}
+
+  Nhóm chức năng Mua sắm bao gồm các usecase mà khách hàng thực hiện trong
+  luồng từ duyệt sản phẩm đến hoàn tất đơn hàng. Khách hàng có thể tìm kiếm và
+  lọc sản phẩm theo danh mục, xem chi tiết sản phẩm cùng các biến thể, thêm sản
+  phẩm vào giỏ hàng hoặc danh sách yêu thích, áp dụng mã giảm giá và tiến hành
+  đặt hàng. Tại bước thanh toán, khách hàng lựa chọn giữa thanh toán trực tuyến
+  qua cổng VNPay hoặc thanh toán khi nhận hàng. Biểu đồ usecase phân rã nhóm
+  chức năng này được thể hiện trong hình \ref{fig:usecase-mua-sam}.
+
+  \begin{figure}[H]
+      \centering
+      \includegraphics[width=0.85\linewidth]{Hinhve/usecase-mua-sam.png}
+      \caption{Biểu đồ usecase phân rã Mua sắm}
+      \label{fig:usecase-mua-sam}
+  \end{figure}
+
+  \subsection{Biểu đồ  phân rã Quản lý đơn hàng}
+  \label{subsection:2.2.3}
+
+  Nhóm chức năng Quản lý đơn hàng cho phép cả ba tác nhân theo dõi và xử lý đơn
+  hàng theo vai trò tương ứng. Khách hàng có thể xem lịch sử đơn hàng, theo dõi
+  trạng thái đơn hàng hiện tại và gửi yêu cầu hoàn trả. Nhân viên và quản trị viên
+  có thể xem toàn bộ danh sách đơn hàng, cập nhật trạng thái đơn hàng theo vòng đời
+  từ \textit{chờ xác nhận} đến \textit{đã giao}, và xử lý các yêu cầu hoàn trả theo
+  quy trình nghiệp vụ. Biểu đồ usecase phân rã nhóm chức năng này được thể hiện
+  trong hình \ref{fig:usecase-don-hang}.
+
+  \begin{figure}[H]
+      \centering
+      \includegraphics[width=0.85\linewidth]{Hinhve/usecase-don-hang.png}
+      \caption{Biểu đồ usecase phân rã Quản lý đơn hàng}
+      \label{fig:usecase-don-hang}
+  \end{figure}
+
+  \subsection{Biểu đồ usecase phân rã Quản lý sản phẩm}
+  \label{subsection:2.2.4}
+
+  Nhóm chức năng Quản lý sản phẩm dành cho quản trị viên và nhân viên được cấp
+  quyền. Quản trị viên có thể thực hiện đầy đủ các thao tác thêm, sửa, xóa sản
+  phẩm, quản lý danh mục và cấu hình các biến thể sản phẩm như kích thước và màu
+  sắc. Nhân viên được phép chỉnh sửa thông tin sản phẩm và cập nhật số lượng tồn
+  kho theo phân quyền được giao. Biểu đồ usecase phân rã nhóm chức năng này
+  được thể hiện trong hình \ref{fig:usecase-san-pham}.
+
+  \begin{figure}[H]
+      \centering
+      \includegraphics[width=0.85\linewidth]{Hinhve/usecase-san-pham.png}
+      \caption{Biểu đồ usecase phân rã Quản lý sản phẩm}
+      \label{fig:usecase-san-pham}
+  \end{figure}
+
+  \subsection{Biểu đồ usecase phân rã Quản lý người dùng và phân quyền}
+  \label{subsection:2.2.5}
+
+  Nhóm chức năng Quản lý người dùng và phân quyền dành riêng cho quản trị viên.
+  Quản trị viên có thể xem danh sách tài khoản người dùng, khóa hoặc mở khóa tài
+  khoản, gán vai trò cho nhân viên và cấu hình các quyền hành động tương ứng với
+  từng vai trò. Ngoài ra, quản trị viên có thể xem nhật ký hoạt động ghi lại toàn
+  bộ hành động của nhân viên trong hệ thống. Biểu đồ usecase phân rã nhóm chức
+  năng này được thể hiện trong hình \ref{fig:usecase-phan-quyen}.
+
+  \begin{figure}[H]
+      \centering
+      \includegraphics[width=0.85\linewidth]{Hinhve/usecase-phan-quyen.png}
+      \caption{Biểu đồ usecase phân rã Quản lý người dùng và phân quyền}
+      \label{fig:usecase-phan-quyen}
+  \end{figure}
+
+  \subsection{Biểu đồ usecase phân rã Cấu hình hệ thống}
+  \label{subsection:2.2.6}
+
+  Nhóm chức năng Cấu hình hệ thống bao gồm các usecase do quản trị viên thực
+  hiện để thiết lập các tham số vận hành của cửa hàng. Quản trị viên có thể cấu
+  hình phí vận chuyển, quản lý
+  mã giảm giá và quản lý nội dung blog của
+  cửa hàng. Biểu đồ usecase phân rã nhóm chức năng này được thể hiện trong hình
+  \ref{fig:usecase-cauhinh}.
+
+  \begin{figure}[H]
+      \centering
+      \includegraphics[width=0.85\linewidth]{Hinhve/usecase-cauhinh.png}
+      \caption{Biểu đồ usecase phân rã Cấu hình hệ thống}
+      \label{fig:usecase-cauhinh}
+  \end{figure}
+
+  \subsection{Quy trình nghiệp vụ}
+  \label{subsection:2.2.7}
+
+  Hệ thống có hai quy trình nghiệp vụ đặc thù cần mô tả chi tiết.
+
+  \textbf{Quy trình đặt hàng và thanh toán.} Quy trình bắt đầu khi khách hàng thêm
+  sản phẩm vào giỏ hàng và tiến hành thanh toán. Khách hàng nhập địa chỉ giao hàng,
+  hệ thống tự động tính phí vận chuyển dựa trên cấu hình theo địa bàn. Khách hàng
+  có thể áp dụng mã giảm giá trước khi xác nhận đặt hàng. Nếu chọn thanh toán qua
+  VNPay, hệ thống chuyển hướng khách hàng đến cổng thanh toán và chờ kết quả xác
+  nhận. Nếu chọn thanh toán khi nhận hàng, đơn hàng được tạo ngay lập tức với trạng
+  thái \textit{chờ xác nhận}. Sau khi đơn hàng được tạo thành công, hệ thống gửi
+  email xác nhận cho khách hàng. Quy trình này được minh họa trong hình
+  \ref{fig:quy-trinh-dat-hang}.
+
+  \begin{figure}[H]
+      \centering
+      \includegraphics[width=0.85\linewidth]{Hinhve/quy-trinh-dat-hang.png}
+      \caption{Quy trình nghiệp vụ đặt hàng và thanh toán}
+      \label{fig:quy-trinh-dat-hang}
+  \end{figure}
+
+  \textbf{Quy trình hoàn trả hàng.} Quy trình bắt đầu khi khách hàng gửi yêu cầu
+  hoàn trả với lý do cụ thể. Nhân viên tiếp nhận yêu cầu và chuyển trạng thái sang
+  \textit{đang liên hệ} để xác nhận thông tin với khách hàng qua điện thoại. Sau khi
+  xác nhận, trạng thái chuyển sang \textit{chờ nhận hàng}, khách hàng gửi hàng về
+  cửa hàng. Khi nhân viên nhận được hàng, trạng thái cập nhật thành \textit{đã nhận
+  hàng}. Quản trị viên kiểm tra hàng và ra quyết định: nếu chấp nhận, trạng thái
+  chuyển sang \textit{chấp nhận} và hệ thống tiến hành hoàn tiền; nếu từ chối, trạng
+  thái chuyển sang \textit{từ chối} và hệ thống gửi email thông báo lý do cho khách
+  hàng. Quy trình này được minh họa trong hình \ref{fig:quy-trinh-hoan-tra}.
+
+  \begin{figure}[H]
+      \centering
+      \includegraphics[width=0.85\linewidth]{Hinhve/quy-trinh-hoan-tra.png}
+      \caption{Quy trình nghiệp vụ hoàn trả hàng}
+      \label{fig:quy-trinh-hoan-tra}
+  \end{figure}
+
+  \section{Đặc tả chức năng}
+  \label{section:2.3}
+
+  \subsection{Đặc tả usecase Đặt hàng}
+  \label{subsection:2.3.1}
+  \hfill
+
+  \textbf{Tên usecase:} Đặt hàng.
+
+  \textbf{Tác nhân:} Khách hàng, Hệ thống.
+
+  \textbf{Tiền điều kiện:} Khách hàng đã đăng nhập vào hệ thống và giỏ hàng có ít
+  nhất một sản phẩm.
+
+  \textbf{Luồng sự kiện chính:}
+  (1) Khách hàng truy cập trang giỏ hàng và kiểm tra các sản phẩm đã chọn.
+  (1.1) Hệ thống hiển thị danh sách sản phẩm trong giỏ hàng kèm số lượng, đơn giá
+  và tổng tiền tạm tính.
+  (2) Khách hàng nhấn nút \textit{Tiến hành thanh toán}.
+  (2.1) Hệ thống hiển thị trang thanh toán với form nhập địa chỉ giao hàng.
+  (3) Khách hàng nhập địa chỉ giao hàng gồm tỉnh/thành, quận/huyện và xã/phường.
+  (3.1) Hệ thống tự động tính phí vận chuyển dựa trên cấu hình địa bàn và hiển
+  thị tổng tiền đã bao gồm phí vận chuyển.
+  (4) Khách hàng tùy chọn nhập mã giảm giá và nhấn \textit{Áp dụng}.
+  (4.1) Hệ thống kiểm tra tính hợp lệ của mã giảm giá và cập nhật tổng tiền.
+  (5) Khách hàng chọn hình thức thanh toán và nhấn \textit{Đặt hàng}.
+  (5.1) Hệ thống tạo đơn hàng với trạng thái \textit{chờ xác nhận}, trừ số lượng
+  tồn kho và gửi email xác nhận cho khách hàng.
+  (5.2) Hệ thống chuyển hướng khách hàng đến trang xác nhận đơn hàng thành công
+  và kết thúc luồng.
+
+  \textbf{Luồng sự kiện phát sinh:}
+  (4.1.1) Mã giảm giá không hợp lệ hoặc đã hết hạn: hệ thống hiển thị thông báo
+  lỗi, tổng tiền không thay đổi và khách hàng tiếp tục bước (5).
+  (5.1.1) Nếu khách hàng chọn thanh toán VNPay: hệ thống chuyển hướng đến cổng
+  thanh toán VNPay. Nếu thanh toán thành công, đơn hàng được tạo theo luồng chính.
+  Nếu thanh toán thất bại hoặc bị hủy, hệ thống hiển thị thông báo lỗi và không
+  tạo đơn hàng.
+  (5.1.2) Sản phẩm trong giỏ hàng hết tồn kho tại thời điểm đặt: hệ thống hiển
+  thị thông báo và yêu cầu khách hàng cập nhật giỏ hàng trước khi tiếp tục.
+
+  \textbf{Hậu điều kiện:} Đơn hàng được lưu vào cơ sở dữ liệu với trạng thái
+  \textit{chờ xác nhận}, số lượng tồn kho của các sản phẩm tương ứng được cập nhật
+  và email xác nhận được gửi đến khách hàng.
+
+  \subsection{Đặc tả usecase Yêu cầu hoàn trả hàng}
+  \label{subsection:2.3.2}
+  \hfill
+
+  \textbf{Tên usecase:} Yêu cầu hoàn trả hàng.
+
+  \textbf{Tác nhân:} Khách hàng, Nhân viên, Quản trị viên, Hệ thống.
+
+  \textbf{Tiền điều kiện:} Khách hàng đã đăng nhập và có đơn hàng ở trạng thái
+  \textit{đã giao}.
+
+  \textbf{Luồng sự kiện chính:}
+  (1) Khách hàng truy cập lịch sử đơn hàng và chọn đơn hàng cần hoàn trả.
+  (2) Khách hàng nhấn \textit{Yêu cầu hoàn trả}, nhập lý do và xác nhận gửi yêu cầu.
+  (2.1) Hệ thống tạo yêu cầu hoàn trả với trạng thái \textit{chờ xem xét} và
+  thông báo cho nhân viên.
+  (3) Nhân viên xem xét yêu cầu, liên hệ khách hàng qua điện thoại và chuyển
+  trạng thái sang \textit{đang liên hệ}.
+  (4) Sau khi xác nhận với khách hàng, nhân viên chuyển trạng thái sang \textit{chờ
+  nhận hàng}; khách hàng gửi hàng về cửa hàng.
+  (5) Nhân viên nhận hàng và cập nhật trạng thái sang \textit{đã nhận hàng}.
+  (6) Quản trị viên kiểm tra hàng và xác nhận chấp nhận; trạng thái chuyển sang
+  \textit{chấp nhận}.
+  (6.1) Hệ thống thực hiện hoàn tiền, cập nhật trạng thái sang \textit{đã hoàn
+  tiền} và gửi email thông báo cho khách hàng. Luồng kết thúc.
+
+  \textbf{Luồng sự kiện phát sinh:}
+  (6.1.1) Quản trị viên từ chối yêu cầu hoàn trả: trạng thái chuyển sang
+  \textit{từ chối} và hệ thống gửi email thông báo lý do từ chối cho khách hàng.
+
+  \textbf{Hậu điều kiện:} Yêu cầu hoàn trả được lưu với trạng thái cuối cùng là
+  \textit{đã hoàn tiền} hoặc \textit{từ chối}. Nếu chấp nhận, giao dịch hoàn tiền
+  được ghi nhận và email thông báo được gửi cho khách hàng.
+
+  \subsection{Đặc tả usecase Quản lý sản phẩm}
+  \label{subsection:2.3.3}
+  \hfill
+
+  \textbf{Tên usecase:} Quản lý sản phẩm.
+
+  \textbf{Tác nhân:} Quản trị viên, Nhân viên (được phân quyền), Hệ thống.
+
+  \textbf{Tiền điều kiện:} Người dùng đã đăng nhập và có quyền quản lý sản phẩm.
+
+  \textbf{Luồng sự kiện chính (thêm sản phẩm mới):}
+  (1) Quản trị viên truy cập trang quản lý sản phẩm và chọn \textit{Thêm sản phẩm}.
+  (1.1) Hệ thống hiển thị form nhập thông tin sản phẩm.
+  (2) Quản trị viên nhập tên, mô tả, danh mục, giá bán và tải lên hình ảnh sản phẩm.
+  (3) Quản trị viên cấu hình các biến thể sản phẩm gồm kích thước và màu sắc, đồng
+  thời nhập số lượng tồn kho cho từng biến thể.
+  (4) Quản trị viên nhấn \textit{Lưu}.
+  (4.1) Hệ thống kiểm tra tính hợp lệ của dữ liệu, lưu sản phẩm và các biến thể
+  vào cơ sở dữ liệu, hiển thị thông báo thành công và kết thúc luồng.
+
+  \textbf{Luồng sự kiện phát sinh:}
+  (4.1.1) Dữ liệu nhập không hợp lệ (thiếu trường bắt buộc hoặc giá trị không đúng
+  định dạng): hệ thống hiển thị thông báo lỗi cụ thể tại trường tương ứng và chờ
+  quản trị viên chỉnh sửa.
+
+  \textbf{Hậu điều kiện:} Sản phẩm và các biến thể được lưu vào cơ sở dữ liệu và
+  hiển thị trong danh sách sản phẩm của hệ thống.
+
+  \subsection{Đặc tả usecase Phân quyền nhân viên}
+  \label{subsection:2.3.4}
+  \hfill
+  
+  \textbf{Tên usecase:} Phân quyền nhân viên.
+
+  \textbf{Tác nhân:} Quản trị viên, Hệ thống.
+
+  \textbf{Tiền điều kiện:} Quản trị viên đã đăng nhập và tài khoản nhân viên cần
+  phân quyền đã tồn tại trong hệ thống.
+
+  \textbf{Luồng sự kiện chính:}
+  (1) Quản trị viên truy cập trang quản lý người dùng và tìm kiếm tài khoản nhân viên.
+  (1.1) Hệ thống hiển thị danh sách người dùng khớp với điều kiện tìm kiếm.
+  (2) Quản trị viên chọn tài khoản cần phân quyền.
+  (2.1) Hệ thống hiển thị thông tin tài khoản và vai trò hiện tại.
+  (3) Quản trị viên chọn vai trò mới và cấu hình các quyền hành động tương ứng, sau
+  đó xác nhận lưu thay đổi.
+  (3.1) Hệ thống cập nhật vai trò và quyền của tài khoản, ghi nhật ký kiểm toán
+  hành động phân quyền, hiển thị thông báo thành công và kết thúc luồng.
+
+  \textbf{Luồng sự kiện phát sinh:} Không có luồng phát sinh đáng kể.
+
+  \textbf{Hậu điều kiện:} Vai trò và quyền của tài khoản được cập nhật trong cơ sở
+  dữ liệu. Hành động phân quyền được ghi vào nhật ký kiểm toán với thông tin người
+  thực hiện, thời điểm và nội dung thay đổi.
+
+  \subsection{Đặc tả usecase Cấu hình phí vận chuyển}
+  \label{subsection:2.3.5}
+  \hfill
+
+  \textbf{Tên usecase:} Cấu hình phí vận chuyển.
+
+  \textbf{Tác nhân:} Quản trị viên, Hệ thống.
+
+  \textbf{Tiền điều kiện:} Quản trị viên đã đăng nhập vào hệ thống.
+
+  \textbf{Luồng sự kiện chính:}
+  (1) Quản trị viên truy cập trang cấu hình phí vận chuyển.
+  (1.1) Hệ thống hiển thị danh sách cấu hình phí vận chuyển hiện có theo quận/huyện
+  và xã/phường.
+  (2) Quản trị viên chọn thêm mới hoặc chỉnh sửa một cấu hình hiện có.
+  (2.1) Hệ thống hiển thị form nhập liệu với các trường tỉnh/thành, quận/huyện,
+  xã/phường và mức phí tương ứng.
+  (3) Quản trị viên nhập thông tin và nhấn \textit{Lưu}.
+  (3.1) Hệ thống kiểm tra tính hợp lệ, lưu cấu hình vào cơ sở dữ liệu, hiển thị
+  thông báo thành công và kết thúc luồng.
+
+  \textbf{Luồng sự kiện phát sinh:}
+  (3.1.1) Cấu hình cho địa bàn đã tồn tại: hệ thống hiển thị thông báo xác nhận
+  ghi đè và chờ quản trị viên xác nhận trước khi lưu.
+
+  \textbf{Hậu điều kiện:} Cấu hình phí vận chuyển được lưu vào cơ sở dữ liệu và
+  có hiệu lực ngay cho các đơn hàng mới có địa chỉ giao hàng thuộc địa bàn tương ứng.
+
+  \section{Yêu cầu phi chức năng}
+  \label{section:2.4}
+
+  Về hiệu năng, hệ thống cần đảm bảo thời gian phản hồi cho các thao tác tìm kiếm
+  và lọc sản phẩm không vượt quá 2 giây trong điều kiện tải thông thường. Thời gian
+  xử lý đặt hàng bao gồm trừ tồn kho và gửi email xác nhận không vượt quá 5 giây.
+
+  Về bảo mật, hệ thống sử dụng JSON Web Token (JWT) để xác thực người dùng với
+  thời gian hết hạn token được cấu hình. Mật khẩu người dùng được mã hóa bằng thuật
+  toán bcrypt trước khi lưu vào cơ sở dữ liệu. Toàn bộ giao tiếp giữa client và
+  server được thực hiện qua giao thức HTTPS. Hệ thống kiểm tra quyền truy cập tại
+  tầng API trước khi xử lý mọi yêu cầu.
+
+  Về độ tin cậy, khi xảy ra lỗi trong quá trình xử lý đặt hàng hoặc thanh toán,
+  hệ thống đảm bảo tính nhất quán dữ liệu bằng cách không thay đổi trạng thái tồn
+  kho và đơn hàng nếu giao dịch chưa hoàn tất. Hệ thống hiển thị thông báo lỗi rõ
+  ràng hướng dẫn người dùng các bước tiếp theo.
+
+  Về khả năng bảo trì, mã nguồn phía máy chủ được tổ chức theo mô hình MVC với
+  sự phân tách rõ ràng giữa tầng định tuyến, tầng điều khiển và tầng dữ liệu.
+  Phía giao diện, mã nguồn được tổ chức theo từng trang và thành phần tái sử dụng.
+
+  Về tương thích, hệ thống tương thích với các trình duyệt phổ biến gồm Google
+  Chrome, Mozilla Firefox và Microsoft Edge phiên bản mới nhất. Giao diện người
+  dùng được thiết kế đáp ứng theo nhiều kích thước màn hình.
+
+  Về cơ sở dữ liệu, hệ thống sử dụng MongoDB với mô hình tài liệu phù hợp với
+  cấu trúc dữ liệu sản phẩm có nhiều biến thể và cấu hình vận chuyển phân cấp
+  địa lý.
+
+  Chương này đã trình bày kết quả khảo sát hiện trạng và phân tích yêu cầu hệ
+  thống. Qua so sánh ba nhóm giải pháp thương mại điện tử hiện có, chương xác
+  định được các hạn chế chưa được giải quyết và từ đó đề xuất tập hợp chức năng
+  cần xây dựng. Biểu đồ usecase tổng quát và các biểu đồ phân rã đã làm rõ
+  phạm vi hệ thống với ba tác nhân và sáu nhóm chức năng chính. Hai quy trình
+  nghiệp vụ đặc thù là đặt hàng và hoàn trả hàng đã được mô tả chi tiết. Năm usecase quan trọng nhất đã được đặc tả với đầy đủ luồng sự kiện chính, luồng
+  phát sinh, tiền điều kiện và hậu điều kiện. Chương tiếp theo sẽ trình bày các
+  công nghệ được lựa chọn để hiện thực hóa các yêu cầu đã phân tích ở chương này.
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  \end{document}

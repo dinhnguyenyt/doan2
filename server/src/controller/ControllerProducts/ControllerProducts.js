@@ -28,7 +28,9 @@ class ControllerProducts {
     }
     GetOneProduct(req, res) {
         const id = req.query.id;
-        ModelProducts.findOne({ id: id }).then((dataProducts) => res.status(200).json(dataProducts));
+        ModelProducts.findOne({ id: id })
+            .then((dataProducts) => res.status(200).json(dataProducts))
+            .catch(() => res.status(400).json({ message: 'ID sản phẩm không hợp lệ' }));
     }
     async PostCart(req, res) {
         const token = req.cookies;
