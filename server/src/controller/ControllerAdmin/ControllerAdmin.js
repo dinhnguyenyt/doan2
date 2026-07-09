@@ -12,12 +12,41 @@ class ControllerAdmin {
         try {
             const ModelOrder = require('../../model/ModelOrder');
             const ModelOrderItem = require('../../model/ModelOrderItem');
-            const orders = await ModelOrder.find({}).sort({ created_at: -1 }).lean();
+            const { page, limit = 20, search } = req.query;
+
+            let filter = {};
+            if (search) {
+                const matchingItems = await ModelOrderItem.find({ nameProduct: { $regex: search, $options: 'i' } })
+                    .select('order_id')
+                    .lean();
+                const orderIds = matchingItems.map((i) => i.order_id);
+                filter = {
+                    $or: [
+                        { email: { $regex: search, $options: 'i' } },
+                        { _id: { $in: orderIds } },
+                    ],
+                };
+            }
+
+            if (!page) {
+                const orders = await ModelOrder.find(filter).sort({ created_at: -1 }).lean();
+                const populatedOrders = await Promise.all(orders.map(async (order) => {
+                    const items = await ModelOrderItem.find({ order_id: order._id }).lean();
+                    return { ...order, products: items };
+                }));
+                return res.status(200).json(populatedOrders);
+            }
+
+            const skip = (Number(page) - 1) * Number(limit);
+            const [orders, total] = await Promise.all([
+                ModelOrder.find(filter).sort({ created_at: -1 }).skip(skip).limit(Number(limit)).lean(),
+                ModelOrder.countDocuments(filter),
+            ]);
             const populatedOrders = await Promise.all(orders.map(async (order) => {
                 const items = await ModelOrderItem.find({ order_id: order._id }).lean();
                 return { ...order, products: items };
             }));
-            return res.status(200).json(populatedOrders);
+            return res.status(200).json({ data: populatedOrders, total, page: Number(page), limit: Number(limit) });
         } catch (error) {
             console.error(error);
             return res.status(500).json({ message: 'Internal Server Error' });
@@ -25,7 +54,31 @@ class ControllerAdmin {
     }
 
     async GetUser(req, res) {
-        ModelUser.find({}).then((data) => res.status(200).json(data));
+        try {
+            const { page, limit = 20, search } = req.query;
+            const filter = {};
+            if (search) {
+                filter.$or = [
+                    { fullname: { $regex: search, $options: 'i' } },
+                    { email: { $regex: search, $options: 'i' } },
+                ];
+            }
+
+            if (!page) {
+                const data = await ModelUser.find(filter);
+                return res.status(200).json(data);
+            }
+
+            const skip = (Number(page) - 1) * Number(limit);
+            const [data, total] = await Promise.all([
+                ModelUser.find(filter).skip(skip).limit(Number(limit)),
+                ModelUser.countDocuments(filter),
+            ]);
+            return res.status(200).json({ data, total, page: Number(page), limit: Number(limit) });
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json({ message: 'Internal Server Error' });
+        }
     }
 
     async UpdateUserRole(req, res) {

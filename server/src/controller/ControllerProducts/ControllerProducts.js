@@ -12,7 +12,7 @@ const ModelCategory = require('../../model/ModelCategory');
 class ControllerProducts {
     async GetProducts(req, res) {
         try {
-            const { category_id } = req.query;
+            const { category_id, page, limit = 20, search } = req.query;
             let filter = {};
             if (category_id) {
                 const allCats = await ModelCategory.find({}).lean();
@@ -20,8 +20,25 @@ class ControllerProducts {
                 const ids = [category_id, ...descendantIds];
                 filter = { category_id: { $in: ids } };
             }
-            const dataProducts = await ModelProducts.find(filter);
-            return res.status(200).json(dataProducts.sort((a, b) => a.priceNew - b.priceNew));
+            if (search) {
+                const searchNum = Number(search);
+                filter.$or = [
+                    { nameProducts: { $regex: search, $options: 'i' } },
+                    ...(Number.isFinite(searchNum) ? [{ id: searchNum }] : []),
+                ];
+            }
+
+            if (!page) {
+                const dataProducts = await ModelProducts.find(filter);
+                return res.status(200).json(dataProducts.sort((a, b) => a.priceNew - b.priceNew));
+            }
+
+            const skip = (Number(page) - 1) * Number(limit);
+            const [data, total] = await Promise.all([
+                ModelProducts.find(filter).sort({ priceNew: 1 }).skip(skip).limit(Number(limit)),
+                ModelProducts.countDocuments(filter),
+            ]);
+            return res.status(200).json({ data, total, page: Number(page), limit: Number(limit) });
         } catch (err) {
             return res.status(500).json({ message: 'Internal Server Error' });
         }

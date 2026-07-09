@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import classNames from 'classnames/bind';
 import styles from './Products.module.scss';
 import { ModalAddProduct, ModalDeleteProduct, ModalEditProduct } from '../../../Modal/Modal';
@@ -7,11 +7,11 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import request from '../../../../../config/Connect';
 import { usePermission } from '../../../../../contexts/PermissionContext';
+import Pagination from '../../../Components/Pagination';
 
 const cx = classNames.bind(styles);
 
 function Products({
-    dataProducts,
     show,
     setShow,
     handleShowModalAddProduct,
@@ -31,23 +31,43 @@ function Products({
     const [categories, setCategories] = useState([]);
     const { actions } = usePermission();
 
+    const [products, setProducts] = useState([]);
+    const [total, setTotal] = useState(0);
+    const [page, setPage] = useState(1);
+    const limit = 20;
+
     useEffect(() => {
         request.get('/api/categories').then((res) => setCategories(res.data));
     }, []);
+
+    const loadProducts = useCallback((p, search, categoryId) => {
+        const params = new URLSearchParams({ page: p, limit });
+        if (search) params.set('search', search);
+        if (categoryId) params.set('category_id', categoryId);
+        request.get(`/api/products?${params.toString()}`).then((res) => {
+            setProducts(res.data.data || []);
+            setTotal(res.data.total || 0);
+        });
+    }, []);
+
+    useEffect(() => {
+        loadProducts(page, searchQuery, valueType);
+    }, [page, searchQuery, valueType, show, showModalDelete, showModalEdit, loadProducts]);
+
+    const handleSearchChange = (value) => {
+        setSearchQuery(value);
+        setPage(1);
+    };
+
+    const handleTypeChange = (value) => {
+        setValueType(value);
+        setPage(1);
+    };
 
     const handleOpenView = (product) => {
         setProductDetail(product);
         setShowViewModal(true);
     };
-
-    const filteredProducts = dataProducts.filter((item) => {
-        const matchesType = valueType === '' || String(item.category_id) === valueType;
-        const searchLower = searchQuery.toLowerCase();
-        const matchesSearch =
-            item.nameProducts?.toLowerCase().includes(searchLower) ||
-            item.id?.toString().toLowerCase().includes(searchLower);
-        return matchesType && matchesSearch;
-    });
 
     return (
         <div className={cx('wrapper')} style={{ padding: '20px' }}>
@@ -60,13 +80,13 @@ function Products({
                         className="form-control"
                         placeholder="Tìm kiếm theo tên, ID..."
                         value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
+                        onChange={(e) => handleSearchChange(e.target.value)}
                         style={{ maxWidth: '300px' }}
                     />
                     <select
                         className="form-select"
                         aria-label="Default select example"
-                        onChange={(e) => setValueType(e.target.value)}
+                        onChange={(e) => handleTypeChange(e.target.value)}
                         style={{ width: 'auto' }}
                     >
                         <option value="">Tất cả danh mục</option>
@@ -102,14 +122,14 @@ function Products({
                     </tr>
                 </thead>
                 <tbody>
-                    {filteredProducts.length === 0 ? (
+                    {products.length === 0 ? (
                         <tr>
                             <td colSpan="9" style={{ textAlign: 'center', padding: '20px', fontWeight: 'bold' }}>
                                 Không tìm thấy sản phẩm nào.
                             </td>
                         </tr>
                     ) : (
-                        filteredProducts.map((item) => (
+                        products.map((item) => (
                                 <tr key={item._id}>
                                     <th scope="row">{item.id}</th>
                                     <td>{item.nameProducts}</td>
@@ -155,6 +175,7 @@ function Products({
                     )}
                 </tbody>
             </table>
+            <Pagination page={page} totalPages={Math.ceil(total / limit)} onPageChange={setPage} />
             </div>
             <ModalAddProduct show={show} setShow={setShow} />
             <ModalDeleteProduct

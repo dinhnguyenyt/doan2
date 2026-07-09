@@ -20,8 +20,21 @@ function getAllDescendantIds(catId, allCats, visited = new Set()) {
 class ControllerCategory {
     async GetCategories(req, res) {
         try {
-            const data = await ModelCategory.find({});
-            res.status(200).json(data);
+            const { page, limit = 20, name } = req.query;
+            const filter = {};
+            if (name) filter.name = { $regex: name, $options: 'i' };
+
+            if (!page) {
+                const data = await ModelCategory.find(filter);
+                return res.status(200).json(data);
+            }
+
+            const skip = (Number(page) - 1) * Number(limit);
+            const [data, total] = await Promise.all([
+                ModelCategory.find(filter).skip(skip).limit(Number(limit)),
+                ModelCategory.countDocuments(filter),
+            ]);
+            return res.status(200).json({ data, total, page: Number(page), limit: Number(limit) });
         } catch (err) {
             res.status(500).json({ message: 'Internal Server Error' });
         }

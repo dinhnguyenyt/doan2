@@ -191,16 +191,34 @@ class ControllerUser {
             res.status(500).json({ error: 'Server error' });
         }
     }
-    GetCommentProduct(req, res) {
-        const { product_id, blog_id } = req.query;
-        const filter = {};
-        if (product_id) filter.product_id = product_id;
-        if (blog_id) filter.blog_id = blog_id;
-        ModelComments.find(filter).sort({ created_at: -1 })
-            .populate('user_id', 'fullname email avatar')
-            .populate('product_id', 'nameProducts')
-            .populate('blog_id', 'title')
-            .then((dataComments) => res.status(200).json(dataComments));
+    async GetCommentProduct(req, res) {
+        try {
+            const { product_id, blog_id, page, limit = 20 } = req.query;
+            const filter = {};
+            if (product_id) filter.product_id = product_id;
+            if (blog_id) filter.blog_id = blog_id;
+
+            if (!page) {
+                const dataComments = await ModelComments.find(filter).sort({ created_at: -1 })
+                    .populate('user_id', 'fullname email avatar')
+                    .populate('product_id', 'nameProducts')
+                    .populate('blog_id', 'title');
+                return res.status(200).json(dataComments);
+            }
+
+            const skip = (Number(page) - 1) * Number(limit);
+            const [data, total] = await Promise.all([
+                ModelComments.find(filter).sort({ created_at: -1 }).skip(skip).limit(Number(limit))
+                    .populate('user_id', 'fullname email avatar')
+                    .populate('product_id', 'nameProducts')
+                    .populate('blog_id', 'title'),
+                ModelComments.countDocuments(filter),
+            ]);
+            return res.status(200).json({ data, total, page: Number(page), limit: Number(limit) });
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json({ message: 'Lỗi server' });
+        }
     }
     async PostComments(req, res) {
         const { comment, product_id, blog_id, rating } = req.body;

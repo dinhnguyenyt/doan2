@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import request from '../../../../../config/Connect';
 import styles from './Categories.module.scss';
 import classNames from 'classnames/bind';
@@ -6,6 +6,7 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import { formatDateString } from '../../../../../utils/formatDate';
 import { usePermission } from '../../../../../contexts/PermissionContext';
+import Pagination from '../../../Components/Pagination';
 
 const cx = classNames.bind(styles);
 
@@ -47,7 +48,13 @@ function getDescendantIds(catId, allCats, visited = new Set()) {
 
 function Categories() {
     const { actions } = usePermission();
-    const [categories, setCategories] = useState([]);
+    // allCategories: toàn bộ danh mục (không phân trang), dùng để dựng cây/breadcrumb/chọn cha
+    const [allCategories, setAllCategories] = useState([]);
+    // pageCategories: chỉ dữ liệu của trang hiện tại, dùng để hiển thị bảng
+    const [pageCategories, setPageCategories] = useState([]);
+    const [total, setTotal] = useState(0);
+    const [page, setPage] = useState(1);
+    const limit = 20;
     const [searchQuery, setSearchQuery] = useState('');
 
     const [showModal, setShowModal] = useState(false);
@@ -60,13 +67,36 @@ function Categories() {
     const [selectedParentIds, setSelectedParentIds] = useState([]);
     const [auditInfo, setAuditInfo] = useState({});
 
+    const loadAllCategories = () => {
+        request.get('/api/categories').then((res) => setAllCategories(res.data));
+    };
+
+    const loadPageCategories = useCallback((p, search) => {
+        const params = new URLSearchParams({ page: p, limit });
+        if (search) params.set('name', search);
+        request.get(`/api/categories?${params.toString()}`).then((res) => {
+            setPageCategories(res.data.data || []);
+            setTotal(res.data.total || 0);
+        });
+    }, []);
+
     const loadCategories = () => {
-        request.get('/api/categories').then((res) => setCategories(res.data));
+        loadAllCategories();
+        loadPageCategories(page, searchQuery);
     };
 
     useEffect(() => {
-        loadCategories();
+        loadAllCategories();
     }, []);
+
+    useEffect(() => {
+        loadPageCategories(page, searchQuery);
+    }, [page, searchQuery, loadPageCategories]);
+
+    const handleSearchChange = (value) => {
+        setSearchQuery(value);
+        setPage(1);
+    };
 
     const handleOpenAdd = () => {
         setIsEditMode(false);
@@ -133,7 +163,7 @@ function Categories() {
     };
 
     const handleDeleteCategory = async (id) => {
-        const hasChildren = categories.some((c) =>
+        const hasChildren = allCategories.some((c) =>
             (c.parent_ids || []).some((p) => String(p) === String(id)),
         );
         if (hasChildren) {
@@ -152,16 +182,12 @@ function Categories() {
         }
     };
 
-    const filteredCategories = categories.filter((cat) =>
-        cat.name?.toLowerCase().includes(searchQuery.toLowerCase()),
-    );
-
     // Danh sách được phép chọn làm cha (loại chính nó và con cháu)
     const availableParents = (() => {
         const excluded = isEditMode
-            ? new Set([String(currentId), ...getDescendantIds(currentId, categories)])
+            ? new Set([String(currentId), ...getDescendantIds(currentId, allCategories)])
             : new Set();
-        return categories.filter((c) => !excluded.has(String(c._id)));
+        return allCategories.filter((c) => !excluded.has(String(c._id)));
     })();
 
     const renderParentCheckboxes = () => (
@@ -191,7 +217,7 @@ function Categories() {
                         <label className="form-check-label" htmlFor={`parent-${cat._id}`}>
                             {cat.name}
                             <small className="text-muted ms-1">
-                                ({buildPathString(cat._id, categories)})
+                                ({buildPathString(cat._id, allCategories)})
                             </small>
                         </label>
                     </div>
@@ -220,12 +246,15 @@ function Categories() {
                     className="form-control"
                     placeholder="Tìm kiếm theo tên danh mục..."
                     value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
+                    onChange={(e) => handleSearchChange(e.target.value)}
                     style={{ maxWidth: '400px' }}
                 />
             </div>
 
             <div className={cx('table-container')} style={{ background: '#fff', borderRadius: '8px', padding: '15px' }}>
+                <div style={{ marginBottom: '12px', color: '#6c757d', fontSize: '14px' }}>
+                    Tổng: <strong>{total}</strong> danh mục
+                </div>
                 <table className="table table-hover align-middle">
                     <thead className="table-light">
                         <tr>
@@ -241,7 +270,7 @@ function Categories() {
                         </tr>
                     </thead>
                     <tbody>
-                        {filteredCategories.map((item) => (
+                        {pageCategories.map((item) => (
                             <tr key={item._id}>
                                 <td>
                                     <span title={item._id}>{item._id.substring(0, 8)}...</span>
@@ -249,7 +278,7 @@ function Categories() {
                                 <td>{item.name}</td>
                                 <td>
                                     <small className="text-muted" style={{ whiteSpace: 'pre-line' }}>
-                                        {buildPathString(item._id, categories)}
+                                        {buildPathString(item._id, allCategories)}
                                     </small>
                                 </td>
                                 <td>{item.description}</td>
@@ -285,7 +314,7 @@ function Categories() {
                                 </td>
                             </tr>
                         ))}
-                        {filteredCategories.length === 0 && (
+                        {pageCategories.length === 0 && (
                             <tr>
                                 <td colSpan="9" style={{ textAlign: 'center', padding: '20px' }}>
                                     Không tìm thấy danh mục nào.
@@ -294,6 +323,7 @@ function Categories() {
                         )}
                     </tbody>
                 </table>
+                <Pagination page={page} totalPages={Math.ceil(total / limit)} onPageChange={setPage} />
             </div>
 
             {/* Modal Xem */}
@@ -308,7 +338,7 @@ function Categories() {
                     </div>
                     <div className="mb-3">
                         <label className="form-label text-muted">Đường dẫn</label>
-                        {buildAllPaths(currentId, categories).map((path, i) => (
+                        {buildAllPaths(currentId, allCategories).map((path, i) => (
                             <p key={i} className="text-primary mb-1">{path.join(' > ')}</p>
                         ))}
                     </div>

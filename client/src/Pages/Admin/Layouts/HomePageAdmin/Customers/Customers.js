@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import request from '../../../../../config/Connect';
 import styles from './Customers.module.scss';
 import classNames from 'classnames';
@@ -6,12 +6,16 @@ import { formatDateString } from '../../../../../utils/formatDate';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import { usePermission } from '../../../../../contexts/PermissionContext';
+import Pagination from '../../../Components/Pagination';
 
 const cx = classNames.bind(styles);
 
 function Customers() {
     const { actions } = usePermission();
     const [dataUser, setDataUser] = useState([]);
+    const [total, setTotal] = useState(0);
+    const [page, setPage] = useState(1);
+    const limit = 20;
     const [allRoles, setAllRoles] = useState([]);
 
     const [showModal, setShowModal] = useState(false);
@@ -57,7 +61,7 @@ function Customers() {
             });
             alert('Sửa thông tin thành công!');
             setShowModal(false);
-            loadUsers();
+            loadUsers(page);
         } catch (error) {
             console.error(error);
             alert(error.response?.data?.message || 'Có lỗi xảy ra');
@@ -77,18 +81,25 @@ function Customers() {
             alert('Tạo tài khoản thành công!');
             setShowCreateModal(false);
             setCreateFullName(''); setCreateEmail(''); setCreatePassword(''); setCreatePhone(''); setCreateRole('staff');
-            loadUsers();
+            loadUsers(page);
         } catch (error) {
             alert(error.response?.data?.message || 'Có lỗi xảy ra');
         }
     };
 
-    const loadUsers = () => {
-        request.get('/api/datauser').then((res) => setDataUser(res.data));
-    };
+    const loadUsers = useCallback((p) => {
+        const params = new URLSearchParams({ page: p, limit });
+        request.get(`/api/datauser?${params.toString()}`).then((res) => {
+            setDataUser(res.data.data || []);
+            setTotal(res.data.total || 0);
+        });
+    }, []);
 
     useEffect(() => {
-        loadUsers();
+        loadUsers(page);
+    }, [page, loadUsers]);
+
+    useEffect(() => {
         request.get('/api/roles').then((res) => setAllRoles(res.data)).catch(() => {});
     }, []);
 
@@ -96,7 +107,7 @@ function Customers() {
         try {
             await request.post('/api/updaterole', { userId, role: newRole });
             alert('Cập nhật quyền thành công!');
-            loadUsers();
+            loadUsers(page);
         } catch (error) {
             console.error(error);
             alert('Lỗi cập nhật quyền');
@@ -108,7 +119,7 @@ function Customers() {
             try {
                 await request.post('/api/deleteuser', { userId });
                 alert('Xóa user thành công!');
-                loadUsers();
+                loadUsers(page);
             } catch (error) {
                 console.error(error);
                 alert('Lỗi xóa user');
@@ -197,6 +208,7 @@ function Customers() {
                     ))}
                 </tbody>
             </table>
+            <Pagination page={page} totalPages={Math.ceil(total / limit)} onPageChange={setPage} />
 
             <Modal show={showViewModal} onHide={() => setShowViewModal(false)} centered>
                 <Modal.Header closeButton>

@@ -53,9 +53,9 @@ class ControllerPayments {
                 await dataCart.save();
 
                 const vnpay = new VNPay({
-                    tmnCode: '7N2SECJJ',
-                    secureSecret: '65W8KAP5EEC7F6E7WOL38QTF96XWWLTN',
-                    vnpayHost: 'https://sandbox.vnpayment.vn',
+                    tmnCode: '10LR5MIH',
+                    secureSecret: 'FDSKZDLW677A2GDS9OW5PIS7VXVE1495',
+                    vnpayHost: 'https://sandbox.vnpayment.vn/paymentv2/vpcpay.html',
                     testMode: true, // tùy chọn
                     hashAlgorithm: 'SHA512', // tùy chọn
                     enableLog: true, // tùy chọn

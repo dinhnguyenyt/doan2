@@ -1,13 +1,17 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import request from '../../../../../config/Connect';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { formatDateString } from '../../../../../utils/formatDate';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
+import Pagination from '../../../Components/Pagination';
 
 function Comments() {
     const [comments, setComments] = useState([]);
+    const [total, setTotal] = useState(0);
+    const [page, setPage] = useState(1);
+    const limit = 20;
     const [showViewModal, setShowViewModal] = useState(false);
     const [commentDetail, setCommentDetail] = useState(null);
 
@@ -16,25 +20,27 @@ function Comments() {
         setShowViewModal(true);
     };
 
-    const fetchComments = async () => {
+    const fetchComments = useCallback(async (p) => {
         try {
-            const res = await request.get('/api/comment');
-            setComments(res.data);
+            const params = new URLSearchParams({ page: p, limit });
+            const res = await request.get(`/api/comment?${params.toString()}`);
+            setComments(res.data.data || []);
+            setTotal(res.data.total || 0);
         } catch (error) {
             console.error('Error fetching comments', error);
         }
-    };
+    }, []);
 
     useEffect(() => {
-        fetchComments();
-    }, []);
+        fetchComments(page);
+    }, [page, fetchComments]);
 
     const handleDeleteComment = async (id) => {
         if (window.confirm('Bạn có chắc chắn muốn xóa bình luận này?')) {
             try {
                 const res = await request.post('/api/deletecomment', { id });
                 toast.success(res.data.message);
-                fetchComments();
+                fetchComments(page);
             } catch (error) {
                 toast.error('Lỗi khi xóa!');
             }
@@ -108,6 +114,7 @@ function Comments() {
                     ))}
                 </tbody>
             </table>
+            <Pagination page={page} totalPages={Math.ceil(total / limit)} onPageChange={setPage} />
 
             <Modal show={showViewModal} onHide={() => setShowViewModal(false)} centered size="lg">
                 <Modal.Header closeButton>

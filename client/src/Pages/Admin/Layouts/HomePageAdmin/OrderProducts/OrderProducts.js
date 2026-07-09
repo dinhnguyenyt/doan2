@@ -1,13 +1,17 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 
 import request from '../../../../../config/Connect';
 import { CheckProduct, ModalEditOrder } from '../../../Modal/Modal';
 import { formatDateString } from '../../../../../utils/formatDate';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
+import Pagination from '../../../Components/Pagination';
 
 function OrderProducts() {
     const [dataOrder, setDataOrder] = useState([]);
+    const [total, setTotal] = useState(0);
+    const [page, setPage] = useState(1);
+    const limit = 20;
     const [show, setShow] = useState(false);
     const [idProduct, setIdProduct] = useState(false);
     const [id, setId] = useState('');
@@ -20,23 +24,28 @@ function OrderProducts() {
         setShowViewModal(true);
     };
 
+    const loadOrders = useCallback((p, search) => {
+        const params = new URLSearchParams({ page: p, limit });
+        if (search) params.set('search', search);
+        request.get(`/api/getorder?${params.toString()}`).then((res) => {
+            setDataOrder(res.data.data || []);
+            setTotal(res.data.total || 0);
+        });
+    }, []);
+
     useEffect(() => {
-        request.get('/api/getorder').then((res) => setDataOrder(res.data));
-    }, [show]);
+        loadOrders(page, searchQuery);
+    }, [page, searchQuery, show, loadOrders]);
 
     const handleShowModal = (id1) => {
         setShow(!show);
         setId(id1);
     };
 
-    const filteredOrders = dataOrder.filter((item) => {
-        const searchLower = searchQuery.toLowerCase();
-        return (
-            item.email?.toLowerCase().includes(searchLower) ||
-            item._id?.toLowerCase().includes(searchLower) ||
-            item.products?.some((prod) => prod.nameProduct?.toLowerCase().includes(searchLower))
-        );
-    });
+    const handleSearchChange = (value) => {
+        setSearchQuery(value);
+        setPage(1);
+    };
 
     return (
         <div style={{ padding: '20px' }}>
@@ -48,19 +57,19 @@ function OrderProducts() {
                 <input
                     type="text"
                     className="form-control"
-                    placeholder="Tìm kiếm theo email, mã đơn, tên sản phẩm..."
+                    placeholder="Tìm kiếm theo email, tên sản phẩm..."
                     value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
+                    onChange={(e) => handleSearchChange(e.target.value)}
                     style={{ maxWidth: '400px' }}
                 />
             </div>
 
-            {filteredOrders.length === 0 ? (
+            {dataOrder.length === 0 ? (
                 <div style={{ textAlign: 'center', padding: '40px', background: '#f8f9fa', border: '1px solid #dee2e6', borderRadius: '4px' }}>
                     <h4>Không tìm thấy đơn hàng nào.</h4>
                 </div>
             ) : (
-                filteredOrders.map((item) => (
+                dataOrder.map((item) => (
                     <table className="table table-bordered border-primary" key={item._id}>
                         <thead>
                             <tr className="table-light">
@@ -114,6 +123,7 @@ function OrderProducts() {
                     </table>
                 ))
             )}
+            <Pagination page={page} totalPages={Math.ceil(total / limit)} onPageChange={setPage} />
             <CheckProduct show={show} setShow={setShow} idProduct={idProduct} />
             <ModalEditOrder show={show} setShow={setShow} id={id} />
 
